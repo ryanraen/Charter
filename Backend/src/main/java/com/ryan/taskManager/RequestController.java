@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 @Controller // This means that this class is a Controller
-@RequestMapping(path="/test") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/test") 
 public class RequestController {
 
     @Autowired // This means to get the bean called userRepository
