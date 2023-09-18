@@ -1,4 +1,4 @@
-package com.ryan.taskManager;
+package com.ryan.taskmanager;
 
 import org.springframework.data.repository.CrudRepository;
 
