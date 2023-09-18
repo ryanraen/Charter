@@ -1,7 +1,9 @@
 export default function Login() {
   return (
     <>
-      <h1>Log in eheheh</h1>
+      <div className="container">
+        
+      </div>
     </>
   );
 }
