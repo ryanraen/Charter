@@ -1,11 +1,9 @@
 import './App.css'
-
-function App() {
+import Navbar from './components/Navbar'
+export default function App() {
   return(
     <>
-      <div className='center-children-flex' id='top-bar'>Online ToDo Manager</div>
+      <Navbar />
     </>
   )
 }
-
-export default App
