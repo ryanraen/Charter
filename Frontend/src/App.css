@@ -1,8 +1,0 @@
-:root {
-  --text-color: rgb(255,200,0);
-}
-
-.center-children-flex {
-  justify-content: center;
-  align-items: center;
-}
