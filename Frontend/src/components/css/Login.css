@@ -1,6 +1,16 @@
 #login-box {
-    width: 30rem;
-    height: 40rem;
-    background-color: aqua;
-    border: 5rem yellow solid;
+    width: 400px;
+    height: 560px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:40px;
+    padding-right: 40px;
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 0.25rem;
+}
+
+.form-floating, .btn {
+    margin-bottom: 20px;
 }

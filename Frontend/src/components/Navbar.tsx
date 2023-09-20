@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand navbar-dark bg-dark">
+    <nav className="navbar navbar-expand navbar-dark bg-dark border-bottom border-info">
       <div className="container">
         <a href="/" className="navbar-brand">
           Online ToDo Manager
