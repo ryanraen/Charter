@@ -1,5 +1,7 @@
 package com.ryan.taskmanager;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +36,17 @@ public class RequestController {
         return "User " + name + " saved!";
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/get/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
+
+    @GetMapping(path = "/get/id")
+    public @ResponseBody Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
+    }
+
 
     // @PostMapping("/process")
     // public String processFormData(@RequestBody FormData formData) {
