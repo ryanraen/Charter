@@ -1,8 +1,8 @@
-import "./App.css";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Register from "./components/Register";
 
 export default function App() {
   return (
@@ -12,8 +12,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </div>
     </>
   );
-}
+} //valid sudoku, number of employees who met the target
