@@ -3,7 +3,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand navbar-dark bg-dark border-bottom border-info">
       <div className="container">
         <a href="/" className="navbar-brand">
-          Online ToDo Manager
+          Charter
         </a>
         <ul className="navbar-nav">
           <li className="nav-item">

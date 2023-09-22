@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import "./components/css/App.css";
 
 export default function App() {
   return (
