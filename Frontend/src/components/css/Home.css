@@ -1,5 +1,6 @@
-#cont {
-    background-color: var();
+.container-bg {
+    background-color: var(--bg-100);
+    width: 100%;
 }
 
 /* https://aicolors.co/ 

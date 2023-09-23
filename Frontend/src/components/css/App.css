@@ -9,5 +9,9 @@
     --bg-100:#F5EFE7;
     --bg-200:#ebe5dd;
     --bg-300:#c2bdb5;
-    background-color: black;
+    background-color: var(--bg-100);
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
 }

@@ -1,0 +1,36 @@
+#login-box {
+    width: 400px;
+    height: 560px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:40px;
+    padding-right: 40px;
+    display: flex;
+    justify-content: center;
+    border-radius: 0.25rem;
+    border: var(--accent-200) solid;
+    transform: translateY(15%);
+    background-color: var(--bg-200);
+}
+
+.form-floating, .btn {
+    margin-bottom: 20px;
+}
+
+label {
+    color: var(--text-100);
+}
+
+#page-swap-button {
+    border: var(--accent-100) solid 0.15rem;
+    border-radius: 20px;
+    width: 150px;
+}
+
+.btn {
+    background-color: var(--primary-200) !important;
+}
+
+.btn:hover {
+    background-color: var(--accent-100) !important;
+}
