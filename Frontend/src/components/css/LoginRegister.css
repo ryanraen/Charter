@@ -7,10 +7,22 @@
     padding-right: 40px;
     display: flex;
     justify-content: center;
-    border-radius: 0.25rem;
-    border: var(--accent-200) solid;
-    transform: translateY(15%);
+    /* border-radius: 0.25rem; */
+    /* border: var(--accent-200) solid; */
     background-color: var(--bg-200);
+}
+
+#border-wrap {
+    width: 400px;
+    background: linear-gradient( var(--accent-200),var(--accent-100));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    border-radius: 0.25rem;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 15%);
 }
 
 .form-floating, .btn {

@@ -1,4 +1,4 @@
-import "./css/LoginRegister.css"
+import "./css/LoginRegister.css";
 
 function submitLogin(e: any) {
   e.preventDefault();
@@ -25,25 +25,33 @@ function submitLogin(e: any) {
 
 export default function Login() {
   return (
-    <>
+    <div id="border-wrap">
       <div id="login-box" className="container d-flex flex-column">
         <div>
-        <form id="loginForm" className="text-center" onSubmit={submitLogin}>
-          <div className="form-floating">
-            <input name="user_email" type="email" className="form-control" placeholder="Email" required />
-            <label htmlFor="email">Email</label>
-          </div>
-          <div className="form-floating">
-            <input name="user_password" type="password" className="form-control" placeholder="Password" required />
-            <label htmlFor="password">Password</label>
-          </div>
-          <button className="btn" type="submit">
-            Log in
-          </button>
-        </form>
+          <form id="loginForm" className="text-center" onSubmit={submitLogin}>
+            <div className="form-floating">
+              <input name="user_email" type="email" className="form-control" placeholder="Email" required />
+              <label htmlFor="email">Email</label>
+            </div>
+            <div className="form-floating">
+              <input name="user_password" type="password" className="form-control" placeholder="Password" required />
+              <label htmlFor="password">Password</label>
+            </div>
+            <button className="btn" type="submit">
+              Log in
+            </button>
+          </form>
         </div>
-        <button id="page-swap-button" className="align-self-center" onClick={() => {window.location.href = "/register"}}>Make an account</button>
+        <button
+          id="page-swap-button"
+          className="align-self-center"
+          onClick={() => {
+            window.location.href = "/register";
+          }}
+        >
+          Make an account
+        </button>
       </div>
-    </>
+    </div>
   );
 }
