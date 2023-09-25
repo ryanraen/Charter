@@ -7,8 +7,6 @@
     padding-right: 40px;
     display: flex;
     justify-content: center;
-    /* border-radius: 0.25rem; */
-    /* border: var(--accent-200) solid; */
     background-color: var(--bg-200);
 }
 
