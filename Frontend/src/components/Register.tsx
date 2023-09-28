@@ -24,33 +24,35 @@ function submitNewUser(e: any) {
 
 export default function Register() {
   return (
-    <div id="login-box" className="container border border-info bg-dark d-flex flex-column">
-      <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
-        <div className="form-floating">
-          <input name="user_name" type="username" className="form-control" placeholder="Username" required />
-          <label htmlFor="name" className="text-info">
-            Username
-          </label>
-        </div>
-        <div className="form-floating">
-          <input name="user_email" type="email" className="form-control" placeholder="Email" required />
-          <label htmlFor="email" className="text-info">
-            Email
-          </label>
-        </div>
-        <div className="form-floating">
-          <input name="user_password" type="password" className="form-control" placeholder="Password" required />
-          <label htmlFor="password" className="text-info">
-            Password
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Register
+    <div id="border-wrap">
+      <div id="login-box" className="container d-flex flex-column">
+        <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
+          <div className="form-floating">
+            <input id="name" name="user_name" type="username" className="form-control" placeholder="Username" required autoComplete="on" />
+            <label htmlFor="name">Username</label>
+          </div>
+          <div className="form-floating">
+            <input id="email" name="user_email" type="email" className="form-control" placeholder="Email" required autoComplete="on" />
+            <label htmlFor="email">Email</label>
+          </div>
+          <div className="form-floating">
+            <input id="password" name="user_password" type="password" className="form-control" placeholder="Password" required />
+            <label htmlFor="password">Password</label>
+          </div>
+          <button type="submit" className="btn">
+            Register
+          </button>
+        </form>
+        <button
+          id="page-swap-button"
+          className="align-self-center"
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          Log in instead
         </button>
-      </form>
-      <a href="/login" className="link-info text-center">
-        Log in instead
-      </a>
+      </div>
     </div>
   );
 }

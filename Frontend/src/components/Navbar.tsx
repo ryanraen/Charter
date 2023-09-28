@@ -1,9 +1,11 @@
+import "./css/Navbar.css"
+
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand navbar-dark bg-dark border-bottom border-info">
+    <nav className="navbar navbar-expand">
       <div className="container">
         <a href="/" className="navbar-brand">
-          Online ToDo Manager
+          Charter
         </a>
         <ul className="navbar-nav">
           <li className="nav-item">
