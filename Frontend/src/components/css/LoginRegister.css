@@ -36,7 +36,12 @@ label {
 #page-swap-button {
     border: var(--accent-100) solid 0.15rem;
     border-radius: 20px;
-    width: 150px;
+    width: 45%;
+    transition: all 0.25s;
+}
+
+#page-swap-button:hover {
+    width: 55%;
 }
 
 .btn {
