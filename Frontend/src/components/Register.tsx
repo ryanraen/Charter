@@ -24,8 +24,8 @@ function submitNewUser(e: any) {
 
 export default function Register() {
   return (
-    <div id="border-wrap">
-      <div id="login-box" className="container d-flex flex-column">
+    // <div id="border-wrap">
+      <div id="login-box" className="container-sm d-flex flex-column">
         <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
           <div className="form-floating">
             <input id="name" name="user_name" type="username" className="form-control" placeholder="Username" required autoComplete="on" />
@@ -53,6 +53,6 @@ export default function Register() {
           Log in instead
         </button>
       </div>
-    </div>
+    // </div>
   );
 }
