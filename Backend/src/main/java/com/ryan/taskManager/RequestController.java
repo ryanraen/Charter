@@ -20,11 +20,13 @@ public class RequestController {
 
     private int userID = 0;
 
-    @PostMapping(path = "/add") // Map ONLY POST Requests
+    @PostMapping(path = "/register") // Map ONLY POST Requests
     public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String password,
             @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
+        User existingUser = userRepository.findByEmail(email);
+        
 
         User u = new User();
         u.setId(userID);
