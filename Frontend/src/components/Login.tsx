@@ -26,7 +26,7 @@ function submitLogin(e: any) {
 export default function Login() {
   return (
     <div id="border-wrap">
-      <div id="login-box" className="container d-flex flex-column">
+      <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5 mt-5">
         <div>
           <form id="loginForm" className="text-center" onSubmit={submitLogin}>
             <div className="form-floating">

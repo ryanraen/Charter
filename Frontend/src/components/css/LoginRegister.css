@@ -6,8 +6,6 @@
 }
 
 #border-wrap {
-    /* width: 420px; */
-    /* height: 560px; */
     background: linear-gradient(var(--accent-200),var(--accent-100));
     display: flex;
     align-items: center;
@@ -15,8 +13,6 @@
     padding: 3px;
     border-radius: 0.25rem;
     position: relative;
-    /* left: 50%; 
-    transform: translate(-50%, 15%); */
 }
 
 .form-floating, .btn {
@@ -25,6 +21,11 @@
 
 label {
     color: var(--text-100);
+}
+
+.form-control {
+    width: 20vw !important;
+    min-width: 260px;
 }
 
 #page-swap-button {
