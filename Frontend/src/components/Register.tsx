@@ -1,3 +1,5 @@
+import "./css/LoginRegister.css";
+
 function submitNewUser(e: any) {
   e.preventDefault();
 
@@ -25,7 +27,7 @@ function submitNewUser(e: any) {
 export default function Register() {
   return (
     // <div id="border-wrap">
-      <div id="login-box" className="container-sm d-flex flex-column">
+      <div id="login-box" className="d-flex flex-column p-4">
         <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
           <div className="form-floating">
             <input id="name" name="user_name" type="username" className="form-control" placeholder="Username" required autoComplete="on" />

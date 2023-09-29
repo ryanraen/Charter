@@ -1,10 +1,4 @@
 #login-box {
-    width: 99.5%;
-    height: 99.5%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left:40px;
-    padding-right: 40px;
     display: flex;
     border-radius: 0.15rem;
     justify-content: center;
@@ -21,8 +15,8 @@
     padding: 3px;
     border-radius: 0.25rem;
     position: relative;
-    /* left: 50%; */
-    /* transform: translate(-50%, 15%); */
+    /* left: 50%; 
+    transform: translate(-50%, 15%); */
 }
 
 .form-floating, .btn {
