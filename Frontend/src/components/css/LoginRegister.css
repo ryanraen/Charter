@@ -3,6 +3,8 @@
     border-radius: 0.15rem;
     justify-content: center;
     background-color: var(--bg-200);
+    height: 100%;
+    width: 100%;
 }
 
 #border-wrap {
@@ -13,6 +15,12 @@
     padding: 3px;
     border-radius: 0.25rem;
     position: relative;
+    min-width: 315px;
+    width: 21vw;
+    height: 60vh;
+    min-height: 400px;
+    left: 50%;
+    transform: translate(-50%, 15%);
 }
 
 .form-floating, .btn {
@@ -24,19 +32,18 @@ label {
 }
 
 .form-control {
-    width: 20vw !important;
-    min-width: 260px;
+    width: 100%;
 }
 
 #page-swap-button {
     border: var(--accent-100) solid 0.15rem;
     border-radius: 20px;
-    width: 45%;
+    width: 60%;
     transition: all 0.25s;
 }
 
 #page-swap-button:hover {
-    width: 55%;
+    width: 65%;
 }
 
 .btn {
