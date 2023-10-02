@@ -21,6 +21,7 @@
     min-height: 400px;
     left: 50%;
     transform: translate(-50%, 15%);
+    font-family: var(--font-bold);
 }
 
 .form-floating, .btn {
