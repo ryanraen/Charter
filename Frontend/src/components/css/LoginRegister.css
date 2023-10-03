@@ -1,19 +1,13 @@
 #login-box {
-    width: 99.5%;
-    height: 99.5%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left:40px;
-    padding-right: 40px;
     display: flex;
     border-radius: 0.15rem;
     justify-content: center;
     background-color: var(--bg-200);
+    height: 100%;
+    width: 100%;
 }
 
 #border-wrap {
-    width: 420px;
-    height: 560px;
     background: linear-gradient(var(--accent-200),var(--accent-100));
     display: flex;
     align-items: center;
@@ -21,8 +15,13 @@
     padding: 3px;
     border-radius: 0.25rem;
     position: relative;
+    min-width: 350px;
+    width: 21vw;
+    height: 60vh;
+    min-height: 400px;
     left: 50%;
     transform: translate(-50%, 15%);
+    font-family: var(--font-bold);
 }
 
 .form-floating, .btn {
@@ -33,15 +32,19 @@ label {
     color: var(--text-100);
 }
 
+.form-control {
+    width: 100%;
+}
+
 #page-swap-button {
     border: var(--accent-100) solid 0.15rem;
     border-radius: 20px;
-    width: 45%;
+    width: 60%;
     transition: all 0.25s;
 }
 
 #page-swap-button:hover {
-    width: 55%;
+    width: 65%;
 }
 
 .btn {

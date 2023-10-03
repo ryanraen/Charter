@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import "./components/css/App.css";
+import TestContainer from "./components/TestContainer";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/test" element={<TestContainer />}></Route>
         </Routes>
       </div>
     </>
