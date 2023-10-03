@@ -25,17 +25,17 @@ public class RequestController {
             @RequestParam String email) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        User existingUser = userRepository.findByEmail(email);
-        
-
         User u = new User();
-        u.setId(userID);
-        this.userID++;
-        u.setUsername(name);
-        u.setPassword(password);
-        u.setEmail(email);
-        userRepository.save(u);
-        return "User " + name + " saved!";
+        if(u.getEmail()==null) {
+            u.setId(userID);
+            this.userID++;
+            u.setUsername(name);
+            u.setPassword(password);
+            u.setEmail(email);
+            userRepository.save(u);
+            return "User " + name + " saved!";
+        }
+        return "User with this email already exists.";
     }
 
     @GetMapping(path = "/get/all")
