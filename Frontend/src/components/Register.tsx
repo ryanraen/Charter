@@ -42,7 +42,7 @@ export default function Register() {
             <input id="password" name="user_password" type="password" className="form-control" placeholder="Password" required />
             <label htmlFor="password">Password</label>
           </div>
-          <button type="submit" className="btn">
+          <button type="submit" className="btn loginButton">
             Register
           </button>
         </form>

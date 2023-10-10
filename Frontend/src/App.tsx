@@ -22,4 +22,4 @@ export default function App() {
       </div>
     </>
   );
-} //valid sudoku, number of employees who met the target
+}

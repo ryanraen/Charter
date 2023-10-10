@@ -25,18 +25,19 @@ export default function Navbar() {
 }
 
 function DropdownMenu() {
-  return (
-    <div className="drop-down position-absolute d-flex flex-column p-2 rounded-3">
-      <img src="../assets/gear.svg" alt="das" width={20} height={20}/>
-      <button className="btn">Settings</button>
-      <button
-        className="btn"
-        onClick={() => {
-          localStorage.removeItem("account");
-          location.href = "/";
-        }}>
-        Sign out
+  function DropdownButton(props: any) {
+    return (
+      <button className="btn dropdown-btn" onClick={props.func}>
+        {props.label}
       </button>
+    );
+  }
+
+  return (
+    <div className="drop-down position-absolute d-flex flex-column p-3 rounded-3">
+      {/* <img src="../assets/gear.svg" alt="das" width={20} height={20}/> */}
+      <DropdownButton label="Settings" func={() => (location.href = "/settings")} />
+      <DropdownButton label="Sign out" func={() => {localStorage.removeItem("account"); location.href = "/";}} />
     </div>
   );
 }

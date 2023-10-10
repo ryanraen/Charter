@@ -24,7 +24,7 @@
     font-family: var(--font-bold);
 }
 
-.form-floating, .btn {
+.form-floating, .loginButton {
     margin-bottom: 20px;
 }
 
@@ -49,8 +49,9 @@ label {
 
 .btn {
     background-color: var(--primary-200) !important;
+    transition: filter 250ms !important;
 }
 
 .btn:hover {
-    background-color: var(--accent-100) !important;
+    filter: brightness(0.9);
 }

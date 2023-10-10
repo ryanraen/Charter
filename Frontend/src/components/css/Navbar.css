@@ -10,6 +10,11 @@ nav {
   background-color: var(--bg-300);
 }
 
+.dropdown-btn {
+  width: 100px;
+  margin: 5px;
+}
+
 ul.position-absolute {
   padding: 0;
 }
