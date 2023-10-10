@@ -11,8 +11,17 @@ nav {
 }
 
 .dropdown-btn {
-  width: 100px;
+  width: 125px;
   margin: 5px;
+  align-items: center;
+}
+
+.dropdown-icon {
+  width: 20%;
+}
+
+.dropdown-label {
+  width: 80%;
 }
 
 ul.position-absolute {

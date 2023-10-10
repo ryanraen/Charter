@@ -49,9 +49,9 @@ label {
 
 .btn {
     background-color: var(--primary-200) !important;
-    transition: filter 250ms !important;
+    transition: all 250ms !important;
 }
 
 .btn:hover {
-    filter: brightness(0.9);
+    background-color: var(--primary-150) !important;
 }

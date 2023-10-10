@@ -1,6 +1,7 @@
 import "./css/Navbar.css";
 import { useState } from "react";
-import "../assets/gear.svg";
+import gear from "../assets/gear.svg";
+import logout from "../assets/logout.svg";
 
 const account = JSON.parse(localStorage.getItem("account") || "{}");
 const loggedIn = JSON.stringify(account) == "{}" ? false : true;
@@ -25,19 +26,22 @@ export default function Navbar() {
 }
 
 function DropdownMenu() {
+  
   function DropdownButton(props: any) {
     return (
-      <button className="btn dropdown-btn" onClick={props.func}>
-        {props.label}
+      
+      <button className="btn dropdown-btn d-flex" onClick={props.func}>
+        <img src={props.leftIcon} alt="" className="dropdown-icon"/>
+        <div className="dropdown-label">{props.label}</div>
+        
       </button>
     );
   }
 
   return (
     <div className="drop-down position-absolute d-flex flex-column p-3 rounded-3">
-      {/* <img src="../assets/gear.svg" alt="das" width={20} height={20}/> */}
-      <DropdownButton label="Settings" func={() => (location.href = "/settings")} />
-      <DropdownButton label="Sign out" func={() => {localStorage.removeItem("account"); location.href = "/";}} />
+      <DropdownButton label="Settings" leftIcon={gear} func={() => (location.href = "/settings")} />
+      <DropdownButton label="Log out" leftIcon={logout} func={() => {localStorage.removeItem("account"); location.href = "/";}} />
     </div>
   );
 }
