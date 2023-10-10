@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import "./components/css/App.css";
 import TestContainer from "./components/TestContainer";
+import UserHome from "./components/UserHome";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/test" element={<TestContainer />}></Route>
+          <Route path="/u" element={<UserHome />}></Route>
         </Routes>
       </div>
     </>

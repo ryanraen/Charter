@@ -3,3 +3,13 @@ nav {
   border-bottom: solid var(--accent-200);
   font-family: var(--font-boldER);
 }
+
+.drop-down {
+  transform: translateX(-25%);
+  border: solid var(--accent-200);
+  background-color: var(--bg-300);
+}
+
+ul.position-absolute {
+  padding: 0;
+}

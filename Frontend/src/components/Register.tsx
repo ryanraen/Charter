@@ -5,23 +5,24 @@ function submitNewUser(e: any) {
 
   const formData = new FormData(e.target);
   const formJson = Object.fromEntries(formData);
-  console.log(formJson);
+  localStorage.setItem("account", JSON.stringify(formJson));
+  window.location.href = "/u";
 
-  fetch("/addUser", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the response from the backend
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  // fetch("/addUser", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: formData,
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     // Handle the response from the backend
+  //     console.log(data);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error);
+  //   });
 }
 
 export default function Register() {
