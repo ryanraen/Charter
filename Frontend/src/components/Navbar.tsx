@@ -14,7 +14,7 @@ export default function Navbar() {
         <a href="/" className="navbar-brand">
           Charter
         </a>
-        <ul className="navbar-nav" id="navbar-right">
+        <ul className="navbar-nav">
           <NavItem href={loggedIn ? "/u" : "/"} item="Home" />
           {!loggedIn && <NavItem href="/login" item="Login" />}
           {loggedIn && (
@@ -32,7 +32,7 @@ function NavItem(props: any) {
   const [open, setOpen] = useState(false);
 
   return (
-    <li className={open ? "nav-item navitem active" : "nav-item navitem"}>
+    <li className={open ? "nav-item navitem active mx-2" : "nav-item navitem mx-2"}>
       <a href={props.href} className="nav-link navlink" id={props.styleid} onClick={() => setOpen(!open)}>
         {props.item}
         {props.rightIcon != undefined && <img src={props.rightIcon} alt="" width={15} height={15}/>}

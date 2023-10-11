@@ -4,24 +4,20 @@ nav {
   font-family: var(--font-boldER);
 }
 
-#navbar-right, .navlink {
-  background-color: var(--primary-200);
-  border-radius: 7px;
-}
-
-.navlink:hover, .active {
+/* .navlink:hover {
   border-radius: 7px;
   background-color: var(--primary-150);
-}
+} */
 
 .navitem {
   align-items: center;
+  background-color: var(--primary-150);
+  border-radius: 7px;
 }
 
-/* #accountHeader:hover {
+.navitem:hover {
   background-color: var(--primary-200);
-  border-radius: 7px;
-} */
+}
 
 .drop-down {
   transform: translateX(-25%);
