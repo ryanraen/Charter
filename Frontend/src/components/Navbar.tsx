@@ -32,7 +32,7 @@ function NavItem(props: any) {
   const [open, setOpen] = useState(false);
 
   return (
-    <li className="nav-item navitem">
+    <li className={open ? "nav-item navitem active" : "nav-item navitem"}>
       <a href={props.href} className="nav-link navlink" id={props.styleid} onClick={() => setOpen(!open)}>
         {props.item}
         {props.rightIcon != undefined && <img src={props.rightIcon} alt="" width={15} height={15}/>}

@@ -9,7 +9,7 @@ nav {
   border-radius: 7px;
 }
 
-.navlink:hover {
+.navlink:hover, .active {
   border-radius: 7px;
   background-color: var(--primary-150);
 }
