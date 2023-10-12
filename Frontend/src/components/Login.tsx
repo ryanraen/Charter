@@ -37,7 +37,7 @@ export default function Login() {
               <input name="user_password" type="password" className="form-control" placeholder="Password" required />
               <label htmlFor="password">Password</label>
             </div>
-            <button className="btn loginButton" type="submit">
+            <button className="btn submit-btn" type="submit">
               Log in
             </button>
           </form>

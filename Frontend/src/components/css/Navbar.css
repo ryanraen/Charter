@@ -11,12 +11,7 @@ nav {
 
 .navitem {
   align-items: center;
-  background-color: var(--primary-150);
   border-radius: 7px;
-}
-
-.navitem:hover {
-  background-color: var(--primary-200);
 }
 
 .drop-down {
@@ -29,6 +24,12 @@ nav {
   width: 125px;
   margin: 5px;
   align-items: center;
+  background-color: var(--primary-200) !important;
+  transition: all 250ms !important;
+}
+
+.dropdown-btn:hover {
+  background-color: var(--primary-150) !important;
 }
 
 .dropdown-icon {
@@ -41,4 +42,13 @@ nav {
 
 ul.position-absolute {
   padding: 0;
+}
+
+.rotate-transition {
+  rotate: 180deg;
+  transition: rotate 250ms ease-in-out;
+}
+
+.rotate-icon {
+  rotate: 0deg;
 }

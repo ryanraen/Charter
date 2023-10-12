@@ -15,10 +15,10 @@ export default function Navbar() {
           Charter
         </a>
         <ul className="navbar-nav">
-          <NavItem href={loggedIn ? "/u" : "/"} item="Home" />
-          {!loggedIn && <NavItem href="/login" item="Login" />}
+          <NavItem href={loggedIn ? "/u" : "/"} text="Home" />
+          {!loggedIn && <NavItem href="/login" text="Login" />}
           {loggedIn && (
-            <NavItem href="#" item={account.user_name} styleid={"accountHeader"} rightIcon={downarrow}>
+            <NavItem href="#" text={account.user_name} styleid={"accountHeader"} rightIcon={downarrow}>
               <DropdownMenu />
             </NavItem>
           )}
@@ -32,10 +32,11 @@ function NavItem(props: any) {
   const [open, setOpen] = useState(false);
 
   return (
-    <li className={open ? "nav-item navitem active mx-2" : "nav-item navitem mx-2"}>
-      <a href={props.href} className="nav-link navlink" id={props.styleid} onClick={() => setOpen(!open)}>
-        {props.item}
-        {props.rightIcon != undefined && <img src={props.rightIcon} alt="" width={15} height={15}/>}
+    <li className="nav-item mx-2">
+      
+      <a href={props.href} className="nav-link navlink d-flex align-items-center" id={props.styleid} onClick={() => setOpen(!open)}>
+        {props.text}
+        {props.rightIcon != undefined && <img className={"rotate-transition".concat(open ? " rotate-icon" : "")} src={props.rightIcon} alt="" width={12} height={12}/>}
       </a>
 
       {open && props.children}
