@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./css/LoginRegister.css";
 import FormInput from "./FormInput";
 
-function submitNewUser(e: any) {
+function submitNewUser(e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
@@ -30,21 +30,55 @@ function submitNewUser(e: any) {
 }
 
 export default function Register() {
-  // const [values, setValues] = useState({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: ""
-  // });
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const inputs = [
+    {
+      id: 1,
+      text: "Username",
+      name: "username",
+      type: "text",
+      formID: "username",
+      requred: "true"
+    },
+    {
+      id: 2,
+      text: "Email",
+      name: "email",
+      type: "email",
+      formID: "email",
+      requred: "true"
+    },
+    {
+      id: 3,
+      text: "Password",
+      name: "password",
+      type: "password",
+      formID: "password",
+      requred: "true"
+    },
+    {
+      id: 4,
+      text: "Confirm Password",
+      name: "confirm-password",
+      type: "password",
+      formID: "confirm-password",
+      requred: "true"
+    }
+  ]
   
   return (
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
-          <FormInput objectID="username" type={"username"} text="Username" required></FormInput>
-          <FormInput objectID="email" type={"email"} text="Email" required></FormInput>
-          <FormInput objectID="password" type={"password"} text="Password" required></FormInput>
-          <FormInput objectID="confirm-password" type={"password"} text="Confirm Password" required></FormInput>
+          {inputs.map(input => (
+            <FormInput key={input.id} {...input} value={values[input.name]} />
+          ))}
           <button type="submit" className="btn submit-btn">
             Register
           </button>

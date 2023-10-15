@@ -1,7 +1,7 @@
 import FormInput from "./FormInput";
 import "./css/LoginRegister.css";
 
-function submitLogin(e: any) {
+function submitLogin(e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   // const formJson = Object.fromEntries(formData);

@@ -29,7 +29,7 @@ export default function Navbar() {
   );
 }
 
-function NavItem(props: any) {
+function NavItem(props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,7 +46,7 @@ function NavItem(props: any) {
 }
 
 function DropdownMenu() {
-  function DropdownButton(props: any) {
+  function DropdownButton(props) {
     return (
       <button className="btn dropdown-btn d-flex" onClick={props.func}>
         <img src={props.leftIcon} alt="" className="dropdown-icon" />
