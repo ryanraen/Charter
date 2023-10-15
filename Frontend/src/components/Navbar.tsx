@@ -8,6 +8,7 @@ const account = JSON.parse(localStorage.getItem("account") || "{}");
 const loggedIn = JSON.stringify(account) == "{}" ? false : true;
 
 export default function Navbar() {
+  
   return (
     <nav className="navbar navbar-expand">
       <div className="container">
