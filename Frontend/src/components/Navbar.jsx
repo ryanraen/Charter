@@ -5,7 +5,9 @@ import logout from "../assets/logout.svg";
 import downarrow from "../assets/dropdown.svg";
 
 const account = JSON.parse(localStorage.getItem("account") || "{}");
+console.log(account);
 const loggedIn = JSON.stringify(account) == "{}" ? false : true;
+console.log(loggedIn);
 
 export default function Navbar() {
   
@@ -19,7 +21,7 @@ export default function Navbar() {
           <NavItem href={loggedIn ? "/u" : "/"} text="Home" />
           {!loggedIn && <NavItem href="/login" text="Login" />}
           {loggedIn && (
-            <NavItem href="#" text={account.user_name} styleid={"accountHeader"} rightIcon={downarrow}>
+            <NavItem href="#" text={account.username} styleid={"accountHeader"} rightIcon={downarrow}>
               <DropdownMenu />
             </NavItem>
           )}

@@ -37,14 +37,14 @@ export default function Register() {
       name: "password",
       type: "password",
       placeholder: "password",
-      errorMessage: "Password must be 8-128 characters and include one number, special character, and letter",
-      pattern: "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,128}$",
+      errorMessage: "Password must be 8-128 characters including one number and special character",
+      pattern: "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!#$%&()*+,-./:;<=>?@[\]^_`{|}~])[a-zA-Z0-9!#$%&()*+,-./:;<=>?@[\]^_`{|}~]{8,128}$",
       required: true
     },
     {
       id: 4,
       label: "Confirm Password",
-      name: "confirmPassword",
+      name: "",
       type: "password",
       placeholder: "confirm-password",
       errorMessage: "Passwords don't match",
@@ -55,11 +55,11 @@ export default function Register() {
 
   function submitNewUser(e) {
     e.preventDefault();
-  
+
+    const date = new Date();
     const formData = new FormData(e.target);
     const formJson = Object.fromEntries(formData);
-    console.log(formJson);
-    
+    formJson.date = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
     localStorage.setItem("account", JSON.stringify(formJson));
     window.location.href = "/u";
   
