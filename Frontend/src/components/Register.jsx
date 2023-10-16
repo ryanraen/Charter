@@ -2,33 +2,6 @@ import { useState } from "react";
 import "./css/LoginRegister.css";
 import FormInput from "./FormInput";
 
-function submitNewUser(e) {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const formJson = Object.fromEntries(formData);
-  console.log(formJson);
-  
-  localStorage.setItem("account", JSON.stringify(formJson));
-  window.location.href = "/u";
-
-  // fetch("/addUser", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: formData,
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     // Handle the response from the backend
-  //     console.log(data);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error);
-  //   });
-}
-
 export default function Register() {
   const [values, setValues] = useState({
     username: "",
@@ -40,44 +13,83 @@ export default function Register() {
   const inputs = [
     {
       id: 1,
-      text: "Username",
+      label: "Username",
       name: "username",
       type: "text",
-      formID: "username",
-      requred: "true"
+      placeholder: "username",
+      errorMessage: "Username must be 3-16 characters and contain no special characters",
+      pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true
     },
     {
       id: 2,
-      text: "Email",
+      label: "Email",
       name: "email",
       type: "email",
-      formID: "email",
-      requred: "true"
+      placeholder: "email",
+      errorMessage: "Email must be a valid",
+      pattern: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+      required: true
     },
     {
       id: 3,
-      text: "Password",
+      label: "Password",
       name: "password",
       type: "password",
-      formID: "password",
-      requred: "true"
+      placeholder: "password",
+      errorMessage: "Password must be 8-128 characters and include one number, special character, and letter",
+      pattern: "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,128}$",
+      required: true
     },
     {
       id: 4,
-      text: "Confirm Password",
-      name: "confirm-password",
+      label: "Confirm Password",
+      name: "confirmPassword",
       type: "password",
-      formID: "confirm-password",
-      requred: "true"
+      placeholder: "confirm-password",
+      errorMessage: "Passwords don't match",
+      pattern: values.password,
+      required: true
     }
   ]
+
+  function submitNewUser(e) {
+    e.preventDefault();
   
+    const formData = new FormData(e.target);
+    const formJson = Object.fromEntries(formData);
+    console.log(formJson);
+    
+    localStorage.setItem("account", JSON.stringify(formJson));
+    window.location.href = "/u";
+  
+    // fetch("/addUser", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: formData,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // Handle the response from the backend
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+  }
+
+  function onChange(e) {
+    setValues({...values, [e.target.name]: e.target.value});
+  }
+
   return (
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
           {inputs.map(input => (
-            <FormInput key={input.id} {...input} value={values[input.name]} />
+            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
           ))}
           <button type="submit" className="btn submit-btn">
             Register

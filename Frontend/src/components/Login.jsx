@@ -24,14 +24,36 @@ function submitLogin(e) {
     });
 }
 
+const inputs = [
+  {
+    id: 1,
+    name: "email",
+    type: "email",
+    label: "Email",
+    placeholder: "Email",
+    pattern: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+    errorMessage: "Email must be a valid",
+    required: true
+  },
+  {
+    id: 2,
+    name: "password",
+    type: "password",
+    label: "Password",
+    placeholder: "password",
+    required: true
+  }
+]
+
 export default function Login() {
   return (
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <div>
           <form id="loginForm" className="text-center" onSubmit={submitLogin}>
-            <FormInput objectID="email" type={"email"} text="Email" required autoComplete ></FormInput>
-            <FormInput objectID="password" type={"password"} text="Password" required autoComplete></FormInput>
+            {inputs.map(input => (
+              <FormInput key={input.id} {...input}></FormInput>
+            ))}
             <button className="btn submit-btn" type="submit">
               Log in
             </button>
