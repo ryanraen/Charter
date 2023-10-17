@@ -1,3 +1,7 @@
 export default function UserHome() {
-  return <div className="container">Hello welcome to ur account</div>
+  return (
+    <div className="container">
+      <div>welcome to account</div>
+    </div>
+  );
 }
