@@ -27,7 +27,7 @@ export default function Register() {
       name: "email",
       type: "email",
       placeholder: "email",
-      errorMessage: "Email must be a valid",
+      errorMessage: "Email is invalid",
       pattern: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
       required: true
     },
