@@ -24,7 +24,7 @@
     font-family: var(--font-bold);
 }
 
-.form-floating, .btn {
+.form-floating, .submit-btn {
     margin-bottom: 20px;
 }
 
@@ -47,10 +47,11 @@ label {
     width: 65%;
 }
 
-.btn {
+.submit-btn {
     background-color: var(--primary-200) !important;
+    transition: all 250ms !important;
 }
 
-.btn:hover {
-    background-color: var(--accent-100) !important;
+.submit-btn:hover {
+    background-color: var(--primary-150) !important;
 }
