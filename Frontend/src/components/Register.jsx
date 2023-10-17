@@ -38,7 +38,7 @@ export default function Register() {
       type: "password",
       placeholder: "password",
       errorMessage: "Password must be 8-128 characters including one number and special character",
-      pattern: "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!#$%&()*+,-./:;<=>?@[\]^_`{|}~])[a-zA-Z0-9!#$%&()*+,-./:;<=>?@[\]^_`{|}~]{8,128}$",
+      pattern: "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,128}$",
       required: true
     },
     {
