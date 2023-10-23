@@ -1,4 +1,4 @@
-package com.ryan.taskmanager;
+package com.ryan.taskManager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

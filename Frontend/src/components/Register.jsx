@@ -55,12 +55,13 @@ export default function Register() {
 
   function submitNewUser(e) {
     e.preventDefault();
-
+    
     const date = new Date();
     const formData = new FormData(e.target);
     const formJson = Object.fromEntries(formData);
     formJson.date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     localStorage.setItem("account", JSON.stringify(formJson));
+    localStorage.setItem("tables", {});
     window.location.href = "/u";
 
     // fetch("/addUser", {

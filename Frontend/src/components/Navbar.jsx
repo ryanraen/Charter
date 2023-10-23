@@ -5,9 +5,7 @@ import logout from "../assets/logout.svg";
 import downarrow from "../assets/dropdown.svg";
 
 const account = JSON.parse(localStorage.getItem("account") || "{}");
-console.log(account);
 const loggedIn = JSON.stringify(account) == "{}" ? false : true;
-console.log(loggedIn);
 
 export default function Navbar() {
   return (
