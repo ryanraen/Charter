@@ -1,29 +1,42 @@
 package com.ryan.taskManager;
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity // This tells hibernate to create a table from this class (object-relational mapping)
-public class User {
+public class Users {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(unique=true)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private int ID;
 
-    private int id;
+    @Column(nullable = false, unique=true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+    
+    @Column(nullable = false, unique=true)
     private String email;
 
-    public Integer getId() {
-        return id;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="signup_date")
+    private Date signupDate;
+
+    public Integer getID() {
+        return ID;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
 
     public String getUsername() {
@@ -48,6 +61,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getSignupDate() {
+        return signupDate;
+    }
+
+    public void setSignupDate(Date signupDate) {
+        this.signupDate = signupDate;
     }
 
 }
