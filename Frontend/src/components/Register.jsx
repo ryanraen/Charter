@@ -28,7 +28,7 @@ export default function Register() {
       type: "email",
       placeholder: "email",
       errorMessage: "Email is invalid",
-      pattern: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+      pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
       required: true
     },
     {
@@ -51,7 +51,7 @@ export default function Register() {
       pattern: values.password,
       required: true
     }
-  ]
+  ];
 
   function submitNewUser(e) {
     e.preventDefault();
@@ -59,10 +59,10 @@ export default function Register() {
     const date = new Date();
     const formData = new FormData(e.target);
     const formJson = Object.fromEntries(formData);
-    formJson.date = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+    formJson.date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     localStorage.setItem("account", JSON.stringify(formJson));
     window.location.href = "/u";
-  
+
     // fetch("/addUser", {
     //   method: "POST",
     //   headers: {
@@ -81,15 +81,15 @@ export default function Register() {
   }
 
   function onChange(e) {
-    setValues({...values, [e.target.name]: e.target.value});
+    setValues({ ...values, [e.target.name]: e.target.value });
   }
 
   return (
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
-          {inputs.map(input => (
-            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+          {inputs.map((input) => (
+            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
           ))}
           <button type="submit" className="btn submit-btn">
             Register
@@ -104,7 +104,7 @@ export default function Register() {
         >
           Log in instead
         </button>
-       </div>
+      </div>
     </div>
   );
 }
