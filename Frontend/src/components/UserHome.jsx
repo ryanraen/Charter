@@ -12,10 +12,13 @@ export default function UserHome() {
       </div>
       <div className="mt-5 w-100">
         <div className="d-grid align-items-center h-100 w-100" id="tables">
-          <Table>
+          <Table onClick={() => modalNewTable()}>
             <h2>New table</h2>
             <img src={plus} alt="" height={25} />
           </Table>
+          {JSON.stringify(tables) != "[{}]" && tables.map(table => (
+            <Table key={table.id} />
+          ))}
         </div>
       </div>
     </div>
@@ -31,6 +34,6 @@ export default function UserHome() {
   }
 
   function Table(props) {
-    return <div className="table-box p-2 align-items-center d-flex text-center flex-column">{props.children}</div>;
+    return <div onClick={props.onClick} className="table-box p-2 align-items-center d-flex text-center flex-column justify-content-center">{props.children}</div>;
   }
 }

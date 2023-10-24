@@ -32,6 +32,7 @@
     border: var(--accent-200) 2px solid;
     border-radius: 4px;
     background-color: var(--bg-200);
+    
 }
 
 .table-box:hover {
@@ -40,4 +41,8 @@
 
 .btn-active {
     filter: brightness(0.95);
+}
+
+.icon-bg-dark {
+    background-color: var(--accent-200);
 }

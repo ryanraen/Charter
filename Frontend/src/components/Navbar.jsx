@@ -47,14 +47,14 @@ function DropdownMenu() {
   function DropdownButton(props) {
     return (
       <button className="btn dropdown-btn d-flex" onClick={props.func}>
-        <img src={props.leftIcon} alt="" className="dropdown-icon" />
+        <img src={props.leftIcon} alt="" />
         <div className="dropdown-label">{props.label}</div>
       </button>
     );
   }
 
   return (
-    <div className="drop-down position-absolute d-flex flex-column p-3 rounded-3">
+    <div className="drop-down position-absolute d-flex flex-column p-3 rounded-3 z-3">
       <DropdownButton label="Settings" leftIcon={gear} func={() => (location.href = "/settings")} />
       <DropdownButton
         label="Log out"
