@@ -25,6 +25,12 @@ h1 {
     color: var(--text-100) !important;
 }
 
+h2 {
+    font-family: var(--font-boldER);
+    color: var(--text-100) !important;
+    font-size: 1.75rem !important;
+}
+
 p {
     font-family: var(--font-p);
     font-size: 1.5rem;

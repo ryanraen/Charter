@@ -5,21 +5,39 @@
 #side-bar {
     height: 70vh;
     width: 20%;
+    padding-right: 12px;
 }
 
 .side-bar-btn {
     background-color: var(--bg-200) !important;
-}
+    border-radius: 5px;
 
-.sideBarBtn:hover {
-    background-color: var(--bg-200) !important;
-    box-shadow: 1px 1px var(--accent-100);
 }
 
 .side-button-icon {
     color: wheat;
 }
 
-.table-list-table {
-    
+#tables {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    transform: translateY(-2%);
+}
+
+.table-box {
+    justify-self: center;
+    height: 85%;
+    width: 85%;
+    transition: filter 250ms;
+    border: var(--accent-200) 2px solid;
+    border-radius: 4px;
+    background-color: var(--bg-200);
+}
+
+.table-box:hover {
+    filter: brightness(0.95);
+}
+
+.btn-active {
+    filter: brightness(0.95);
 }
