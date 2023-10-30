@@ -1,4 +1,4 @@
-package com.ryan.taskManager;
+package com.ryan.taskmanager;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity // This tells hibernate to create a table from this class (object-relational mapping)
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
