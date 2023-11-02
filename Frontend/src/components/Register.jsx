@@ -60,8 +60,9 @@ export default function Register() {
     const formJson = Object.fromEntries(formData);
     console.log(formJson);
 
-    fetch("http://142.93.148.156/signin/register", {
+    fetch("http://142.93.148.156:80/signin/register", {
       method: "POST",
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -85,9 +86,9 @@ export default function Register() {
   return (
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
-        <form id="loginForm" className="text-center" onSubmit={test}>
+        <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
           {inputs.map((input) => (
-            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
+            <FormInput key={input.id} {...input} value={values[input.name] || ""} onChange={onChange} />
           ))}
           <button type="submit" className="btn submit-btn">
             Register
