@@ -66,17 +66,24 @@ export default function Register() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: formJson,
+      body: formData,
     })
-      .then((response) => response.json())
       .then((data) => {
         // window.location.href = "/u";
         console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert(error);
       });
+
+    // console.log(
+    //   fetch("http://142.93.148.156:80/signin/get/all", {
+    //     method: "GET",
+    //     mode: "no-cors"
+    //   })
+    //     .then((response) => console.log(response))
+    //     .catch((error) => console.log(error))
+    // );
   }
 
   function onChange(e) {
