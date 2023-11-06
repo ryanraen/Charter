@@ -2,13 +2,13 @@ package com.ryan.taskManager;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity // This tells hibernate to create a table from this class (object-relational mapping)
 public class User {
@@ -27,8 +27,8 @@ public class User {
     @Column(nullable = false, unique=true)
     private String email;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="signup_date")
+    @CreationTimestamp
     private Date signupDate;
 
     public Integer getID() {
