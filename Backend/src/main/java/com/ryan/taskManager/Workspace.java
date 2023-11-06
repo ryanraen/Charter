@@ -39,7 +39,9 @@ public class Workspace {
         return ID;
     }
 
-    public 
+    public Integer getUserID() {
+        return user_ID.getID();
+    }
 
     public String getName() {
         return name;
@@ -49,6 +51,21 @@ public class Workspace {
         return createdDate;
     }
 
-    public 
+    public boolean getIsPublic() {
+        return isPublic;
+    }
+
+    // SETTERS
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIsPublic(boolean isPublic) {
+        this.isPublic = isPublic;
+    }
     
 }
