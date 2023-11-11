@@ -57,26 +57,26 @@ export default function Register() {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const formJson = Object.fromEntries(formData);
-    console.log(formJson);
 
     fetch("http://142.93.148.156:80/signin/register", {
       method: "POST",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
-      body: formJson,
+      body: formData,
     })
-      .then((response) => response.json())
-      .then((data) => {
+      .then((response) => {
         // window.location.href = "/u";
-        console.log(data);
+        console.log(response);
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert(error);
       });
+
+    // fetch("http://142.93.148.156:80/signin/get/all", { method: "GET", headers: { "Access-Control-Allow-Origin": "*" } }).then((res) => {
+    //   console.log(res.json());
+    // });
   }
 
   function onChange(e) {

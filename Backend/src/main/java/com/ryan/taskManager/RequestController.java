@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class RequestController {
         return "User with this email already exists.";
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/get/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
@@ -41,7 +43,7 @@ public class RequestController {
     }
 
     @GetMapping(path = "/get/id")
-    public @ResponseBody Optional<User> getUserById(int id) {
+    public @ResponseBody Optional<User> getUserById(@RequestParam int id) {
         return userRepository.findById(id);
     }
 
