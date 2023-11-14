@@ -13,46 +13,53 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Workspace {
-
+public class Item {
+    
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(nullable = false)
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "user_ID", referencedColumnName = "ID", nullable = false)
-    private User user_ID;
+    @JoinColumn(name = "chart_ID", referencedColumnName = "ID", nullable = false)
+    private Chart chart_ID;
 
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = true)
+    private String description;
+
+    @Column(nullable = false, unique = true)
+    private int position;
+
     @Column(name="created_date")
     @CreationTimestamp
     private Date createdDate;
-
-    @Column(name="is_public", nullable = false)
-    private boolean isPublic;
 
     // GETTERS
     public Integer getID() {
         return ID;
     }
 
-    public Integer getUserID() {
-        return user_ID.getID();
+    public Integer getChartID() {
+        return chart_ID.getID();
     }
 
     public String getName() {
         return name;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getDescription() {
+        return description;
     }
 
-    public boolean getIsPublic() {
-        return isPublic;
+    public Integer getPosition() {
+        return position;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
     // SETTERS
@@ -64,8 +71,11 @@ public class Workspace {
         this.name = name;
     }
 
-    public void setIsPublic(boolean isPublic) {
-        this.isPublic = isPublic;
+    public void setDescription(String description) {
+        this.description = description;
     }
-    
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
 }
