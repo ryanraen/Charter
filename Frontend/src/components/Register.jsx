@@ -62,7 +62,7 @@ export default function Register() {
       method: "POST",
       mode: "no-cors",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: formData,
     })
@@ -74,9 +74,9 @@ export default function Register() {
         console.error("Error:", error);
       });
 
-      // fetch("http://142.93.148.156:80/signin/get/all", { method: "GET", headers: { "Access-Control-Allow-Origin": "*" } }).then((res) => {
-      //     console.log(res.json());
-      // })
+    // fetch("http://142.93.148.156:80/signin/get/all", { method: "GET", headers: { "Access-Control-Allow-Origin": "*" } }).then((res) => {
+    //     console.log(res.json());
+    // })
   }
 
   function onChange(e) {
