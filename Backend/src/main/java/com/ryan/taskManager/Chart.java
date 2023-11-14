@@ -13,7 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Workspace {
+public class Chart {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -21,41 +21,41 @@ public class Workspace {
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "user_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "workspace_ID", referencedColumnName = "ID")
     @Column(nullable = false)
-    private User user_ID;
+    private Workspace workspace_ID;
 
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    private int position;
+
     @Column(name="created_date")
     @CreationTimestamp
     private Date createdDate;
-
-    @Column(name="is_public", nullable = false)
-    private boolean isPublic;
 
     // GETTERS
     public Integer getID() {
         return ID;
     }
 
-    public Integer getUserID() {
-        return user_ID.getID();
+    public Integer getWorkspaceID() {
+        return workspace_ID.getID();
     }
 
     public String getName() {
         return name;
     }
 
+    public Integer getPosition() {
+        return position;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
-
-    public boolean getIsPublic() {
-        return isPublic;
-    }
-
+    
     // SETTERS
     public void setID(Integer ID) {
         this.ID = ID;
@@ -65,8 +65,8 @@ public class Workspace {
         this.name = name;
     }
 
-    public void setIsPublic(boolean isPublic) {
-        this.isPublic = isPublic;
+    public void setPosition(Integer position) {
+        this.position = position;
     }
     
 }

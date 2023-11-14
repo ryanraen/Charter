@@ -18,13 +18,13 @@ public class User {
     @Column(nullable = false)
     private int ID;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
     
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(name="signup_date")
