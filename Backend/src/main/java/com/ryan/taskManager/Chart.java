@@ -21,8 +21,7 @@ public class Chart {
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "workspace_ID", referencedColumnName = "ID")
-    @Column(nullable = false)
+    @JoinColumn(name = "workspace_ID", referencedColumnName = "ID", nullable = false)
     private Workspace workspace_ID;
 
     @Column(nullable = false)

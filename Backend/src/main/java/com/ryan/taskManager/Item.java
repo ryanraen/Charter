@@ -21,8 +21,7 @@ public class Item {
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "chart_ID", referencedColumnName = "ID")
-    @Column(nullable = false)
+    @JoinColumn(name = "chart_ID", referencedColumnName = "ID", nullable = false)
     private Chart chart_ID;
 
     @Column(nullable = false)

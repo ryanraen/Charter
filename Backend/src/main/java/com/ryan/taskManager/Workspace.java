@@ -21,8 +21,7 @@ public class Workspace {
     private int ID;
 
     @ManyToOne
-    @JoinColumn(name = "user_ID", referencedColumnName = "ID")
-    @Column(nullable = false)
+    @JoinColumn(name = "user_ID", referencedColumnName = "ID", nullable = false)
     private User user_ID;
 
     @Column(nullable = false)
