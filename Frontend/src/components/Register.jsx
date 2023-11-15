@@ -63,9 +63,7 @@ export default function Register() {
     fetch("http://142.93.148.156:80/signin/register", {
       method: "POST",
       // mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      
       body: formData,
     })
       .then((response) => {
