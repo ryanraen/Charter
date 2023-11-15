@@ -17,10 +17,10 @@
     position: relative;
     min-width: 350px;
     width: 21vw;
-    height: 60vh;
+    height: 65vh;
     min-height: 400px;
     left: 50%;
-    transform: translate(-50%, 15%);
+    transform: translate(-50%, 4.5rem);
     font-family: var(--font-bold);
 }
 

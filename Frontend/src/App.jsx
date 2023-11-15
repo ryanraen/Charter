@@ -5,6 +5,8 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import "./components/css/App.css";
 import UserHome from "./components/UserHome";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   return (
