@@ -13,23 +13,20 @@ export default function UserHome() {
   const tables = JSON.parse(localStorage.getItem("tables"));
 
   return (
-    <>
-      
-      <div className="container d-flex">
-        <div id="side-bar" className="d-flex flex-column mt-5">
-          <SideBarButton label="Tables" icon={tableIcon}></SideBarButton>
-        </div>
-        <div className="mt-5 w-100">
-          <div className="d-grid align-items-center h-100 w-100" id="tables">
-            <Table onClick={() => setTableModalOpen(true)}>
-              <h2>New table</h2>
-              <img src={plus} alt="" height={25} />
-            </Table>
-            {JSON.stringify(tables) != "[{}]" && tables.map((table) => <Table key={table.id} />)}
-          </div>
+    <div className="container d-flex">
+      <div id="side-bar" className="d-flex flex-column mt-5">
+        <SideBarButton label="Tables" icon={tableIcon}></SideBarButton>
+      </div>
+      <div className="mt-5 w-100">
+        <div className="d-grid align-items-center h-100 w-100" id="tables">
+          <Table onClick={() => setTableModalOpen(true)}>
+            <h2>New table</h2>
+            <img src={plus} alt="" height={25} />
+          </Table>
+          {JSON.stringify(tables) != "[{}]" && tables.map((table) => <Table key={table.id} />)}
         </div>
       </div>
-    </>
+    </div>
   );
 
   function SideBarButton(props) {
