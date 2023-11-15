@@ -3,6 +3,7 @@ package com.ryan.taskManager;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,15 @@ public class RequestController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         User user = new User();
-        if(user.getEmail()==null) {
+        try {
             user.setUsername(name);
             user.setEmail(email);
             user.setPassword(password);
             userRepository.save(user);
-            return "User " + name + " saved!";
+            return "{'message': 'User " + name + " saved!'}";
+        } catch(DataIntegrityViolationException e) {
+            return "{'message': 'User already exists!'}";
         }
-        return "User with this email already exists.";
     }
 
     @GetMapping(path = "/get/all")
@@ -47,14 +49,6 @@ public class RequestController {
         return userRepository.findById(id);
     }
 
-
-    // @PostMapping("/process")
-    // public String processFormData(@RequestBody FormData formData) {
-    // // Process the data or perform any backend tasks
-    // // ...
-
-    // // Return a response back to the frontend
-    // return "{\"status\": \"success\", \"message\": \"Data received
-    // successfully!\"}";
-    // }
 }
+
+
