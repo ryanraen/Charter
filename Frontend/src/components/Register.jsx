@@ -3,6 +3,7 @@ import "./css/LoginRegister.css";
 import FormInput from "./FormInput";
 
 export default function Register() {
+  const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -71,7 +72,16 @@ export default function Register() {
         console.log(response);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.log(error);
+        const errorString = error.message;
+
+        switch (errorString) {
+          case "Failed to fetch":
+            setErrorMessage("Server error, please try again later");
+            break;
+          default:
+            setErrorMessage("Uncaught error, something went wrong");
+        }
       });
 
     // fetch("http://142.93.148.156:80/signin/get/all", { method: "GET", headers: { "Access-Control-Allow-Origin": "*" } }).then((res) => {
@@ -90,6 +100,7 @@ export default function Register() {
           {inputs.map((input) => (
             <FormInput key={input.id} {...input} value={values[input.name] || ""} onChange={onChange} />
           ))}
+          {errorMessage !== "" && <div className="text-danger mb-4">{errorMessage}</div>}
           <button type="submit" className="btn submit-btn">
             Register
           </button>
