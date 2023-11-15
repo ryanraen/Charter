@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller // This means that this class is a Controller
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping(path = "/signin")
 public class RequestController {
 
@@ -20,22 +21,21 @@ public class RequestController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/register") // Map ONLY POST Requests
-    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String password,
-            @RequestParam String email) {
+    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email,
+            @RequestParam String password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         User user = new User();
         if(user.getEmail()==null) {
             user.setUsername(name);
-            user.setPassword(password);
             user.setEmail(email);
+            user.setPassword(password);
             userRepository.save(user);
             return "User " + name + " saved!";
         }
         return "User with this email already exists.";
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/get/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
