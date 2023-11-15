@@ -5,7 +5,7 @@ import FormInput from "./FormInput";
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState({
-    username: "",
+    name: "",
     password: "",
     email: "",
     confirmPassword: "",
@@ -58,10 +58,11 @@ export default function Register() {
     e.preventDefault();
 
     const formData = new FormData(e.target);
+    console.log(Object.fromEntries(formData));
 
     fetch("http://142.93.148.156:80/signin/register", {
       method: "POST",
-      mode: "no-cors",
+      // mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
