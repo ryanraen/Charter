@@ -62,24 +62,29 @@ export default function Register() {
 
     fetch("http://142.93.148.156:80/signin/register", {
       method: "POST",
-      // mode: "no-cors",
-      
       body: formData,
     })
       .then((response) => {
-        // window.location.href = "/u";
         console.log(response);
+
+        if (response.ok) {
+          return;
+        }
+
+        throw new Error(response.status);
       })
       .catch((error) => {
-        console.log(error);
-        const errorString = error.message;
+        //ERROR HANDLING
 
-        switch (errorString) {
-          case "Failed to fetch":
-            setErrorMessage("Server error, please try again later");
+        if (error.errorMessage == "Failed to fetch") {
+          setErrorMessage("Server error, please try again later");
+          return;
+        }
+
+        switch (error.message) {
+          case 500:
+            setErrorMessage("Duplicate email")
             break;
-          default:
-            setErrorMessage("Uncaught error, something went wrong");
         }
       });
 
