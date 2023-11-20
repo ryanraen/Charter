@@ -49,6 +49,16 @@ public class RequestController {
         return userRepository.findById(id);
     }
 
+    @GetMapping(path = "/get/email")
+    public @ResponseBody Optional<User> getUserByEmail(@RequestParam String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @GetMapping(path = "/get/username")
+    public @ResponseBody Optional<User> getUserByUsername(@RequestParam String username) {
+        return userRepository.findByUsername(username);
+    }
+
 }
 
 
