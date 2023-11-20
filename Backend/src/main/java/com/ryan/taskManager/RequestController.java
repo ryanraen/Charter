@@ -59,6 +59,14 @@ public class RequestController {
         return userRepository.findByUsername(username);
     }
 
+    // AUTHENTICATE (LOGIN)
+    @GetMapping(path = "/check/credentials")
+    public @ResponseBody boolean checkCredentials(@RequestParam String email, @RequestParam String password) {
+        try {
+
+        } catch(Excep)
+    }
+
 }
 
 
