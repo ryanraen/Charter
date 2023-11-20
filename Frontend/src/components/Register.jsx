@@ -58,25 +58,23 @@ export default function Register() {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    console.log(Object.fromEntries(formData));
 
     fetch("http://142.93.148.156:80/signin/register", {
       method: "POST",
       body: formData,
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
 
-        if (response.ok) {
-          return;
+        if (!response.ok) {
+          throw new error(response.status);
         }
 
-        throw new Error(response.status);
       })
       .catch((error) => {
         //ERROR HANDLING
 
-        if (error.errorMessage == "Failed to fetch") {
+        if (error.message == "Failed to fetch") {
           setErrorMessage("Server error, please try again later");
           return;
         }
