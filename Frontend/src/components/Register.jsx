@@ -64,31 +64,21 @@ export default function Register() {
       body: formData,
     })
       .then((response) => {
-        // console.log(response);
+        console.log(response);
 
-        if (!response.ok) {
-          throw new error(response.status);
-        }
-
+        document.cookie = "name=" + formData.get("name") + "; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
+        location.href = "u"
       })
       .catch((error) => {
         //ERROR HANDLING
+
+        console.log(error);
 
         if (error.message == "Failed to fetch") {
           setErrorMessage("Server error, please try again later");
           return;
         }
-
-        switch (error.message) {
-          case 500:
-            setErrorMessage("Duplicate email")
-            break;
-        }
       });
-
-    // fetch("http://142.93.148.156:80/signin/get/all", { method: "GET", headers: { "Access-Control-Allow-Origin": "*" } }).then((res) => {
-    //     console.log(res.json());
-    // })
   }
 
   function onChange(e) {

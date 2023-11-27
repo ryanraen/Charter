@@ -23,7 +23,7 @@ export default function UserHome() {
             <h2>New table</h2>
             <img src={plus} alt="" height={25} />
           </Table>
-          {JSON.stringify(tables) != "[{}]" && tables.map((table) => <Table key={table.id} />)}
+          {/* {JSON.stringify(tables) != "[{}]" && tables.map((table) => <Table key={table.id} />)} */}
         </div>
       </div>
     </div>
