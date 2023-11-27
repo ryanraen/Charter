@@ -5,6 +5,7 @@
     background-color: var(--bg-200);
     height: 100%;
     width: 100%;
+    box-shadow: 0px 0px 10px;
 }
 
 #border-wrap {
