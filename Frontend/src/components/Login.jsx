@@ -7,7 +7,7 @@ function submitLogin(e) {
   // const formJson = Object.fromEntries(formData);
   // console.log(formJson);
 
-  fetch("/login", {
+  fetch("http://142.93.148.156:80/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,6 +18,8 @@ function submitLogin(e) {
     .then((data) => {
       // Handle the response from the backend
       console.log(data);
+
+      document.cookie="";
     })
     .catch((error) => {
       console.error("Error:", error);

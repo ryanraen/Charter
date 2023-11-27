@@ -4,7 +4,7 @@ import gear from "../assets/gear.svg";
 import logout from "../assets/logout.svg";
 import downarrow from "../assets/dropdown.svg";
 
-const account = JSON.parse(localStorage.getItem("account") || "{}");
+const accountName = document.cookie;
 const loggedIn = JSON.stringify(account) == "{}" ? false : true;
 
 export default function Navbar() {
