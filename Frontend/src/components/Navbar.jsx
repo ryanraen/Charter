@@ -4,8 +4,33 @@ import gear from "../assets/gear.svg";
 import logout from "../assets/logout.svg";
 import downarrow from "../assets/dropdown.svg";
 
-const accountName = document.cookie;
-const loggedIn = JSON.stringify(account) == "{}" ? false : true;
+const accountName = getCookie("name");
+const loggedIn = accountName === "" ? false : true;
+
+//W3Schools
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+//
 
 export default function Navbar() {
   return (
@@ -16,12 +41,11 @@ export default function Navbar() {
         </a>
         <ul className="navbar-nav">
           <NavItem href={loggedIn ? "/u" : "/"} text="Home" />
-          {!loggedIn && <NavItem href="/login" text="Login" />}
-          {loggedIn && (
-            <NavItem href="#" text={account.username} styleid={"accountHeader"} rightIcon={downarrow}>
+          {loggedIn ? (
+            <NavItem href="#" text={accountName} styleid={"accountHeader"} rightIcon={downarrow}>
               <DropdownMenu />
             </NavItem>
-          )}
+          ) : <NavItem href="/login" text="Login" />}
         </ul>
       </div>
     </nav>
@@ -35,7 +59,7 @@ function NavItem(props) {
     <li className="nav-item mx-2">
       <a href={props.href} className="nav-link navlink d-flex align-items-center" id={props.styleid} onClick={() => setOpen(!open)}>
         {props.text}
-        {props.rightIcon != undefined && <img className={"rotate-transition".concat(open ? " rotate-icon" : "")} src={props.rightIcon} alt="" width={12} height={12} />}
+        {props.rightIcon != undefined && <img className={"m-1 rotate-transition".concat(open ? " rotate-icon" : "")} src={props.rightIcon} alt="" width={12} height={12} />}
       </a>
 
       {open && props.children}
@@ -60,7 +84,7 @@ function DropdownMenu() {
         label="Log out"
         leftIcon={logout}
         func={() => {
-          localStorage.removeItem("account");
+          setCookie("name", "", 10);
           location.href = "/";
         }}
       />

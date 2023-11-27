@@ -14,12 +14,8 @@ function submitLogin(e) {
     },
     body: formData,
   })
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the response from the backend
-      console.log(data);
-
-      document.cookie="";
+    .then((response) => {
+      console.log(response);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -33,9 +29,9 @@ const inputs = [
     type: "email",
     label: "Email",
     placeholder: "Email",
-    pattern: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+    pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
     errorMessage: "Email is invalid",
-    required: true
+    required: true,
   },
   {
     id: 2,
@@ -43,9 +39,9 @@ const inputs = [
     type: "password",
     label: "Password",
     placeholder: "password",
-    required: true
-  }
-]
+    required: true,
+  },
+];
 
 export default function Login() {
   return (
@@ -53,7 +49,7 @@ export default function Login() {
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <div>
           <form id="loginForm" className="text-center" onSubmit={submitLogin}>
-            {inputs.map(input => (
+            {inputs.map((input) => (
               <FormInput key={input.id} {...input}></FormInput>
             ))}
             <button className="btn submit-btn" type="submit">
