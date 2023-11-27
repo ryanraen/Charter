@@ -60,12 +60,16 @@ public class RequestController {
     }
 
     // AUTHENTICATE (LOGIN)
-    @GetMapping(path = "/check/credentials")
-    public @ResponseBody boolean checkCredentials(@RequestParam String email, @RequestParam String password) {
-        try {
+    // @GetMapping(path = "/check/credentials")
+    // public @ResponseBody boolean checkCredentials(@RequestParam String email, @RequestParam String password) {
+    //     try {
+    //         if(userRepository.findByEmail(email) != null) {
 
-        } catch(Excep)
-    }
+    //         }
+    //     } catch(Exception e) {
+
+    //     }
+    // }
 
 }
 
