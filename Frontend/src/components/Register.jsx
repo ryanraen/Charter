@@ -4,6 +4,7 @@ import FormInput from "./FormInput";
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [processing, setProcessing] = useState(false);
   const [values, setValues] = useState({
     name: "",
     password: "",
@@ -56,6 +57,8 @@ export default function Register() {
 
   function submitNewUser(e) {
     e.preventDefault();
+    setProcessing(true);
+    setErrorMessage("");
 
     const formData = new FormData(e.target);
 
@@ -71,13 +74,14 @@ export default function Register() {
       })
       .catch((error) => {
         //ERROR HANDLING
-
+        setProcessing(false);
         console.log(error);
 
         if (error.message == "Failed to fetch") {
           setErrorMessage("Server error, please try again later");
           return;
         }
+        
       });
   }
 
@@ -93,7 +97,7 @@ export default function Register() {
             <FormInput key={input.id} {...input} value={values[input.name] || ""} onChange={onChange} />
           ))}
           {errorMessage !== "" && <div className="text-danger mb-4">{errorMessage}</div>}
-          <button type="submit" className="btn submit-btn">
+          <button type="submit" className={"btn submit-btn"} disabled={processing ? true : false}>
             Register
           </button>
         </form>
