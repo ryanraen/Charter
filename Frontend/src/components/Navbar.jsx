@@ -4,33 +4,9 @@ import gear from "../assets/gear.svg";
 import logout from "../assets/logout.svg";
 import downarrow from "../assets/dropdown.svg";
 
-const accountName = getCookie("name");
-const loggedIn = accountName === "" ? false : true;
-
-//W3Schools
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  let expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-//
+const accountName = localStorage.getItem("name");
+const loggedIn = accountName === null ? false : true;
+console.log(accountName);
 
 export default function Navbar() {
   return (
@@ -84,7 +60,7 @@ function DropdownMenu() {
         label="Log out"
         leftIcon={logout}
         func={() => {
-          setCookie("name", "", 10);
+          localStorage.removeItem("name");
           location.href = "/";
         }}
       />

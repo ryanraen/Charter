@@ -68,9 +68,7 @@ export default function Register() {
     })
       .then((response) => {
         console.log(response);
-
-        document.cookie = "name=" + formData.get("name") + "; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
-        location.href = "u"
+        // location.href = "u"
       })
       .catch((error) => {
         //ERROR HANDLING
