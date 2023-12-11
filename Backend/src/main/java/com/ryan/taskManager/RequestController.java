@@ -77,21 +77,36 @@ public class RequestController {
 
     @GetMapping(path = "/auth/get/token")
     public @ResponseBody String getToken(@RequestParam int ID) {
-        AccessToken aToken = new AccessToken();
+        User user;
+        try {
+            user = userRepository.findById(ID).get();
+        } catch(NoSuchElementException e) {
+            System.out.println("No user described by such ID");
+            e.printStackTrace();
+            return null;
+        }
         Random random = new Random();
         String tok = "";
         String[] characters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "-", ".", "`", "~", "|", "<", ">", "=", "-", "_"};
-        for(int i = 0; i < 32; i++) {
-            tok.concat(characters[random.nextInt(characters.length)]);
+        for(int i = 0; i < 255; i++) {
+            tok += characters[random.nextInt(characters.length)];
         }
+        user.setAccessToken(tok);
+        return user.getAccessToken();
+    }
+
+    @GetMapping(path = "/auth/check/token")
+    public @ResponseBody boolean checkToken(@RequestParam int ID, @RequestParam String accessToken) {
+        User user;
         try {
-            aToken.setToken(null);
-            return aToken.getToken();
-        } catch(Exception e) {
-
+            user = userRepository.findById(ID).get();
+        } catch(NoSuchElementException e) {
+            System.out.println("No user described by such ID");
+            e.printStackTrace();
+            return false;
         }
-        return null;
 
+        return user.getAccessToken().equals(accessToken);
     }
 
 }
