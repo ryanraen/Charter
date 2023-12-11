@@ -92,6 +92,7 @@ public class RequestController {
             tok += characters[random.nextInt(characters.length)];
         }
         user.setAccessToken(tok);
+        userRepository.flush();
         return user.getAccessToken();
     }
 
