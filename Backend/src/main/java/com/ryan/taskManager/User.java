@@ -31,6 +31,9 @@ public class User {
     @CreationTimestamp
     private Date signupDate;
 
+    @Column(nullable = true)
+    private String accessToken;
+
     // GETTERS
     public Integer getID() {
         return ID;
@@ -52,6 +55,10 @@ public class User {
         return signupDate;
     }
 
+    public String getAccessToken() {
+        return accessToken;
+    }
+
     // SETTERS
     public void setID(Integer ID) {
         this.ID = ID;
@@ -71,6 +78,10 @@ public class User {
 
     public void setSignupDate(Date signupDate) {
         this.signupDate = signupDate;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
 }
