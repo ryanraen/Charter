@@ -7,7 +7,7 @@ function submitLogin(e) {
   // const formJson = Object.fromEntries(formData);
   // console.log(formJson);
 
-  fetch("http://142.93.148.156:80/login", {
+  const login = fetch("http://142.93.148.156:80/signin/auth/validate", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,10 +16,14 @@ function submitLogin(e) {
   })
     .then((response) => {
       console.log(response);
+      return true;
     })
     .catch((error) => {
       console.error("Error:", error);
+      return false;
     });
+
+    console.log(login);
 }
 
 const inputs = [
