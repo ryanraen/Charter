@@ -1,53 +1,58 @@
 import FormInput from "./FormInput";
+import { useState } from "react";
 import "./css/LoginRegister.css";
 
-function submitLogin(e) {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  // const formJson = Object.fromEntries(formData);
-  // console.log(formJson);
-
-  const login = fetch("http://142.93.148.156:80/signin/auth/validate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: formData,
-  })
-    .then((response) => {
-      console.log(response);
-      return true;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      return false;
-    });
-
-    console.log(login);
-}
-
-const inputs = [
-  {
-    id: 1,
-    name: "email",
-    type: "email",
-    label: "Email",
-    placeholder: "Email",
-    pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
-    errorMessage: "Email is invalid",
-    required: true,
-  },
-  {
-    id: 2,
-    name: "password",
-    type: "password",
-    label: "Password",
-    placeholder: "password",
-    required: true,
-  },
-];
-
 export default function Login() {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [processing, setProcessing] = useState(false);
+
+  function submitLogin(e) {
+    setProcessing(true);
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    // const formJson = Object.fromEntries(formData);
+    // console.log(formJson);
+
+  
+    fetch("http://142.93.148.156:80/signin/auth/validate?email=test@gmail.com&password=testpaassword", {
+      method: "GET",
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        setProcessing(false);
+
+        if (error.message == "Failed to fetch") {
+          setErrorMessage("Server error, please try again later");
+          return;
+        }
+        setErrorMessage("");
+        console.error("Error:" + error);
+      });
+  }
+
+  const inputs = [
+    {
+      id: 1,
+      name: "email",
+      type: "email",
+      label: "Email",
+      placeholder: "Email",
+      pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
+      errorMessage: "Email is invalid",
+      required: true,
+    },
+    {
+      id: 2,
+      name: "password",
+      type: "password",
+      label: "Password",
+      placeholder: "password",
+      required: true,
+    },
+  ];
+
   return (
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
@@ -56,7 +61,8 @@ export default function Login() {
             {inputs.map((input) => (
               <FormInput key={input.id} {...input}></FormInput>
             ))}
-            <button className="btn submit-btn" type="submit">
+            {errorMessage !== "" && <div className="text-danger mb-4">{errorMessage}</div>}
+            <button className="btn submit-btn" type="submit" disabled={processing ? true : false}>
               Log in
             </button>
           </form>
