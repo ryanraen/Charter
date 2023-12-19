@@ -133,6 +133,30 @@ public class RequestController {
         }
 
     }
+
+    // CREATE CHART
+    @Autowired
+    private ChartRepository chartRepository;
+
+    @PostMapping(path = "/c/create") // w stands for workspace => when user is actually in workspace, URL will be "/w/{workspace id}"
+    public @ResponseBody String createChart(@RequestParam int workspaceID, @RequestParam String chartName, @RequestParam int position) {
+        
+        Chart chart = new 
+
+        Workspace workspace = new Workspace();
+        User user = userRepository.getReferenceById(userID);
+        try {
+            workspace.setUserID(userRepository.findById(userID).get());
+            workspace.setName(workspaceName);
+            workspace.setIsPublic(isPublic);
+            
+            workspaceRepository.save(workspace);
+            return "{\"status\": \"success\", \"message\": \"Workspace successfully created!\", \"id\": \"" + workspace.getID() + "\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Workspace could not be created.\", \"id\": \"" + workspace.getID() + "\"}";
+        }
+
+    }
     
 
 }
