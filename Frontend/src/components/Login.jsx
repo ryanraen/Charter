@@ -1,4 +1,5 @@
 import FormInput from "./FormInput";
+import { checkValidLogin, getLoginToken, createWorkspace } from "../util/API";
 import { useState } from "react";
 import "./css/LoginRegister.css";
 
@@ -6,30 +7,15 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [processing, setProcessing] = useState(false);
 
-  function submitLogin(e) {
+  async function submitLogin(e) {
     setProcessing(true);
     e.preventDefault();
     const formData = new FormData(e.target);
     // const formJson = Object.fromEntries(formData);
     // console.log(formJson);
 
-    function getLoginToken() {
-      if (checkValidLogin()) {
-        fetch()
-      }
-    }
-
-    function checkValidLogin(email, password) {
-      return fetch(`http://142.93.148.156:80/signin/auth/validate?email=${email}&password=${password}`, {
-        method: "GET",
-      })
-        .then(function (response) {
-          return response.json(); // Returns promise
-        })
-        .then(function (data) {
-          return JSON.parse(data); // returns the result of the above promise
-        });
-    }
+    // console.log(await checkValidLogin("test@gmail.com", "testpassword"));
+    console.log(await createWorkspace(1, "bob", true));
   }
 
   const inputs = [
