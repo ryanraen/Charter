@@ -66,15 +66,15 @@ public class RequestController {
     // AUTHENTICATE (LOGIN)
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/auth/validate")
-    public @ResponseBody boolean validate(@RequestParam String email, @RequestParam String password) {
+    public @ResponseBody String validate(@RequestParam String email, @RequestParam String password) {
         try {
             if(userRepository.findByEmailAndPassword(email, password).isPresent()) {
-                return true;
+                return "{\"status\": \"true\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\"}";
             }
         } catch(NoSuchElementException e) {
-            
+            e.printStackTrace();
         }
-        return false;
+        return "{\"status\": \"false\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\"}";
     }
 
     @GetMapping(path = "/auth/get/token")
@@ -120,15 +120,16 @@ public class RequestController {
     public @ResponseBody String createWorkspace(@RequestParam int userID, @RequestParam String workspaceName, @RequestParam boolean isPublic) {
         
         Workspace workspace = new Workspace();
+        User user = userRepository.getReferenceById(userID);
         try {
             workspace.setUserID(userRepository.findById(userID).get());
             workspace.setName(workspaceName);
             workspace.setIsPublic(isPublic);
             
             workspaceRepository.save(workspace);
-            return "{\"status\": \"success\", \"message\": \"Workspace successfully created!\"}";
+            return "{\"status\": \"success\", \"message\": \"Workspace successfully created!\", \"id\": \"" + workspace.getID() + "\"}";
         } catch(Exception e) {
-            return "{\"status\": \"failure\", \"message\": \"Workspace could not be created.\"}";
+            return "{\"status\": \"failure\", \"message\": \"Workspace could not be created.\", \"id\": \"" + workspace.getID() + "\"}";
         }
 
     }
