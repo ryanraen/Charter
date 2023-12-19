@@ -13,23 +13,23 @@ export default function Login() {
     // const formJson = Object.fromEntries(formData);
     // console.log(formJson);
 
-  
-    fetch("http://142.93.148.156:80/signin/auth/validate?email=test@gmail.com&password=testpaassword", {
-      method: "GET",
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        setProcessing(false);
+    function getLoginToken() {
+      if (checkValidLogin()) {
+        fetch()
+      }
+    }
 
-        if (error.message == "Failed to fetch") {
-          setErrorMessage("Server error, please try again later");
-          return;
-        }
-        setErrorMessage("");
-        console.error("Error:" + error);
-      });
+    function checkValidLogin(email, password) {
+      return fetch(`http://142.93.148.156:80/signin/auth/validate?email=${email}&password=${password}`, {
+        method: "GET",
+      })
+        .then(function (response) {
+          return response.json(); // Returns promise
+        })
+        .then(function (data) {
+          return JSON.parse(data); // returns the result of the above promise
+        });
+    }
   }
 
   const inputs = [
