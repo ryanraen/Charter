@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller // This means that this class is a Controller
 @CrossOrigin(origins = "http://localhost:5173")
@@ -93,7 +95,7 @@ public class RequestController {
         }
         user.setAccessToken(tok);
         userRepository.flush();
-        return user.getAccessToken();
+        return "{\"token\": \"" + user.getAccessToken() + "\"}";
     }
 
     @GetMapping(path = "/auth/check/token")
@@ -109,6 +111,28 @@ public class RequestController {
 
         return user.getAccessToken().equals(accessToken);
     }
+
+    // CREATE WORKSPACE
+    @Autowired
+    private WorkspaceRepository workspaceRepository;
+
+    @PostMapping(path = "/w/create") // w stands for workspace => when user is actually in workspace, URL will be "/w/{workspace id}"
+    public @ResponseBody String createWorkspace(@RequestParam int userID, @RequestParam String workspaceName, @RequestParam boolean isPublic) {
+        
+        Workspace workspace = new Workspace();
+        try {
+            workspace.setUserID(userRepository.findById(userID).get());
+            workspace.setName(workspaceName);
+            workspace.setIsPublic(isPublic);
+            
+            workspaceRepository.save(workspace);
+            return "{\"status\": \"success\", \"message\": \"Workspace successfully created!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Workspace could not be created.\"}";
+        }
+
+    }
+    
 
 }
 

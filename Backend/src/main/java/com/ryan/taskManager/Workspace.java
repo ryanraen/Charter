@@ -60,6 +60,10 @@ public class Workspace {
         this.ID = ID;
     }
 
+    public void setUserID(User user) {
+        this.user_ID = user;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
