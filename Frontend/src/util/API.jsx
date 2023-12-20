@@ -23,6 +23,8 @@ export async function validateLogin(email, password) {
       switch(error.status) {
         case 500:
           return "Username or password incorrect";
+        default:
+          return "Unexpected error";
       }
     })
 }
@@ -57,4 +59,9 @@ export async function createItem(chartID, itemName, description) {
   }).then(response => {
     return response.json();
   });
+}
+
+export async function validateToken(userID, token, expiryDate) {
+  return fetch(`http://142.93.148.156:80/signin/auth/check/token?userID=${userID}&token=${token}&expiryDate=${expiryDate}`, {
+  })
 }
