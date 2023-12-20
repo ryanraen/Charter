@@ -120,9 +120,8 @@ public class RequestController {
     public @ResponseBody String createWorkspace(@RequestParam int userID, @RequestParam String workspaceName, @RequestParam boolean isPublic) {
         
         Workspace workspace = new Workspace();
-        User user = userRepository.getReferenceById(userID);
         try {
-            workspace.setUserID(user);
+            workspace.setUserID(userRepository.findById(userID).get());
             workspace.setName(workspaceName);
             workspace.setIsPublic(isPublic);
             
@@ -136,8 +135,8 @@ public class RequestController {
 
     // GET ALL WORKSPACES UNDER USER
     @GetMapping(path = "/get/workspaces/userid")
-    public @ResponseBody Iterable<Workspace> getAllWorkspacesByUserID(int UserID) {
-        User user = userRepository.getReferenceById(UserID);
+    public @ResponseBody Iterable<Workspace> getAllWorkspacesByUserID(int userID) {
+        User user = userRepository.findById(userID).get();
         return workspaceRepository.findByUserID(user);
     }
 
@@ -151,7 +150,6 @@ public class RequestController {
     public @ResponseBody String createChart(@RequestParam int workspaceID, @RequestParam String chartName) {
         
         Chart chart = new Chart();
-        Workspace workspace = workspaceRepository.getReferenceById(workspaceID);
         try {
             chart.setWorkspaceID(workspaceRepository.findById(workspaceID).get());
             chart.setName(chartName);
@@ -164,10 +162,10 @@ public class RequestController {
 
     }
 
-    // GET ALL WORKSPACES UNDER USER
+    // GET ALL CHARTS UNDER WORKSPACE
     @GetMapping(path = "/get/charts/workspaceid")
     public @ResponseBody Iterable<Chart> getAllChartsByWorkspaceID(int workspaceID) {
-        Workspace workspace = workspaceRepository.getReferenceById(workspaceID);
+        Workspace workspace = workspaceRepository.findById(workspaceID).get();
         return chartRepository.findByWorkspaceID(workspace);
     }
 
@@ -179,7 +177,6 @@ public class RequestController {
     public @ResponseBody String createItem(@RequestParam int chartID, @RequestParam String itemName, @RequestParam String description) {
         
         Item item = new Item();
-        Chart chart = chartRepository.getReferenceById(chartID);
         try {
             item.setChartID(chartRepository.findById(chartID).get());
             item.setName(itemName);
@@ -193,7 +190,12 @@ public class RequestController {
 
     }
 
-    
+    // GET ALL ITEMS UNDER CHART
+    @GetMapping(path = "/get/items/chartid")
+    public @ResponseBody Iterable<Chart> getAllItemsByChartID(int chartID) {
+        Chart chart = chartRepository.findById(chartID).get();
+        return itemRepository.findByChartID(chart);
+    }
 
 }
 
