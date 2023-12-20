@@ -60,6 +60,10 @@ public class Chart {
         this.ID = ID;
     }
 
+    public void setWorkspaceID(Workspace workspace) {
+        this.workspace_ID = workspace;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

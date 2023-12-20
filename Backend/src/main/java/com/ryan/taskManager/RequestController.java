@@ -138,25 +138,45 @@ public class RequestController {
     @Autowired
     private ChartRepository chartRepository;
 
-    @PostMapping(path = "/c/create") // w stands for workspace => when user is actually in workspace, URL will be "/w/{workspace id}"
-    public @ResponseBody String createChart(@RequestParam int workspaceID, @RequestParam String chartName, @RequestParam int position) {
+    @PostMapping(path = "/c/create") // c stands for chart => when user is actually in chart, URL will be "/c/{chart id}"
+    public @ResponseBody String createChart(@RequestParam int workspaceID, @RequestParam String chartName) {
         
-        Chart chart = new 
-
-        Workspace workspace = new Workspace();
-        User user = userRepository.getReferenceById(userID);
+        Chart chart = new Chart();
+        Workspace workspace = workspaceRepository.getReferenceById(workspaceID);
         try {
-            workspace.setUserID(userRepository.findById(userID).get());
-            workspace.setName(workspaceName);
-            workspace.setIsPublic(isPublic);
-            
-            workspaceRepository.save(workspace);
-            return "{\"status\": \"success\", \"message\": \"Workspace successfully created!\", \"id\": \"" + workspace.getID() + "\"}";
+            chart.setWorkspaceID(workspaceRepository.findById(workspaceID).get());
+            chart.setName(chartName);
+            chart.setPosition(chart.getID());
+            chartRepository.save(chart);
+            return "{\"status\": \"success\", \"message\": \"Chart successfully created!\", \"id\": \"" + chart.getID() + "\"}";
         } catch(Exception e) {
-            return "{\"status\": \"failure\", \"message\": \"Workspace could not be created.\", \"id\": \"" + workspace.getID() + "\"}";
+            return "{\"status\": \"failure\", \"message\": \"Chart could not be created.\", \"id\": \"" + chart.getID() + "\"}";
         }
 
     }
+
+    // CREATE ITEM
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @PostMapping(path = "/i/create")
+    public @ResponseBody String createItem(@RequestParam int chartID, @RequestParam String itemName, @RequestParam String description) {
+        
+        Item item = new Item();
+        Chart chart = chartRepository.getReferenceById(chartID);
+        try {
+            item.setChartID(chartRepository.findById(chartID).get());
+            item.setName(itemName);
+            item.setDescription(description);
+            item.setPosition(item.getID());
+            itemRepository.save(item);
+            return "{\"status\": \"success\", \"message\": \"Item successfully created!\", \"id\": \"" + item.getID() + "\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Item could not be created.\", \"id\": \"" + item.getID() + "\"}";
+        }
+
+    }
+
     
 
 }

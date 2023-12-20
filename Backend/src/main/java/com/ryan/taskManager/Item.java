@@ -67,6 +67,10 @@ public class Item {
         this.ID = ID;
     }
 
+    public void setChartID(Chart chart) {
+        this.chart_ID = chart;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
