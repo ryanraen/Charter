@@ -133,12 +133,12 @@ public class RequestController {
 
     }
 
-    // GET ALL WORKSPACES UNDER USER
-    @GetMapping(path = "/get/workspaces/userid")
-    public @ResponseBody Iterable<Workspace> getAllWorkspacesByUserID(int userID) {
-        User user = userRepository.findById(userID).get();
-        return workspaceRepository.findByUserID(user);
-    }
+    // // GET ALL WORKSPACES UNDER USER
+    // @GetMapping(path = "/get/workspaces/userid")
+    // public @ResponseBody Iterable<Workspace> getAllWorkspacesByUserID(int userID) {
+    //     User user = userRepository.findById(userID).get();
+    //     return workspaceRepository.findByUserID(user);
+    // }
 
 
 
@@ -162,12 +162,12 @@ public class RequestController {
 
     }
 
-    // GET ALL CHARTS UNDER WORKSPACE
-    @GetMapping(path = "/get/charts/workspaceid")
-    public @ResponseBody Iterable<Chart> getAllChartsByWorkspaceID(int workspaceID) {
-        Workspace workspace = workspaceRepository.findById(workspaceID).get();
-        return chartRepository.findByWorkspaceID(workspace);
-    }
+    // // GET ALL CHARTS UNDER WORKSPACE
+    // @GetMapping(path = "/get/charts/workspaceid")
+    // public @ResponseBody Iterable<Chart> getAllChartsByWorkspaceID(int workspaceID) {
+    //     Workspace workspace = workspaceRepository.findById(workspaceID).get();
+    //     return chartRepository.findByWorkspaceID(workspace);
+    // }
 
     // CREATE ITEM
     @Autowired
@@ -190,12 +190,12 @@ public class RequestController {
 
     }
 
-    // GET ALL ITEMS UNDER CHART
-    @GetMapping(path = "/get/items/chartid")
-    public @ResponseBody Iterable<Chart> getAllItemsByChartID(int chartID) {
-        Chart chart = chartRepository.findById(chartID).get();
-        return itemRepository.findByChartID(chart);
-    }
+    // // GET ALL ITEMS UNDER CHART
+    // @GetMapping(path = "/get/items/chartid")
+    // public @ResponseBody Iterable<Chart> getAllItemsByChartID(int chartID) {
+    //     Chart chart = chartRepository.findById(chartID).get();
+    //     return itemRepository.findByChartID(chart);
+    // }
 
 }
 
