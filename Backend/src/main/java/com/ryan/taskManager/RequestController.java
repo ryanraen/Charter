@@ -65,7 +65,7 @@ public class RequestController {
 
     // AUTHENTICATE (LOGIN)
     @GetMapping(path = "/signin/auth/validate")
-    public @ResponseBody String validate(@RequestParam String email, @RequestParam String password) {
+    public @ResponseBody String validateLogin(@RequestParam String email, @RequestParam String password) {
         try {
             if(userRepository.findByEmailAndPassword(email, password).isPresent()) {
                 return "{\"status\": \"true\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\"}";
