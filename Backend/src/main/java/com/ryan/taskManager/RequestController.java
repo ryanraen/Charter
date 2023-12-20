@@ -1,8 +1,14 @@
 package com.ryan.taskManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
+
+import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -63,7 +69,7 @@ public class RequestController {
         return userRepository.findByUsername(username);
     }
 
-    // AUTHENTICATE (LOGIN)
+    // AUTHENTICATE (LOGIN/LOGOUT)
     @GetMapping(path = "/signin/auth/validate")
     public @ResponseBody String validateLogin(@RequestParam String email, @RequestParam String password) {
         try {
@@ -88,13 +94,27 @@ public class RequestController {
         }
         Random random = new Random();
         String tok = "";
-        String[] characters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "-", ".", "~", "|", "<", ">", "=", "-", "_"};
+        String[] characters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+                               "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", 
+                               "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+                               "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", 
+                               "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "!", "@", "#", 
+                               "$", "%", "^", "&", "*", "(", ")", "+", "-", ".", "~", "|", "<", 
+                               ">", "=", "-", "_"};
         for(int i = 0; i < 255; i++) {
             tok += characters[random.nextInt(characters.length)];
         }
         user.setAccessToken(tok);
         userRepository.flush();
-        return "{\"token\": \"" + user.getAccessToken() + "\"}";
+        
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss zzz");  
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, 24);
+        date = calendar.getTime();
+        String tokenExpiryDate = dateFormat.format(date);
+        return "{\"token\": \"" + user.getAccessToken() + "\", \"expire\": \"" + tokenExpiryDate + "\"}";
     }
 
     @GetMapping(path = "/signin/auth/check/token")
@@ -110,6 +130,8 @@ public class RequestController {
 
         return user.getAccessToken().equals(accessToken);
     }
+
+    
 
     // CREATE WORKSPACE
     @Autowired

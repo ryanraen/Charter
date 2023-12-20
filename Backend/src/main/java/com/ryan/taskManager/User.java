@@ -34,6 +34,9 @@ public class User {
     @Column(nullable = true)
     private String accessToken;
 
+    @Column(nullable = true)
+    private Date tokenExpiryDate;
+
     // GETTERS
     public Integer getID() {
         return ID;
@@ -59,6 +62,10 @@ public class User {
         return accessToken;
     }
 
+    public Date getTokenExpirDate() {
+        return tokenExpiryDate;
+    }
+
     // SETTERS
     public void setID(Integer ID) {
         this.ID = ID;
@@ -82,6 +89,10 @@ public class User {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public void setTokenExpiryDate(Date tokenExpiryDate) {
+        this.tokenExpiryDate = tokenExpiryDate;
     }
 
 }
