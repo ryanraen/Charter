@@ -124,17 +124,28 @@ public class RequestController {
     }
 
     @GetMapping(path = "/signin/auth/check/token")
-    public @ResponseBody boolean checkToken(@RequestParam int ID, @RequestParam String accessToken) {
-        User user;
-        try {
-            user = userRepository.findById(ID).get();
-        } catch(NoSuchElementException e) {
-            System.out.println("No user described by such ID");
+    public @ResponseBody String checkToken(@RequestParam int userID, @RequestParam String accessToken, @RequestParam String expiryDateString) {
+
+        Date expiryDate = new Date();
+        Date currentDate = new Date();
+        try{
+        expiryDate = new SimpleDateFormat("yyyy-mm-ddThh:mm:ss").parse(expiryDateString);
+        } catch(Exception e) {
             e.printStackTrace();
-            return false;
+        }
+        if(expiryDate.compareTo(currentDate) <= 0) {
+            return "{\"valid\": \"false\", \"message\": \"Access token expired.\"}";
         }
 
-        return user.getAccessToken().equals(accessToken);
+        User user;
+        try {
+            user = userRepository.findById(userID).get();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
+            return "{\"valid\": \"false\", \"message\": \"No user described by such ID.\"}";
+        }
+
+        return "{\"valid\": \"" + user.getAccessToken().equals(accessToken) + "\", \"message\": \"Access token is valid.\"}";
     }
 
     
