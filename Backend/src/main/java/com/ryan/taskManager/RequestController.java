@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.*;
 
 import javax.swing.text.DateFormatter;
 
@@ -36,15 +37,20 @@ public class RequestController {
             @RequestParam String password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        User user = new User();
-        try {
-            user.setUsername(name);
-            user.setEmail(email);
-            user.setPassword(password);
-            userRepository.save(user);
-            return "{\"status\": \"success\", \"message\": \"User " + name + " saved!\"}";
-        } catch(DataIntegrityViolationException e) {
-            return "{\"status\": \"failure\", \"message\": \"User already exists!\"}";
+        if(!userRepository.findByEmail(email).isPresent()) {
+            User user = new User();
+            try {
+                user.setUsername(name);
+                user.setEmail(email);
+                user.setPassword(password);
+                userRepository.save(user);
+                return "{\"status\": \"success\", \"message\": \"User " + name + " saved!\", \"id\": \"" + user.getID() + "\"}";
+            } catch(DataIntegrityViolationException e) {
+                return "{\"status\": \"failure\", \"message\": \"Failed to create user.\", \"id\": \"" + user.getID() + "\"}"; // user is created but with no information => fix later
+            }
+        }
+        else {
+            return "{\"status\": \"failure\", \"message\": \"User with this email already exists!\", \"id\": \"null\"}";
         }
     }
 
@@ -118,17 +124,28 @@ public class RequestController {
     }
 
     @GetMapping(path = "/signin/auth/check/token")
-    public @ResponseBody boolean checkToken(@RequestParam int ID, @RequestParam String accessToken) {
-        User user;
-        try {
-            user = userRepository.findById(ID).get();
-        } catch(NoSuchElementException e) {
-            System.out.println("No user described by such ID");
+    public @ResponseBody String checkToken(@RequestParam int userID, @RequestParam String accessToken, @RequestParam String expiryDateString) {
+
+        Date expiryDate = new Date();
+        Date currentDate = new Date();
+        try{
+        expiryDate = new SimpleDateFormat("yyyy-mm-ddThh:mm:ss").parse(expiryDateString);
+        } catch(Exception e) {
             e.printStackTrace();
-            return false;
+        }
+        if(expiryDate.compareTo(currentDate) <= 0) {
+            return "{\"valid\": \"false\", \"message\": \"Access token expired.\"}";
         }
 
-        return user.getAccessToken().equals(accessToken);
+        User user;
+        try {
+            user = userRepository.findById(userID).get();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
+            return "{\"valid\": \"false\", \"message\": \"No user described by such ID.\"}";
+        }
+
+        return "{\"valid\": \"" + user.getAccessToken().equals(accessToken) + "\", \"message\": \"Access token is valid.\"}";
     }
 
     
