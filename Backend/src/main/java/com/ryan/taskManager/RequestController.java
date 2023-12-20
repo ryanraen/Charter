@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.*;
 
 import javax.swing.text.DateFormatter;
 
@@ -36,15 +37,20 @@ public class RequestController {
             @RequestParam String password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        User user = new User();
-        try {
-            user.setUsername(name);
-            user.setEmail(email);
-            user.setPassword(password);
-            userRepository.save(user);
-            return "{\"status\": \"success\", \"message\": \"User " + name + " saved!\", \"id\": \"" + user.getID() + "\"}";
-        } catch(DataIntegrityViolationException e) {
-            return "{\"status\": \"failure\", \"message\": \"User already exists!\", \"id\": \"" + user.getID() + "\"}";
+        if(!userRepository.findByEmail(email).isPresent()) {
+            User user = new User();
+            try {
+                user.setUsername(name);
+                user.setEmail(email);
+                user.setPassword(password);
+                userRepository.save(user);
+                return "{\"status\": \"success\", \"message\": \"User " + name + " saved!\", \"id\": \"" + user.getID() + "\"}";
+            } catch(DataIntegrityViolationException e) {
+                return "{\"status\": \"failure\", \"message\": \"Failed to create user.\", \"id\": \"" + user.getID() + "\"}"; // user is created but with no information => fix later
+            }
+        }
+        else {
+            return "{\"status\": \"failure\", \"message\": \"User with this email already exists!\", \"id\": \"null\"}";
         }
     }
 
