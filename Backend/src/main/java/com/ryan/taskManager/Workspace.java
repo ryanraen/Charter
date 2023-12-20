@@ -22,7 +22,7 @@ public class Workspace {
 
     @ManyToOne
     @JoinColumn(name = "user_ID", referencedColumnName = "ID", nullable = false)
-    private User user_ID;
+    private User userID;
 
     @Column(nullable = false)
     private String name;
@@ -40,7 +40,7 @@ public class Workspace {
     }
 
     public Integer getUserID() {
-        return user_ID.getID();
+        return userID.getID();
     }
 
     public String getName() {
@@ -61,7 +61,7 @@ public class Workspace {
     }
 
     public void setUserID(User user) {
-        this.user_ID = user;
+        this.userID = user;
     }
 
     public void setName(String name) {

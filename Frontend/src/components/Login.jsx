@@ -1,35 +1,28 @@
 import FormInput from "./FormInput";
+import { validateLogin, getLoginToken } from "../util/API";
 import { useState } from "react";
 import "./css/LoginRegister.css";
+import { setCookie } from "../util/CookieManager";
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
-  const [processing, setProcessing] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
-  function submitLogin(e) {
-    setProcessing(true);
+  async function submitLogin(e) {
+    setDisableSubmit(true);
     e.preventDefault();
-    const formData = new FormData(e.target);
-    // const formJson = Object.fromEntries(formData);
-    // console.log(formJson);
+    const formElements = Object.fromEntries(new FormData(e.target));
+    const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
 
-    function getLoginToken() {
-      if (checkValidLogin()) {
-        fetch()
-      }
+    if (validateLoginPromise.status == "true") {
+      const tokenPromise = getLoginToken(validateLoginPromise.id);
+      setCookie("token", tokenPromise.token, tokenPromise.expire);
+      setErrorMessage("");
+    } else {
+      setErrorMessage(validateLoginPromise);
     }
 
-    function checkValidLogin(email, password) {
-      return fetch(`http://142.93.148.156:80/signin/auth/validate?email=${email}&password=${password}`, {
-        method: "GET",
-      })
-        .then(function (response) {
-          return response.json(); // Returns promise
-        })
-        .then(function (data) {
-          return JSON.parse(data); // returns the result of the above promise
-        });
-    }
+    setDisableSubmit(false);
   }
 
   const inputs = [
@@ -58,11 +51,11 @@ export default function Login() {
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <div>
           <form id="loginForm" className="text-center" onSubmit={submitLogin}>
-            {inputs.map((input) => (
+            {inputs.map(input => (
               <FormInput key={input.id} {...input}></FormInput>
             ))}
             {errorMessage !== "" && <div className="text-danger mb-4">{errorMessage}</div>}
-            <button className="btn submit-btn" type="submit" disabled={processing ? true : false}>
+            <button className="btn submit-btn" type="submit" disabled={disableSubmit ? true : false}>
               Log in
             </button>
           </form>

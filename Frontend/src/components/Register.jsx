@@ -1,8 +1,20 @@
 import { useState } from "react";
 import "./css/LoginRegister.css";
+import { validateLogin, getLoginToken, createChart, registerAccount } from "../util/API";
 import FormInput from "./FormInput";
 
 export default function Register() {
+  async function submitNewUser(e) {
+    e.preventDefault();
+    setProcessing(true);
+    setErrorMessage("");
+
+    const formData = new FormData(e.target);
+    const accountResult = await registerAccount(formData);
+    console.log(accountResult);
+    setProcessing(false);
+  }
+
   const [errorMessage, setErrorMessage] = useState("");
   const [processing, setProcessing] = useState(false);
   const [values, setValues] = useState({
@@ -55,34 +67,6 @@ export default function Register() {
     },
   ];
 
-  function submitNewUser(e) {
-    e.preventDefault();
-    setProcessing(true);
-    setErrorMessage("");
-
-    const formData = new FormData(e.target);
-
-    fetch("http://142.93.148.156:80/signin/register", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        console.log(response);
-        // location.href = "u"
-      })
-      .catch((error) => {
-        //ERROR HANDLING
-        setProcessing(false);
-        console.log(error);
-
-        if (error.message == "Failed to fetch") {
-          setErrorMessage("Server error, please try again later");
-          return;
-        }
-        
-      });
-  }
-
   function onChange(e) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
@@ -91,7 +75,7 @@ export default function Register() {
     <div id="border-wrap">
       <div id="login-box" className="d-flex flex-column p-4 pt-5 pb-5">
         <form id="loginForm" className="text-center" onSubmit={submitNewUser}>
-          {inputs.map((input) => (
+          {inputs.map(input => (
             <FormInput key={input.id} {...input} value={values[input.name] || ""} onChange={onChange} />
           ))}
           {errorMessage !== "" && <div className="text-danger mb-4">{errorMessage}</div>}
