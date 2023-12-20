@@ -22,7 +22,7 @@ public class Chart {
 
     @ManyToOne
     @JoinColumn(name = "workspace_ID", referencedColumnName = "ID", nullable = false)
-    private Workspace workspace_ID;
+    private Workspace workspaceID;
 
     @Column(nullable = false)
     private String name;
@@ -40,7 +40,7 @@ public class Chart {
     }
 
     public Integer getWorkspaceID() {
-        return workspace_ID.getID();
+        return workspaceID.getID();
     }
 
     public String getName() {
@@ -61,7 +61,7 @@ public class Chart {
     }
 
     public void setWorkspaceID(Workspace workspace) {
-        this.workspace_ID = workspace;
+        this.workspaceID = workspace;
     }
 
     public void setName(String name) {

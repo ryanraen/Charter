@@ -22,7 +22,7 @@ public class Workspace {
 
     @ManyToOne
     @JoinColumn(name = "user_ID", referencedColumnName = "ID", nullable = false)
-    private User user_ID;
+    private User userID;
 
     @Column(nullable = false)
     private String name;

@@ -42,23 +42,23 @@ public class RequestController {
         }
     }
 
-    @GetMapping(path = "/get/all")
+    @GetMapping(path = "/get/users/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
 
-    @GetMapping(path = "/get/id")
+    @GetMapping(path = "/get/users/id")
     public @ResponseBody Optional<User> getUserById(@RequestParam int id) {
         return userRepository.findById(id);
     }
 
-    @GetMapping(path = "/get/email")
+    @GetMapping(path = "/get/users/email")
     public @ResponseBody Optional<User> getUserByEmail(@RequestParam String email) {
         return userRepository.findByEmail(email);
     }
 
-    @GetMapping(path = "/get/username")
+    @GetMapping(path = "/get/users/username")
     public @ResponseBody Optional<User> getUserByUsername(@RequestParam String username) {
         return userRepository.findByUsername(username);
     }
@@ -122,7 +122,7 @@ public class RequestController {
         Workspace workspace = new Workspace();
         User user = userRepository.getReferenceById(userID);
         try {
-            workspace.setUserID(userRepository.findById(userID).get());
+            workspace.setUserID(user);
             workspace.setName(workspaceName);
             workspace.setIsPublic(isPublic);
             
@@ -133,6 +133,15 @@ public class RequestController {
         }
 
     }
+
+    // GET ALL WORKSPACES UNDER USER
+    @GetMapping(path = "/get/workspaces/userid")
+    public @ResponseBody Iterable<Workspace> getAllWorkspacesByUserID(int UserID) {
+        User user = userRepository.getReferenceById(UserID);
+        return workspaceRepository.findByUserID(user);
+    }
+
+
 
     // CREATE CHART
     @Autowired
@@ -153,6 +162,13 @@ public class RequestController {
             return "{\"status\": \"failure\", \"message\": \"Chart could not be created.\", \"id\": \"" + chart.getID() + "\"}";
         }
 
+    }
+
+    // GET ALL WORKSPACES UNDER USER
+    @GetMapping(path = "/get/charts/workspaceid")
+    public @ResponseBody Iterable<Chart> getAllChartsByWorkspaceID(int workspaceID) {
+        Workspace workspace = workspaceRepository.getReferenceById(workspaceID);
+        return chartRepository.findByWorkspaceID(workspace);
     }
 
     // CREATE ITEM

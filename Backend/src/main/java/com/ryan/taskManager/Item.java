@@ -22,7 +22,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "chart_ID", referencedColumnName = "ID", nullable = false)
-    private Chart chart_ID;
+    private Chart chartID;
 
     @Column(nullable = false)
     private String name;
@@ -43,7 +43,7 @@ public class Item {
     }
 
     public Integer getChartID() {
-        return chart_ID.getID();
+        return chartID.getID();
     }
 
     public String getName() {
@@ -68,7 +68,7 @@ public class Item {
     }
 
     public void setChartID(Chart chart) {
-        this.chart_ID = chart;
+        this.chartID = chart;
     }
 
     public void setName(String name) {
