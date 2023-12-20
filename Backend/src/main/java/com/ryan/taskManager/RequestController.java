@@ -42,9 +42,9 @@ public class RequestController {
             user.setEmail(email);
             user.setPassword(password);
             userRepository.save(user);
-            return "{\"status\": \"success\", \"message\": \"User " + name + " saved!\"}";
+            return "{\"status\": \"success\", \"message\": \"User " + name + " saved!\", \"id\": \"" + user.getID() + "\"}";
         } catch(DataIntegrityViolationException e) {
-            return "{\"status\": \"failure\", \"message\": \"User already exists!\"}";
+            return "{\"status\": \"failure\", \"message\": \"User already exists!\", \"id\": \"" + user.getID() + "\"}";
         }
     }
 
