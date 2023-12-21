@@ -2,21 +2,28 @@ import { useState } from "react";
 import "./css/LoginRegister.css";
 import { validateLogin, getLoginToken, createChart, registerAccount } from "../util/API";
 import FormInput from "./FormInput";
+import { setCookie } from "../util/CookieManager";
 
 export default function Register() {
   async function submitNewUser(e) {
     e.preventDefault();
-    setProcessing(true);
+    setDisableSubmit(true);
     setErrorMessage("");
 
     const formData = new FormData(e.target);
     const accountResult = await registerAccount(formData);
-    console.log(accountResult);
-    setProcessing(false);
+
+    if (accountResult.status == "success") {
+      const tokenPromise = await getLoginToken(accountResult.id);
+      setCookie("token", tokenPromise.token, tokenPromise.expire);  
+    } else {
+      setErrorMessage("User already exists, please log in with that instead");
+    }
+    setDisableSubmit(false);
   }
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [processing, setProcessing] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
   const [values, setValues] = useState({
     name: "",
     password: "",
@@ -42,7 +49,7 @@ export default function Register() {
       type: "email",
       placeholder: "email",
       errorMessage: "Email is invalid",
-      pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
+      pattern: "^\\S+@\\S+\\.\\S+$",
       required: true,
     },
     {
@@ -79,7 +86,7 @@ export default function Register() {
             <FormInput key={input.id} {...input} value={values[input.name] || ""} onChange={onChange} />
           ))}
           {errorMessage !== "" && <div className="text-danger mb-4">{errorMessage}</div>}
-          <button type="submit" className={"btn submit-btn"} disabled={processing ? true : false}>
+          <button type="submit" className={"btn submit-btn"} disabled={disableSubmit ? true : false}>
             Register
           </button>
         </form>
