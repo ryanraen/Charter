@@ -1,5 +1,5 @@
 import FormInput from "./FormInput";
-import { validateLogin } from "../util/API";
+import { nullifyToken, validateLogin } from "../util/API";
 import { useState } from "react";
 import "./css/LoginRegister.css";
 import { getCookie, setCookie } from "../util/CookieManager";
@@ -12,15 +12,19 @@ export default function Login() {
   async function submitLogin(e) {
     setDisableSubmit(true);
     e.preventDefault();
-    const formElements = Object.fromEntries(new FormData(e.target));
-    const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
+    // const formElements = Object.fromEntries(new FormData(e.target));
+    // const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
+    // console.log(validateLoginPromise);
 
-    if (validateLoginPromise.status == "true") {
-      loginUser(validateLoginPromise);
-      setErrorMessage("");
-    } else {
-      setErrorMessage(getErrorMessage(validateLoginPromise));
-    }
+    // if (validateLoginPromise.status == "true") {
+    //   setCookie("username", validateLoginPromise.username);
+    //   await loginUser(validateLoginPromise);
+    //   location.href = "/u";
+    // } else {
+    //   setErrorMessage(getErrorMessage(validateLoginPromise));
+    // }
+
+    console.log(await nullifyToken(1));
 
     setDisableSubmit(false);
   }

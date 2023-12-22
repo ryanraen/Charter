@@ -18,10 +18,11 @@ export async function validateLogin(email, password) {
       return Promise.reject(response);
     })
     .then(data => {
-      return data; // Return data (user id) if all is good
-    }).catch(error =>{ 
-      return error.json();
+      return data; // Return data (userID and username) if all is good
     })
+    .catch(error => {
+      return error.json();
+    });
 }
 
 export async function getLoginToken(ID) {
@@ -33,7 +34,7 @@ export async function getLoginToken(ID) {
 }
 
 export async function createWorkspace(userID, workspaceName, isPublic) {
-  return fetch(`http://142.93.148.156:80/signin/w/create?userID=${userID}&workspaceName=${workspaceName}&isPublic=${isPublic}`, {
+  return fetch(`http://142.93.148.156:80/u/signin/w/create?userID=${userID}&workspaceName=${workspaceName}&isPublic=${isPublic}`, {
     method: "POST",
   }).then(response => {
     return response.json();
@@ -41,7 +42,7 @@ export async function createWorkspace(userID, workspaceName, isPublic) {
 }
 
 export async function createChart(workspaceID, chartName) {
-  return fetch(`http://142.93.148.156:80/signin/c/create?workspaceID=${workspaceID}&chartName=${chartName}`, {
+  return fetch(`http://142.93.148.156:80/u/signin/c/create?workspaceID=${workspaceID}&chartName=${chartName}`, {
     method: "POST",
   }).then(response => {
     return response.json();
@@ -49,7 +50,7 @@ export async function createChart(workspaceID, chartName) {
 }
 
 export async function createItem(chartID, itemName, description) {
-  return fetch(`http://142.93.148.156:80/signin/i/create?chartID=${chartID}&itemName=${itemName}&description=${description}`, {
+  return fetch(`http://142.93.148.156:80/u/signin/i/create?chartID=${chartID}&itemName=${itemName}&description=${description}`, {
     method: "POST",
   }).then(response => {
     return response.json();
@@ -58,16 +59,24 @@ export async function createItem(chartID, itemName, description) {
 
 export async function validateToken(userID, token, expiryDate) {
   return fetch(`http://142.93.148.156:80/u/signin/auth/check/token?userID=${userID}&accessToken=${token}&expiryDateString=${expiryDate}`, {
-    method: "GET"
+    method: "GET",
   }).then(response => {
     return response.json();
-  })
+  });
 }
 
 export async function validateCurrentToken() {
   return fetch(`http://142.93.148.156:80/u/signin/auth/check/token?userID=${getCookie("userID")}&accessToken=${getCookie("token")}&expiryDateString=${getCookie("tokenExpiry")}`, {
-    method: "GET"
+    method: "GET",
   }).then(response => {
     return response.json();
-  })
+  });
+}
+
+export async function nullifyToken(userID) {
+  return fetch(`http://142.93.148.156:80/u/signin/nullify/token?userID=${userID}`, {
+    method: "POST",
+  }).then(resonse => {
+    return resonse.json();
+  });
 }

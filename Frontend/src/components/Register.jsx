@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./css/LoginRegister.css";
-import { validateLogin, getLoginToken, createChart, registerAccount } from "../util/API";
+import { getLoginToken, registerAccount } from "../util/API";
 import FormInput from "./FormInput";
 import { setCookie } from "../util/CookieManager";
 
