@@ -19,13 +19,8 @@ export async function validateLogin(email, password) {
     })
     .then(data => {
       return data; // Return data (user id) if all is good
-    }).catch(error =>{
-      switch(error.status) {
-        case 500:
-          return "Username or password incorrect";
-        default:
-          return "Unexpected error";
-      }
+    }).catch(error =>{ 
+      return error.json();
     })
 }
 
@@ -62,6 +57,17 @@ export async function createItem(chartID, itemName, description) {
 }
 
 export async function validateToken(userID, token, expiryDate) {
-  return fetch(`http://142.93.148.156:80/signin/auth/check/token?userID=${userID}&token=${token}&expiryDate=${expiryDate}`, {
+  return fetch(`http://142.93.148.156:80/u/signin/auth/check/token?userID=${userID}&accessToken=${token}&expiryDateString=${expiryDate}`, {
+    method: "GET"
+  }).then(response => {
+    return response.json();
+  })
+}
+
+export async function validateCurrentToken() {
+  return fetch(`http://142.93.148.156:80/u/signin/auth/check/token?userID=${getCookie("userID")}&accessToken=${getCookie("token")}&expiryDateString=${getCookie("tokenExpiry")}`, {
+    method: "GET"
+  }).then(response => {
+    return response.json();
   })
 }

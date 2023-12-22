@@ -1,8 +1,9 @@
 import FormInput from "./FormInput";
-import { validateLogin, getLoginToken, validateToken } from "../util/API";
+import { validateLogin } from "../util/API";
 import { useState } from "react";
 import "./css/LoginRegister.css";
 import { getCookie, setCookie } from "../util/CookieManager";
+import { loginUser, getErrorMessage } from "../util/LoginUtil";
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
@@ -11,21 +12,15 @@ export default function Login() {
   async function submitLogin(e) {
     setDisableSubmit(true);
     e.preventDefault();
-    // const formElements = Object.fromEntries(new FormData(e.target));
-    // const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
+    const formElements = Object.fromEntries(new FormData(e.target));
+    const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
 
-    // if (validateLoginPromise.status == "true") {
-    //   const tokenPromise = await getLoginToken(validateLoginPromise.id);
-    //   console.log(tokenPromise);
-    //   setCookie("token", tokenPromise.token, tokenPromise.expire);
-    //   setCookie("userID", validateLoginPromise.id);
-    //   setCookie("tokenExpiry", tokenPromise.expire);
-    //   setErrorMessage("");
-    // } else {
-    //   setErrorMessage(validateLoginPromise);
-    // }
-
-    const tokenCheckPromise = await validateToken(getCookie("userID"), getCookie("token"), getCookie("tokenExpiry"));
+    if (validateLoginPromise.status == "true") {
+      loginUser(validateLoginPromise);
+      setErrorMessage("");
+    } else {
+      setErrorMessage(getErrorMessage(validateLoginPromise));
+    }
 
     setDisableSubmit(false);
   }
