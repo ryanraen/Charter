@@ -11,6 +11,7 @@ import java.util.concurrent.*;
 
 import javax.swing.text.DateFormatter;
 
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -80,12 +81,12 @@ public class RequestController {
     public @ResponseBody String validateLogin(@RequestParam String email, @RequestParam String password) {
         try {
             if(userRepository.findByEmailAndPassword(email, password).isPresent()) {
-                return "{\"status\": \"true\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\"}";
+                return "{\"status\": \"true\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\", \"username\": \"" + userRepository.findByEmailAndPassword(email, password).get().getUsername() + "\"}";
             }
         } catch(NoSuchElementException e) {
             e.printStackTrace();
         }
-        return "{\"status\": \"false\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\"}";
+        return "{\"status\": \"false\", \"id\": \"" + userRepository.findByEmailAndPassword(email, password).get().getID() + "\", \"username\": \"" + userRepository.findByEmailAndPassword(email, password).get().getUsername() + "\"}";
     }
 
     @GetMapping(path = "/signin/auth/get/token")
@@ -121,6 +122,26 @@ public class RequestController {
         date = calendar.getTime();
         String tokenExpiryDate = dateFormat.format(date);
         return "{\"token\": \"" + user.getAccessToken() + "\", \"expire\": \"" + tokenExpiryDate + "\"}";
+    }
+
+    @PostMapping(path = "/signin/nullify/token")
+    public @ResponseBody String nullifyToken(@RequestParam int userID) {
+        
+        Optional<User> userE = userRepository.findById(userID);
+        if(userE.isPresent()) {
+            User user = userE.get();
+            try {
+                user.setAccessToken(null);
+                userRepository.flush();
+                return "{\"status\": \"success\", \"message\": \"Access token nullified.\"}";
+            }
+            catch (Exception e) {
+                return "{\"status\": \"failure\", \"message\": \"User described by id exists; process encountered an error.\"}";
+            }
+        }
+        else {
+            return "{\"status\": \"failure\", \"message\": \"User described by this id does not exist.\"}";
+        }
     }
 
     @GetMapping(path = "/signin/auth/check/token")
@@ -168,8 +189,14 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Workspace could not be created.\", \"id\": \"" + workspace.getID() + "\"}";
         }
-
     }
+
+    // @PostMapping(path = "/assets/w/getByUserID")
+    // public @ResponseBody List getWorkspaceByUserID(@RequestParam int userID) {
+
+    //     return userRepository.findWorkspaceByUserId(userID);
+    // }
+    
 
     // // GET ALL WORKSPACES UNDER USER
     // @GetMapping(path = "/get/workspaces/userid")
@@ -236,5 +263,3 @@ public class RequestController {
     // }
 
 }
-
-
