@@ -62,12 +62,15 @@ function DropdownMenu() {
         label="Log out"
         leftIcon={logout}
         func={async () => {
-          deleteCookie("username");
-          deleteCookie("tokenExpiry");
-          deleteCookie("userID");
-          deleteCookie("token");
-          console.log(await nullifyToken(getCookie("userID")));
-          location.href = "/";
+          try {
+            deleteCookie("username");
+            deleteCookie("tokenExpiry");
+            deleteCookie("userID");
+            deleteCookie("token");
+            console.log(await nullifyToken(getCookie("userID")));
+          } finally {
+            location.href = "/";
+          }
         }}
       />
     </div>
