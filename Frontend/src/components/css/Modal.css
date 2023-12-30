@@ -1,0 +1,31 @@
+.modal-container {
+    transition: background-color 200ms;
+}
+
+.modal-bg {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.modal-content {
+    height: fit-content;
+    transform: translateY(32px);
+    border: solid var(--accent-200) 2px !important;
+    border-radius: 10px !important;
+    background-color: var(--bg-200) !important;
+    width: 25rem !important;
+}
+
+.modal-top-row {
+    height: 3rem;
+    border-radius: 10px !important;
+}
+
+.modal-header {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.create-btn {
+    background-color: var(--primary-100) !important;
+    margin-bottom: 1rem;
+}

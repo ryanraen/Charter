@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./css/LoginRegister.css";
 import { getLoginToken, registerAccount } from "../util/API";
-import FormInput from "./FormInput";
+import FormInput from "./inputs/FormInput";
 import { setCookie } from "../util/CookieManager";
 
 export default function Register() {

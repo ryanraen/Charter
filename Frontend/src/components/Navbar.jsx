@@ -67,7 +67,7 @@ function DropdownMenu() {
           deleteCookie("userID");
           deleteCookie("token");
           console.log(await nullifyToken(getCookie("userID")));
-          // location.href = "/";
+          location.href = "/";
         }}
       />
     </div>

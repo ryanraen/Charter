@@ -1,9 +1,9 @@
-import FormInput from "./FormInput";
-import { nullifyToken, validateLogin } from "../util/API";
+import FormInput from "./inputs/FormInput";
 import { useState } from "react";
 import "./css/LoginRegister.css";
-import { getCookie, setCookie } from "../util/CookieManager";
+import { setCookie } from "../util/CookieManager";
 import { loginUser, getErrorMessage } from "../util/LoginUtil";
+import { validateLogin } from "../util/API";
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,19 +12,17 @@ export default function Login() {
   async function submitLogin(e) {
     setDisableSubmit(true);
     e.preventDefault();
-    // const formElements = Object.fromEntries(new FormData(e.target));
-    // const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
-    // console.log(validateLoginPromise);
+    const formElements = Object.fromEntries(new FormData(e.target));
+    const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
+    console.log(validateLoginPromise);
 
-    // if (validateLoginPromise.status == "true") {
-    //   setCookie("username", validateLoginPromise.username);
-    //   await loginUser(validateLoginPromise);
-    //   location.href = "/u";
-    // } else {
-    //   setErrorMessage(getErrorMessage(validateLoginPromise));
-    // }
-
-    console.log(await nullifyToken(1));
+    if (validateLoginPromise.status == "true") {
+      setCookie("username", validateLoginPromise.username);
+      await loginUser(validateLoginPromise);
+      location.href = "/u";
+    } else {
+      setErrorMessage(getErrorMessage(validateLoginPromise));
+    }
 
     setDisableSubmit(false);
   }

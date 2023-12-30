@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./css/FormInput.css";
+import "../css/FormInput.css";
 
 export default function FormInput(props) {
   const {label, onChange, id, errorMessage, ...inputProps} = props;

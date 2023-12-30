@@ -15,12 +15,12 @@ export async function validateLogin(email, password) {
       if (response.ok) {
         return response.json(); // Returns promise
       }
-      return Promise.reject(response);
+      return Promise.reject(response); // Not ok then reject promise ---
     })
     .then(data => {
       return data; // Return data (userID and username) if all is good
     })
-    .catch(error => {
+    .catch(error => { // Catch rejected promise and send back error ---
       return error.json();
     });
 }
@@ -34,7 +34,7 @@ export async function getLoginToken(ID) {
 }
 
 export async function createWorkspace(userID, workspaceName, isPublic) {
-  return fetch(`http://142.93.148.156:80/u/signin/w/create?userID=${userID}&workspaceName=${workspaceName}&isPublic=${isPublic}`, {
+  return fetch(`http://142.93.148.156:80/u/assets/w/create?userID=${userID}&workspaceName=${workspaceName}&isPublic=${isPublic}`, {
     method: "POST",
   }).then(response => {
     return response.json();
