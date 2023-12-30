@@ -3,6 +3,7 @@ import "./css/LoginRegister.css";
 import { getLoginToken, registerAccount } from "../util/API";
 import FormInput from "./inputs/FormInput";
 import { setCookie } from "../util/CookieManager";
+import { loginAfterRegister } from "../util/LoginUtil";
 
 export default function Register() {
   async function submitNewUser(e) {
@@ -11,11 +12,12 @@ export default function Register() {
     setErrorMessage("");
 
     const formData = new FormData(e.target);
-    const accountResult = await registerAccount(formData);
+    const accountData = Object.fromEntries(formData);
+    const accountResult = await registerAccount(formData); // RETURNS 
 
     if (accountResult.status == "success") {
-      const tokenPromise = await getLoginToken(accountResult.id);
-      setCookie("token", tokenPromise.token, tokenPromise.expire);  
+      await loginAfterRegister(accountData.email, accountData.password);
+      location.href = "/u";
     } else {
       setErrorMessage("User already exists, please log in with that instead");
     }

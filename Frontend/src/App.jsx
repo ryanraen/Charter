@@ -5,22 +5,21 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import "./components/css/App.css";
 import UserHome from "./components/UserHome";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Settings from "./components/Settings";
+import Workspace from "./components/Workspace";
 
 export default function App() {
-
-  
   return (
     <>
       <Navbar />
       <div className="container-bg">
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/u" element={<UserHome />}></Route>
-          <Route path="/u/settings"></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/u" element={<UserHome />} />
+          <Route path="/u/w" element={<Workspace />} />
         </Routes>
       </div>
     </>

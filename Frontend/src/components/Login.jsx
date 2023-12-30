@@ -17,7 +17,6 @@ export default function Login() {
     console.log(validateLoginPromise);
 
     if (validateLoginPromise.status == "true") {
-      setCookie("username", validateLoginPromise.username);
       await loginUser(validateLoginPromise);
       location.href = "/u";
     } else {

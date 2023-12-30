@@ -57,7 +57,7 @@ function DropdownMenu() {
 
   return (
     <div className="drop-down position-absolute d-flex flex-column p-3 rounded-3 z-3">
-      <DropdownButton label="Settings" leftIcon={gear} func={() => (location.href = "/settings")} />
+      <DropdownButton label="Settings" leftIcon={gear} func={() => (location.href = "/u/settings")} />
       <DropdownButton
         label="Log out"
         leftIcon={logout}

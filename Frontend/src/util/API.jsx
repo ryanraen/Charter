@@ -15,13 +15,13 @@ export async function validateLogin(email, password) {
       if (response.ok) {
         return response.json(); // Returns promise
       }
-      return Promise.reject(response); // Not ok then reject promise ---
+      return Promise.reject(response); // Not ok then reject promise --
     })
     .then(data => {
       return data; // Return data (userID and username) if all is good
     })
-    .catch(error => { // Catch rejected promise and send back error ---
-      return error.json();
+    .catch(error => {
+      return error.json(); // Catch rejected promise and send back error --
     });
 }
 

@@ -1,4 +1,3 @@
-//W3SCHOOLS.COM
 export function setCookie(cookieName, cookieValue, expiryDate) {
   document.cookie = `${cookieName}=${cookieValue}; expires="${expiryDate}; path=/`;
 }
