@@ -76,7 +76,7 @@ export default function UserHome() {
     },
   ];
 
-  const workspaces = [
+  const workspaces = [ // temporary
     {
       id: 1,
       name: "workspace1",
