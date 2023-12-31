@@ -8,10 +8,10 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.*;
+import java.util.List;
 
 import javax.swing.text.DateFormatter;
 
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller // This means that this class is a Controller
@@ -198,25 +199,40 @@ public class RequestController {
     // }
     
 
-    // // GET ALL WORKSPACES UNDER USER
-    // @GetMapping(path = "/get/workspaces/userid")
-    // public @ResponseBody Iterable<Workspace> getAllWorkspacesByUserID(int userID) {
-    //     User user = userRepository.findById(userID).get();
-    //     return workspaceRepository.findByUserID(user);
-    // }
-
-    // REDIRECT USER TO A SPECIFIC WORKSPACE PAGE
-    @GetMapping(path = "/w")
-    public @ResponseBody String redirectToWorkspace(@RequestParam int userID, @RequestParam int workspaceID) {
-        if(workspaceRepository.findById(workspaceID).get().getUserID() == userID) {
-            return "redirect:http://142.93.148.156:80/u/w/" + workspaceID;
-        }
-        return "{\"status\": \"failure\"}";
+    // GET ALL WORKSPACES UNDER USER
+    @GetMapping(path = "/get/workspaces/userid")
+    public @ResponseBody List<Workspace> getAllWorkspacesByUserID(int userID) {
+        User user = userRepository.findById(userID).get();
+        return user.getWorkspaces();
     }
 
-    @GetMapping("/w/{workspaceID}") 
-    public @ResponseBody String toWorkspace(@PathVariable int workspaceID) {
-        return "{\"status\": success}";
+    // AUTHENTICATE USER AND WORKSPACE BEFORE REDIRECTING USER TO A SPECIFIC WORKSPACE PAGE
+    @GetMapping("/w/auth/{userID}/{workspaceID}")
+    public @ResponseBody String redirectToWorkspace(@PathVariable int userID, @PathVariable int workspaceID) {
+        User user;
+        Workspace workspace;
+
+        try {
+            user = userRepository.findById(userID).get();
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"User described by such ID does not exist.\"}";
+        }
+
+        try {
+            workspace = workspaceRepository.findById(workspaceID).get();
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Workspace described by such ID does not exist.\"}";
+        }
+        if(workspace.getUserID() == userID) {
+            return "redirect:http://142.93.148.156:80/u/w/" + workspaceID;
+        }
+        return "{\"status\": \"failure\", \"message\": \"Workspace does not belong to this user.\"}";
+    }
+
+    // REDIRECT USER TO SPECIFIC WORKSPACE PAGE
+    @GetMapping("/w/{workspaceID}")
+    public @ResponseBody List<Chart> redirectToWorkspace(@PathVariable int workspaceID) {
+        return workspaceRepository.findById(workspaceID).get().getCharts();
     }
 
     // CREATE CHART
@@ -239,12 +255,12 @@ public class RequestController {
 
     }
 
-    // // GET ALL CHARTS UNDER WORKSPACE
-    // @GetMapping(path = "/get/charts/workspaceid")
-    // public @ResponseBody Iterable<Chart> getAllChartsByWorkspaceID(int workspaceID) {
-    //     Workspace workspace = workspaceRepository.findById(workspaceID).get();
-    //     return chartRepository.findByWorkspaceID(workspace);
-    // }
+    // GET ALL CHARTS UNDER WORKSPACE
+    @GetMapping(path = "/get/charts/workspaceid")
+    public @ResponseBody List<Chart> getAllChartsByWorkspaceID(int workspaceID) {
+        Workspace workspace = workspaceRepository.findById(workspaceID).get();
+        return workspace.getCharts();
+    }
 
     // CREATE ITEM
     @Autowired
@@ -267,11 +283,11 @@ public class RequestController {
 
     }
 
-    // // GET ALL ITEMS UNDER CHART
-    // @GetMapping(path = "/get/items/chartid")
-    // public @ResponseBody Iterable<Chart> getAllItemsByChartID(int chartID) {
-    //     Chart chart = chartRepository.findById(chartID).get();
-    //     return itemRepository.findByChartID(chart);
-    // }
+    // GET ALL ITEMS UNDER CHART
+    @GetMapping(path = "/get/items/chartid")
+    public @ResponseBody List<Item> getAllItemsByChartID(int chartID) {
+        Chart chart = chartRepository.findById(chartID).get();
+        return chart.getItems();
+    }
 
 }

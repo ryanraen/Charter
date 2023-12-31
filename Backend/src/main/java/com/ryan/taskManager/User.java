@@ -1,6 +1,7 @@
 package com.ryan.taskManager;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
 @Entity // This tells hibernate to create a table from this class (object-relational mapping)
 public class User {
@@ -37,6 +40,10 @@ public class User {
     @Column(nullable = true)
     private Date tokenExpiryDate;
 
+    @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL)
+    private List<Workspace> workspaces;
+
+
     // GETTERS
     public Integer getID() {
         return ID;
@@ -64,6 +71,10 @@ public class User {
 
     public Date getTokenExpirDate() {
         return tokenExpiryDate;
+    }
+
+    public List<Workspace> getWorkspaces() {
+        return workspaces;
     }
 
     // SETTERS
