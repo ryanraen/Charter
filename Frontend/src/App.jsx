@@ -14,7 +14,7 @@ export default function App() {
       <Navbar />
       <div className="container-bg">
         <Routes>
-          <StaticRouter path="/" Component={Home} />
+          <Route path="/" Component={Home} />
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
           <Route path="/u" Component={UserHome} />
