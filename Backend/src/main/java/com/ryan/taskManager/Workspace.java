@@ -1,6 +1,7 @@
 package com.ryan.taskManager;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
 @Entity
 public class Workspace {
@@ -34,6 +37,9 @@ public class Workspace {
     @Column(name="is_public", nullable = false)
     private boolean isPublic;
 
+    @OneToMany(mappedBy = "workspaceID", cascade = CascadeType.ALL)
+    private List<Chart> charts;
+
     // GETTERS
     public Integer getID() {
         return ID;
@@ -53,6 +59,10 @@ public class Workspace {
 
     public boolean getIsPublic() {
         return isPublic;
+    }
+
+    public List<Chart> getCharts() {
+        return charts;
     }
 
     // SETTERS

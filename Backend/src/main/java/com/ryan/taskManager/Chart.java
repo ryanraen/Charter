@@ -1,6 +1,7 @@
 package com.ryan.taskManager;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
 @Entity
 public class Chart {
@@ -34,6 +37,9 @@ public class Chart {
     @CreationTimestamp
     private Date createdDate;
 
+    @OneToMany(mappedBy = "chartID", cascade = CascadeType.ALL)
+    private List<Item> items;
+
     // GETTERS
     public Integer getID() {
         return ID;
@@ -53,6 +59,10 @@ public class Chart {
 
     public Date getCreatedDate() {
         return createdDate;
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
     
     // SETTERS
