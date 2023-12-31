@@ -205,7 +205,19 @@ public class RequestController {
     //     return workspaceRepository.findByUserID(user);
     // }
 
+    // REDIRECT USER TO A SPECIFIC WORKSPACE PAGE
+    @GetMapping(path = "/w")
+    public @ResponseBody String redirectToWorkspace(@RequestParam int userID, @RequestParam int workspaceID) {
+        if(workspaceRepository.findById(workspaceID).get().getUserID() == userID) {
+            return "redirect:http://142.93.148.156:80/u/w/" + workspaceID;
+        }
+        return "{\"status\": \"failure\"}";
+    }
 
+    @GetMapping("/w/{workspaceID}") 
+    public @ResponseBody String toWorkspace(@PathVariable int workspaceID) {
+        return "{\"status\": success}";
+    }
 
     // CREATE CHART
     @Autowired
