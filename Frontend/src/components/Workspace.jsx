@@ -1,5 +1,8 @@
+import { useParams } from "react-router-dom"
 
 
 export default function Workspace() {
-  return <div>a</div>
+  const URL = useParams();
+  console.log(URL);
+  return <div>{URL.id}</div>
 }

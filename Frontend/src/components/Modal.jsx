@@ -5,7 +5,6 @@ import RadioInput from "./inputs/RadioInput";
 import { useState } from "react";
 
 export default function Modal(props) {
-  const[disableSubmit, setDisableSubmit] = useState(false);
 
   const handleSubmit = props.onSubmit;
   
@@ -27,7 +26,7 @@ export default function Modal(props) {
               ))}
             </div>
 
-            <button className="btn create-btn" type="submit" disabled={disableSubmit ? true : false}>
+            <button className="btn create-btn" type="submit" disabled={props.disableSubmit ? true : false}>
               {props.submitLabel}
             </button>
           </form>

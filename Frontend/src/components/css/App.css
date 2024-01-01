@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Gabarito&family=Lato:wght@300&family=Work+Sans:wght@500&display=swap');
 
 :root {
+    --primary-50:#dfd8cf;
     --primary-100:#C7B299;
     --primary-150:#988670;
     --primary-200:#a9957d;

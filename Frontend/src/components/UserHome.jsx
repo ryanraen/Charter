@@ -4,24 +4,23 @@ import workspaceIcon from "../assets/workspace.svg";
 import plus from "../assets/plus.svg";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
-import { createWorkspace } from "../util/API";
+import { getAllUserWorkspaces, getWorkspacesDisplay } from "../util/API";
 
 /* 
 TODO
 
-- Add fetching all workspaces once backend has it
-- Figure out how to actually go to these workspaces in URL
 - Consider new spot for 'New workspace'
 
 */
 
 export default function UserHome() {
   if (getCookie("userID") == null) {
-    // TEMP
-    location.href = "/";
+    return <></>;
   }
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [disableModalSubmit, setDisableModalSubmit] = useState(false);
+  const [workspaces, setWorkspaces] = useState([]);
 
   const keyPressEvent = e => {
     if (e.key === "Escape") {
@@ -31,10 +30,15 @@ export default function UserHome() {
 
   async function submitWorkspace(e) {
     e.preventDefault();
-    const formElements = Object.fromEntries(new FormData(e.target));
+    setDisableModalSubmit(true);
+    console.log(await getWorkspaceIsPublic(1));
+    setDisableModalSubmit(false);
+    // const formElements = Object.fromEntries(new FormData(e.target));
 
-    const workspaceCreationPromise = await createWorkspace(getCookie("userID"), formElements.name, formElements.isPublic);
-    setModalOpen(false); // Temp -- Should take you to workspace page
+    // const workspaceCreationPromise = await createWorkspace(getCookie("userID"), formElements.name, formElements.isPublic);
+    // if (workspaceCreationPromise.status == "success") {
+    //   location.href = `/u/w/${workspaceCreationPromise.id}`;
+    // }
   }
 
   useEffect(() => {
@@ -42,10 +46,19 @@ export default function UserHome() {
       document.addEventListener("keydown", keyPressEvent);
     }
 
+    async function updateWorkspaces() {
+      console.log("getting");
+      const workspacesString = await getWorkspacesDisplay(getCookie("userID"));
+      // const workspacesJSON = STUFF
+      setWorkspaces(workspacesJSON);
+    }
+
+    updateWorkspaces();
+
     return () => {
       document.removeEventListener("keydown", keyPressEvent);
     };
-  });
+  }, []);
 
   const workspaceTextInputs = [
     {
@@ -76,24 +89,6 @@ export default function UserHome() {
     },
   ];
 
-  const workspaces = [ // temporary
-    {
-      id: 1,
-      name: "workspace1",
-      isPublic: "false",
-    },
-    {
-      id: 6,
-      name: "workspace2",
-      isPublic: "true",
-    },
-    {
-      id: 5,
-      name: "workspace3",
-      isPublic: "false",
-    },
-  ];
-
   return (
     <>
       <div className="container d-flex">
@@ -106,16 +101,18 @@ export default function UserHome() {
               <h3>New workspace</h3>
               <img src={plus} alt="" height={25} />
             </Workspace>
+
             {workspaces.map(workspace => (
-              <Workspace key={workspace.id} onClick={() => location.href = `/u/w/${workspace.id}`}>
-                <h3>{workspace.name}</h3>
-                <h6>{workspace.isPublic === "true" ? "Public" : "Private"}</h6>
+              <Workspace key={JSON.parse(workspace).id} onClick={() => (location.href = `/u/w/${JSON.parse(workspace)}`)}>
+                <h3>{JSON.parse(workspace).name}</h3>
+                <h6>{JSON.parse(workspace).isPublic === "true" ? "Public" : "Private"}</h6>
               </Workspace>
             ))}
           </div>
         </div>
       </div>
       <Modal
+        disableSubmit={disableModalSubmit}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         inputs={workspaceTextInputs}
