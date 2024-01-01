@@ -237,11 +237,12 @@ public class RequestController {
     public @ResponseBody List<String> getAllWorkspaceDisplayedInformationByUserID(int userID) {
         List<String> displayInfo = new ArrayList<String>();
         for (int i:getAllWorkspaceIDsByUserID(userID)) {
+            Workspace workspace = workspaceRepository.findById(i).get();
             displayInfo.add(
                 "{\"id\": \"" + i + "\", " +
-                 "\"name\": \"" + getWorkspaceNameByID(i) + "\", " +
-                 "\"createdDate\": \"" + getWorkspaceCreatedDateByID(i) + "\", " +
-                 "\"isPublic\": \"" + getWorkspaceIsPublicByID(i) + "\"}"
+                 "\"name\": \"" + workspace.getName() + "\", " +
+                 "\"createdDate\": \"" + workspace.getCreatedDate() + "\", " +
+                 "\"isPublic\": \"" + workspace.getIsPublic() + "\"}"
                  );
         }
         return displayInfo;
