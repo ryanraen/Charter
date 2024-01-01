@@ -14,12 +14,12 @@ export default function App() {
       <Navbar />
       <div className="container-bg">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/u" element={<UserHome />} />
-          <Route path="/u/w" element={<Workspace />} />
+          <Route path="/" Component={Home} />
+          <Route path="/login" Component={Login} />
+          <Route path="/register" Component={Register} />
+          <Route path="/u" Component={UserHome} />
+          <Route path="/u/settings" Component={Settings} />
+          <Route path="/u/w" Component={Workspace} />
         </Routes>
       </div>
     </>
