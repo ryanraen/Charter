@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.*;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.text.DateFormatter;
 
@@ -192,19 +193,62 @@ public class RequestController {
         }
     }
 
-    // @PostMapping(path = "/assets/w/getByUserID")
-    // public @ResponseBody List getWorkspaceByUserID(@RequestParam int userID) {
-
-    //     return userRepository.findWorkspaceByUserId(userID);
-    // }
     
 
-    // GET ALL WORKSPACES UNDER USER
-    @GetMapping(path = "/get/workspaces/userid")
+    // GET ALL WORKSPACE ENTITIES UNDER A USER
+    @GetMapping(path = "/get/workspaces/all/userid")
     public @ResponseBody List<Workspace> getAllWorkspacesByUserID(int userID) {
         User user = userRepository.findById(userID).get();
         return user.getWorkspaces();
     }
+
+    // GET ALL WORKSPACE IDS UNDER USER
+    @GetMapping(path = "/get/workspaces/id/userid")
+    public @ResponseBody List<Integer> getAllWorkspaceIDsByUserID(int userID) {
+        User user = userRepository.findById(userID).get();
+        List<Workspace> workspaces = user.getWorkspaces();
+        List<Integer> workspaceIDs = new ArrayList<Integer>();
+        for(int i = 0; i < workspaces.size(); i++) {
+            workspaceIDs.add(workspaces.get(i).getID());
+        }
+        return workspaceIDs;
+    }
+
+    // GET NAME OF A WORKSPACE
+    @GetMapping(path = "/get/workspaces/name/workspaceid")
+    public @ResponseBody String getWorkspaceNameByID(int workspaceID) {
+        return "{\"name\": \"" + workspaceRepository.findById(workspaceID).get().getName() + "\"}";
+    }
+
+    // GET CREATION DATE OF A WORKSPACE
+    @GetMapping(path = "/get/workspaces/createddate/workspaceid")
+    public @ResponseBody String getWorkspaceCreatedDateByID(int workspaceID) {
+        return "{\"createdDate\": \"" + workspaceRepository.findById(workspaceID).get().getCreatedDate() + "\"}";
+    }
+
+    // GET WHETHER WORKSPACE IS PUBLIC (BOOLEAN)
+    @GetMapping(path = "/get/workspaces/ispublic/workspaceid")
+    public @ResponseBody String getWorkspaceIsPublicByID(int workspaceID) {
+        return "{\"isPublic\": \"" + workspaceRepository.findById(workspaceID).get().getIsPublic() + "\"}";
+    }
+
+    // GET ID, NAME, CREATION DATE, AND PUBLICITY OF ALL WORKSPACES UNDER A USER (ALL THAT IS NEEDED TO RENDER FRONTEND)
+    @GetMapping(path = "/get/workspaces/display/userid")
+    public @ResponseBody List<String> getAllWorkspaceDisplayedInformationByUserID(int userID) {
+        List<String> displayInfo = new ArrayList<String>();
+        for (int i:getAllWorkspaceIDsByUserID(userID)) {
+            displayInfo.add(
+                "{\"id\": \"" + i + "\", " +
+                 "\"name\": \"" + getWorkspaceNameByID(i) + "\", " +
+                 "\"createdDate\": \"" + getWorkspaceCreatedDateByID(i) + "\", " +
+                 "\"isPublic\": \"" + getWorkspaceIsPublicByID(i) + "\"}"
+                 );
+        }
+        return displayInfo;
+    }
+
+
+    
 
     // AUTHENTICATE USER AND WORKSPACE BEFORE REDIRECTING USER TO A SPECIFIC WORKSPACE PAGE
     @GetMapping("/w/auth/{userID}/{workspaceID}")
@@ -255,7 +299,7 @@ public class RequestController {
 
     }
 
-    // GET ALL CHARTS UNDER WORKSPACE
+    // GET ALL CHART ENTITIES UNDER WORKSPACE
     @GetMapping(path = "/get/charts/workspaceid")
     public @ResponseBody List<Chart> getAllChartsByWorkspaceID(int workspaceID) {
         Workspace workspace = workspaceRepository.findById(workspaceID).get();
@@ -283,7 +327,7 @@ public class RequestController {
 
     }
 
-    // GET ALL ITEMS UNDER CHART
+    // GET ALL ITEM ENTITIES UNDER CHART
     @GetMapping(path = "/get/items/chartid")
     public @ResponseBody List<Item> getAllItemsByChartID(int chartID) {
         Chart chart = chartRepository.findById(chartID).get();
