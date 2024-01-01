@@ -1,44 +1,56 @@
 #side-bar {
-    height: 70vh;
-    width: 20%;
-    padding-right: 12px;
+  height: 70vh;
+  width: 20%;
+  padding-right: 12px;
 }
 
 .side-bar-btn {
-    background-color: var(--bg-200) !important;
-    border-radius: 5px;
-
+  background-color: var(--bg-200) !important;
+  border-radius: 5px;
 }
 
 .side-button-icon {
-    color: wheat;
+  color: wheat;
 }
 
 #workspace {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    transform: translateY(-2%);
-    width: 80%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 80%;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .workspace-box {
-    justify-self: center;
-    height: 85%;
-    width: 85%;
-    transition: background-Color 250ms;
-    border: var(--accent-200) 2px solid;
-    border-radius: 4px;
-    background-color: var(--bg-200);
+  justify-self: center;
+  height: 8.5rem;
+  width: 15rem;
+  transition: background-Color 250ms;
+  border: var(--accent-200) 2px solid;
+  border-radius: 4px;
+  background-color: var(--bg-200);
+  margin-bottom: 25px;
+  margin-right: 25px;
 }
 
 .workspace-box:hover {
-    background-color: var(--bg-300);
+  background-color: var(--bg-300);
 }
 
 .btn-active {
-    filter: brightness(0.95);
+  filter: brightness(0.95);
 }
 
 .icon-bg-dark {
-    background-color: var(--accent-200);
+  background-color: var(--accent-200);
 }

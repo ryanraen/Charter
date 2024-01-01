@@ -4,23 +4,16 @@ import workspaceIcon from "../assets/workspace.svg";
 import plus from "../assets/plus.svg";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
-import { getAllUserWorkspaces, getWorkspacesDisplay } from "../util/API";
-
-/* 
-TODO
-
-- Consider new spot for 'New workspace'
-
-*/
+import { createWorkspace, getWorkspacesDisplay } from "../util/API";
 
 export default function UserHome() {
   if (getCookie("userID") == null) {
-    return <></>;
+    return;
   }
 
   const [modalOpen, setModalOpen] = useState(false);
   const [disableModalSubmit, setDisableModalSubmit] = useState(false);
-  const [workspaces, setWorkspaces] = useState([]);
+  const [workspaces, setWorkspaces] = useState([{ name: "Loading...", id: "-2", isPublic: "Please wait" }]);
 
   const keyPressEvent = e => {
     if (e.key === "Escape") {
@@ -31,26 +24,24 @@ export default function UserHome() {
   async function submitWorkspace(e) {
     e.preventDefault();
     setDisableModalSubmit(true);
-    console.log(await getWorkspaceIsPublic(1));
-    setDisableModalSubmit(false);
-    // const formElements = Object.fromEntries(new FormData(e.target));
 
-    // const workspaceCreationPromise = await createWorkspace(getCookie("userID"), formElements.name, formElements.isPublic);
-    // if (workspaceCreationPromise.status == "success") {
-    //   location.href = `/u/w/${workspaceCreationPromise.id}`;
-    // }
+    const formElements = Object.fromEntries(new FormData(e.target));
+
+    const workspaceCreationJ = await createWorkspace(getCookie("userID"), formElements.name, formElements.isPublic);
+    if (workspaceCreationJ.status == "success") {
+      location.href = `/u/w/${workspaceCreationJ.id}`;
+    }
+  }
+
+  async function updateWorkspaces() {
+    const workspacesString = await getWorkspacesDisplay(getCookie("userID"));
+    const workspacesJSON = workspacesString.map(string => JSON.parse(string));
+    setWorkspaces(workspacesJSON);
   }
 
   useEffect(() => {
     if (modalOpen) {
       document.addEventListener("keydown", keyPressEvent);
-    }
-
-    async function updateWorkspaces() {
-      console.log("getting");
-      const workspacesString = await getWorkspacesDisplay(getCookie("userID"));
-      // const workspacesJSON = STUFF
-      setWorkspaces(workspacesJSON);
     }
 
     updateWorkspaces();
@@ -95,17 +86,16 @@ export default function UserHome() {
         <div id="side-bar" className="d-flex flex-column mt-5">
           <SideBarButton label="Workspaces" icon={workspaceIcon}></SideBarButton>
         </div>
-        <div className="mt-5 w-100">
+        <div className="mt-5 w-100 container">
           <div className="d-grid align-items-center h-100 w-100" id="workspace">
-            <Workspace onClick={() => setModalOpen(true)}>
+            <Workspace id={-1} onClick={() => setModalOpen(true)}>
               <h3>New workspace</h3>
               <img src={plus} alt="" height={25} />
             </Workspace>
-
             {workspaces.map(workspace => (
-              <Workspace key={JSON.parse(workspace).id} onClick={() => (location.href = `/u/w/${JSON.parse(workspace)}`)}>
-                <h3>{JSON.parse(workspace).name}</h3>
-                <h6>{JSON.parse(workspace).isPublic === "true" ? "Public" : "Private"}</h6>
+              <Workspace key={workspace.id} onClick={workspace.id != null ? () => (location.href = `/u/w/${workspace.id}`) : null}>
+                <h3>{workspace.name}</h3>
+                <h6>{workspace.isPublic === "true" ? "Public" : workspace.isPublic === "false" ? "Private" : workspace.isPublic}</h6>
               </Workspace>
             ))}
           </div>
