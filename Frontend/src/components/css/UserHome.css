@@ -1,6 +1,6 @@
 #side-bar {
   height: 70vh;
-  width: 20%;
+  width: 30%;
   padding-right: 12px;
 }
 
@@ -16,7 +16,7 @@
 #workspace {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  width: 80%;
+  width: 70%;
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
@@ -39,8 +39,8 @@
   border: var(--accent-200) 2px solid;
   border-radius: 4px;
   background-color: var(--bg-200);
-  margin-bottom: 25px;
-  margin-right: 25px;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
 }
 
 .workspace-box:hover {

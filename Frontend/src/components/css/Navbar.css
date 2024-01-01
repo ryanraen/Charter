@@ -9,9 +9,8 @@ nav {
   background-color: var(--primary-150);
 } */
 
-.navitem {
-  align-items: center;
-  border-radius: 7px;
+.nav-item:hover .navitem-icon{
+  scale: 1.4 !important; 
 }
 
 .drop-down {
@@ -44,9 +43,9 @@ ul.position-absolute {
   padding: 0;
 }
 
-.rotate-transition {
+.navitem-icon {
   rotate: 180deg;
-  transition: rotate 250ms ease-in-out;
+  transition: rotate 200ms, ease-in-out scale 100ms;
 }
 
 .rotate-icon {

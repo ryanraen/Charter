@@ -13,6 +13,7 @@ export default function UserHome() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [disableModalSubmit, setDisableModalSubmit] = useState(false);
+  const [modalErrorMessage, setModalErrorMessage] = useState("");
   const [workspaces, setWorkspaces] = useState([{ name: "Loading...", id: "-2", isPublic: "Please wait" }]);
 
   const keyPressEvent = e => {
@@ -26,17 +27,27 @@ export default function UserHome() {
     setDisableModalSubmit(true);
 
     const formElements = Object.fromEntries(new FormData(e.target));
-
-    const workspaceCreationJ = await createWorkspace(getCookie("userID"), formElements.name, formElements.isPublic);
-    if (workspaceCreationJ.status == "success") {
-      location.href = `/u/w/${workspaceCreationJ.id}`;
+    try {
+      const workspaceCreationJ = await createWorkspace(getCookie("userID"), formElements.name, formElements.isPublic);
+      if (workspaceCreationJ.status == "success") {
+        location.href = `/u/w/${workspaceCreationJ.id}`;
+      }
+    } catch(error) {
+      setModalErrorMessage("Server error, please try again later");
+      setDisableModalSubmit(false);
     }
+
   }
 
   async function updateWorkspaces() {
-    const workspacesString = await getWorkspacesDisplay(getCookie("userID"));
-    const workspacesJSON = workspacesString.map(string => JSON.parse(string));
-    setWorkspaces(workspacesJSON);
+    try {
+      const workspacesString = await getWorkspacesDisplay(getCookie("userID"));
+      const workspacesJSON = workspacesString.map(string => JSON.parse(string));
+      setWorkspaces(workspacesJSON);
+    } catch (error) {
+      setWorkspaces([{ name: "Server error", id: "-2", isPublic: "Please try again later" }])
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -93,7 +104,7 @@ export default function UserHome() {
               <img src={plus} alt="" height={25} />
             </Workspace>
             {workspaces.map(workspace => (
-              <Workspace key={workspace.id} onClick={workspace.id != null ? () => (location.href = `/u/w/${workspace.id}`) : null}>
+              <Workspace key={workspace.id} onClick={workspace.id >= 0 ? () => (location.href = `/u/w/${workspace.id}`) : null}>
                 <h3>{workspace.name}</h3>
                 <h6>{workspace.isPublic === "true" ? "Public" : workspace.isPublic === "false" ? "Private" : workspace.isPublic}</h6>
               </Workspace>
@@ -102,6 +113,7 @@ export default function UserHome() {
         </div>
       </div>
       <Modal
+        errorMessage={modalErrorMessage}
         disableSubmit={disableModalSubmit}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
