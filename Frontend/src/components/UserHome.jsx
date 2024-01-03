@@ -146,7 +146,8 @@ export default function UserHome() {
 
     useEffect(() => {
       if (isOverflown(titleRefDiv.current)) {
-        titleRef.current.innerText = titleRef.current.innerText.substring(0, 25).trim() + "...";
+        const oldText = titleRef.current.innerText;
+        titleRef.current.innerText = oldText.substring(0, oldText.includes(" ") ? 25 : 13).trim() + "...";
       }
     }, [titleRef.current])
     
