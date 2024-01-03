@@ -136,7 +136,6 @@ export default function UserHome() {
   }
 
   function Workspace(props) {
-
     function isOverflown(element) {
       return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
     }
@@ -147,10 +146,10 @@ export default function UserHome() {
     useEffect(() => {
       if (isOverflown(titleRefDiv.current)) {
         const oldText = titleRef.current.innerText;
-        titleRef.current.innerText = oldText.substring(0, oldText.includes(" ") ? 25 : 13).trim() + "...";
+        titleRef.current.innerText = oldText.substring(0, oldText.includes(" ") ? 25 : 11).trim() + "...";
       }
-    }, [titleRef.current])
-    
+    }, [titleRef.current]);
+
     return (
       <div role="button" onClick={props.onClick} className="workspace-box p-2 align-items-center d-flex text-center flex-column justify-content-center user-select-none">
         <div ref={titleRefDiv} className="workspace-title d-flex align-items-center justify-content-center">
