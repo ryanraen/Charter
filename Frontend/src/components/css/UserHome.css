@@ -54,3 +54,13 @@
 .icon-bg-dark {
   background-color: var(--accent-200);
 }
+
+.workspace-title {
+  overflow: hidden;
+  height: 80%;
+  width: 100%;
+}
+
+.workspace-privacy {
+  height: 20%;
+}
