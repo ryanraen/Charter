@@ -2,6 +2,10 @@
   height: 70vh;
   width: 30%;
   padding-right: 12px;
+
+  @media (max-width: 500px) {
+    width: fit-content;
+  }
 }
 
 .side-bar-btn {

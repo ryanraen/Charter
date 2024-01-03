@@ -130,7 +130,8 @@ export default function UserHome() {
     return (
       <button className="btn side-bar-btn text-start d-flex align-items-center gap-3" onClick={props.onClick}>
         <img src={props.icon} height={20} alt="" className="side-button-icon" />
-        {props.label}
+        {window.screen.width > 500 && props.label}
+
       </button>
     );
   }
