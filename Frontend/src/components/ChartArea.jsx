@@ -12,7 +12,6 @@ export default function ChartArea({ charts, openChartModal, onItemAdd }) {
         <TaskbarButton label={"New Chart"} func={openChartModal} />
       </div>
       <div className="chart-container gap-3">
-        <div className="padding-space"></div>
         {charts.map(chart => (
           <Chart title={chart.name} id={chart.id} key={chart.id}>
             {chart.items.map(item => (

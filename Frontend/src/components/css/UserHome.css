@@ -1,6 +1,13 @@
+.user-home-container {
+  width: 80%;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
 #side-bar {
   height: 70vh;
-  width: 30%;
+  width: 20%;
   padding-right: 12px;
 
   @media (max-width: 500px) {
@@ -18,21 +25,9 @@
 }
 
 #workspace {
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  display: flex !important;
+  flex-flow: wrap;
   width: 70%;
-
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .workspace-box {

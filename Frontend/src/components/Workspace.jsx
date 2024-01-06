@@ -35,7 +35,6 @@ export default function Workspace() {
         case 1:
           setWorkspaceName((await getWorkspaceName(URL.id)).name);
           updateCharts();
-          setSuccessfulLoad(true);
           break;
         default:
           setWorkspaceName("Client side error");
@@ -52,6 +51,7 @@ export default function Workspace() {
 
   async function updateCharts() {
     setCharts(await getWorkspaceCharts(URL.id));
+    setSuccessfulLoad(true);
   }
 
   return (
@@ -64,6 +64,7 @@ export default function Workspace() {
           <SidebarButton label="Charts" image={chart} buttonID={1} />
           <SidebarButton label="Other possible things" buttonID={2} />
         </Sidebar>
+        <div className="padding-space" />
         <div className="d-flex flex-column selection-area">
           {successfulLoad && <RenderSelection />}
         </div>

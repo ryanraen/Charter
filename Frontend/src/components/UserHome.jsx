@@ -81,12 +81,12 @@ export default function UserHome() {
 
   return (
     <>
-      <div className="container d-flex">
+      <div className="user-home-container d-flex">
         <div id="side-bar" className="d-flex flex-column mt-5">
           <SideBarButton label="Workspaces" icon={workspaceIcon}></SideBarButton>
         </div>
         <div className="mt-5 w-100 container">
-          <div className="d-grid align-items-center h-100 w-100" id="workspace">
+          <div className=" h-100 w-100" id="workspace">
             <Workspace title={firstWorkspace.name} isPublic={firstWorkspace.isPublic} id={-1} onClick={firstWorkspace.enabled == "true" ? () => setModalOpen(true) : null}>
               {firstWorkspace.enabled == "true" && <img src={plus} alt="" height={30} />}
             </Workspace>

@@ -28,7 +28,7 @@
     justify-content: end;
     margin-right: 4rem;
     margin-top: 0.8rem;
-    width: 100%;
+    width: 95%;
     border-radius: 100px;
     height: 2.5rem;
 }
@@ -70,10 +70,11 @@
     font-size: 1.5rem;
     color: var(--text-100);
     padding-left: 0.4rem;
-    align-items: center;
     margin: 0;
 }
 
 .item-img {
     filter: contrast(25%);
+    align-self: baseline;
+    margin-top: 0.45rem;
 }
