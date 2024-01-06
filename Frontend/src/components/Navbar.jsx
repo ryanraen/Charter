@@ -37,7 +37,7 @@ function NavItem(props) {
     <li className="nav-item mx-2">
       <a href={props.href} className="nav-link navlink d-flex align-items-center" id={props.styleid} onClick={() => setOpen(!open)}>
         {props.text}
-        {props.rightIcon != undefined && <img className={"m-1 rotate-transition".concat(open ? " rotate-icon" : "")} src={props.rightIcon} alt="" width={12} height={12} />}
+        {props.rightIcon != undefined && <img className={"m-1 navitem-icon".concat(open ? " rotate-icon" : "")} src={props.rightIcon} alt="" width={12} height={12} />}
       </a>
 
       {open && props.children}

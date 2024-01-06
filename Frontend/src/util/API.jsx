@@ -21,7 +21,7 @@ export async function validateLogin(email, password) {
       return data; // Return data (userID and username) if all is good
     })
     .catch(error => {
-      return error.json(); // Catch rejected promise and send back error --
+      return error; // Catch rejected promise and send back error --
     });
 }
 

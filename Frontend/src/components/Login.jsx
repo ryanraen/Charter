@@ -12,9 +12,10 @@ export default function Login() {
   async function submitLogin(e) {
     setDisableSubmit(true);
     e.preventDefault();
+    setErrorMessage("");
+
     const formElements = Object.fromEntries(new FormData(e.target));
     const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
-    console.log(validateLoginPromise);
 
     if (validateLoginPromise.status == "true") {
       await loginUser(validateLoginPromise);

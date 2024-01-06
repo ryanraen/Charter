@@ -29,3 +29,11 @@
     background-color: var(--primary-100) !important;
     margin-bottom: 1rem;
 }
+
+.exit-icon {
+    transition: scale 100ms;
+}
+
+.exit-icon:hover {
+    scale: 1.5;
+}
