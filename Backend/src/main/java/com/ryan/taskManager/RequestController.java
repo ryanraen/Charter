@@ -274,7 +274,7 @@ public class RequestController {
         return "{\"status\": \"failure\", \"message\": \"Workspace does not belong to this user.\"}";
     }
 
-    // REDIRECT USER TO SPECIFIC WORKSPACE PAGE
+    // RETURNS WORKSPACE
     @GetMapping("/w/{workspaceID}")
     public @ResponseBody List<Chart> redirectToWorkspace(@PathVariable int workspaceID) {
         return workspaceRepository.findById(workspaceID).get().getCharts();
@@ -291,7 +291,6 @@ public class RequestController {
         try {
             chart.setWorkspaceID(workspaceRepository.findById(workspaceID).get());
             chart.setName(chartName);
-            chart.setPosition(chart.getID());
             chartRepository.save(chart);
             return "{\"status\": \"success\", \"message\": \"Chart successfully created!\", \"id\": \"" + chart.getID() + "\"}";
         } catch(Exception e) {
@@ -319,7 +318,6 @@ public class RequestController {
             item.setChartID(chartRepository.findById(chartID).get());
             item.setName(itemName);
             item.setDescription(description);
-            item.setPosition(item.getID());
             itemRepository.save(item);
             return "{\"status\": \"success\", \"message\": \"Item successfully created!\", \"id\": \"" + item.getID() + "\"}";
         } catch(Exception e) {

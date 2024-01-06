@@ -3,6 +3,8 @@ package com.ryan.taskManager;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.processing.Generated;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -30,9 +32,6 @@ public class Chart {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private int position;
-
     @Column(name="created_date")
     @CreationTimestamp
     private Date createdDate;
@@ -51,10 +50,6 @@ public class Chart {
 
     public String getName() {
         return name;
-    }
-
-    public Integer getPosition() {
-        return position;
     }
 
     public Date getCreatedDate() {
@@ -76,10 +71,6 @@ public class Chart {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
     }
     
 }
