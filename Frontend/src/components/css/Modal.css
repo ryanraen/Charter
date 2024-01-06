@@ -1,5 +1,6 @@
 .modal-container {
     transition: background-color 200ms;
+    z-index: 100;
 }
 
 .modal-bg {

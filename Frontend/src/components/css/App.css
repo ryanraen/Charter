@@ -32,6 +32,21 @@ h2 {
     font-size: 1.75rem !important;
 }
 
+h3 {
+    font-family: var(--font-bold);
+    color: var(--text-100) !important;
+}
+
+h4 {
+    font-family: var(--font-bold);
+}
+
+h5 {
+    font-family: var(--font-p);
+    color: var(--text-100) !important;
+    margin: 0 !important;
+}
+
 p {
     font-family: var(--font-p);
     font-size: 1.5rem;

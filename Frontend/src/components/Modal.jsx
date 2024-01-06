@@ -2,10 +2,26 @@ import "./css/Modal.css";
 import exit from "../assets/exit.svg";
 import FormInput from "./inputs/FormInput";
 import RadioInput from "./inputs/RadioInput";
-import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Modal(props) {
   const handleSubmit = props.onSubmit;
+
+  useEffect(() => {
+    const keyPressEvent = e => {
+      if (e.key === "Escape") {
+        props.onClose();
+      }
+    };
+
+    if (props.isOpen) {
+      document.addEventListener("keydown", keyPressEvent);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", keyPressEvent);
+    };
+  }, [props.onClose]);
 
   return (
     <div className={`modal-container w-100 h-100 position-absolute top-0 ${props.isOpen ? "modal-bg" : "pe-none"}`}>
@@ -16,15 +32,9 @@ export default function Modal(props) {
             <img className="h-100 exit-icon" role="button" src={exit} width={20} alt="Exit icon/button" onClick={props.onClose} />
           </div>
           <form onSubmit={handleSubmit} className="text-center">
-            {props.inputs.map(input => (
-              <FormInput key={`text-${input.id}`} {...input} />
-            ))}
-            <div className="d-flex w-100 justify-content-center">
-              {props.radioInputs.map(input => (
-                <RadioInput key={`radio${input.id}`} {...input} />
-              ))}
-            </div>
-            {props.errorMessage != "" && <div className="text-danger mb-3">{props.errorMessage}</div>}
+            {props.inputs != null && props.inputs.map(input => <FormInput key={`text-${input.id}`} {...input} />)}
+            <div className="d-flex w-100 justify-content-center">{props.radioInputs != null && props.radioInputs.map(input => <RadioInput key={`radio${input.id}`} {...input} />)}</div>
+            {props.errorMessage != null && <div className="text-danger mb-3">{props.errorMessage}</div>}
             <button className="btn create-btn" type="submit" disabled={props.disableSubmit ? true : false}>
               {props.submitLabel}
             </button>

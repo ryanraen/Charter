@@ -1,0 +1,33 @@
+.side-bar {
+    min-height: calc(100vh - 59px);
+    width: 12%;
+    background-color: var(--bg-200);
+}
+
+.side-btn {
+    width: 100%;
+    text-align: start;
+    border: none;
+    background-color: var(--bg-200);
+}
+
+.side-btn-img {
+    margin-right: 0.5rem;
+}
+
+.btn-selected {
+    background-color: var(--bg-300);
+}
+
+.sidebar-header {
+    text-align: center;
+    text-wrap: nowrap;
+}
+
+.selection-area {
+    width: 82%;
+}
+
+.padding-space {
+    width: 5%;
+}

@@ -5,25 +5,19 @@ import plus from "../assets/plus.svg";
 import { useEffect, useState, useRef } from "react";
 import Modal from "./Modal";
 import { createWorkspace, getWorkspacesDisplay } from "../util/API";
+import { isOverflown } from "../util/Util";
 
 export default function UserHome() {
   if (getCookie("userID") == null) {
     return;
   }
 
-  const defaultWorkspace = [{ name: "Loading...", id: "-2", isPublic: "Please wait" }];
-
   const [modalOpen, setModalOpen] = useState(false);
   const [disableModalSubmit, setDisableModalSubmit] = useState(false);
-  const [modalErrorMessage, setModalErrorMessage] = useState("");
+  const [modalErrorMessage, setModalErrorMessage] = useState(null);
 
-  const [workspaces, setWorkspaces] = useState(defaultWorkspace);
-
-  const keyPressEvent = e => {
-    if (e.key === "Escape") {
-      setModalOpen(false);
-    }
-  };
+  const [firstWorkspace, setFirstWorkspace] = useState({ name: "Loading...", isPublic: "Please wait", enabled: "false" });
+  const [workspaces, setWorkspaces] = useState([]);
 
   async function submitWorkspace(e) {
     e.preventDefault();
@@ -46,21 +40,11 @@ export default function UserHome() {
       const workspacesString = await getWorkspacesDisplay(getCookie("userID"));
       const workspacesJSON = workspacesString.map(string => JSON.parse(string));
       setWorkspaces(workspacesJSON);
+      setFirstWorkspace({ name: "New workspace", enabled: "true" });
     } catch (error) {
-      setWorkspaces([{ name: "Server error", id: "-2", isPublic: "Please try again later" }]);
-      console.log(error);
+      setFirstWorkspace({ name: "Server error", isPublic: "Please try again later", enabled: "false" });
     }
   }
-
-  useEffect(() => {
-    if (modalOpen) {
-      document.addEventListener("keydown", keyPressEvent);
-    }
-
-    return () => {
-      document.removeEventListener("keydown", keyPressEvent);
-    };
-  }, []);
 
   useEffect(() => {
     updateWorkspaces();
@@ -103,11 +87,11 @@ export default function UserHome() {
         </div>
         <div className="mt-5 w-100 container">
           <div className="d-grid align-items-center h-100 w-100" id="workspace">
-            <Workspace title={"New Workspace"} id={-1} onClick={() => setModalOpen(true)}>
-              <img src={plus} alt="" height={25} />
+            <Workspace title={firstWorkspace.name} isPublic={firstWorkspace.isPublic} id={-1} onClick={firstWorkspace.enabled == "true" ? () => setModalOpen(true) : null}>
+              {firstWorkspace.enabled == "true" && <img src={plus} alt="" height={30} />}
             </Workspace>
             {workspaces.toReversed().map(workspace => (
-              <Workspace isPublic={workspace.isPublic} title={workspace.name} key={workspace.id} onClick={workspace.id >= 0 ? () => (location.href = `/u/w/${workspace.id}`) : null}></Workspace>
+              <Workspace isPublic={workspace.isPublic} title={workspace.name} key={workspace.id} onClick={workspace.id >= 0 ? () => (location.href = `/u/w/${workspace.id}`) : null} />
             ))}
           </div>
         </div>
@@ -131,16 +115,11 @@ export default function UserHome() {
       <button className="btn side-bar-btn text-start d-flex align-items-center gap-3" onClick={props.onClick}>
         <img src={props.icon} height={20} alt="" className="side-button-icon" />
         {window.screen.width > 500 && props.label}
-
       </button>
     );
   }
 
   function Workspace(props) {
-    function isOverflown(element) {
-      return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-    }
-
     const titleRefDiv = useRef(null);
     const titleRef = useRef(null);
 
@@ -156,10 +135,10 @@ export default function UserHome() {
         <div ref={titleRefDiv} className="workspace-title d-flex align-items-center justify-content-center">
           <h3 ref={titleRef}>{props.title}</h3>
         </div>
+        {props.children}
         <div className="workspace-privacy">
           <h6>{props.isPublic === "true" ? "Public" : props.isPublic === "false" ? "Private" : props.isPublic}</h6>
         </div>
-        {props.children}
       </div>
     );
   }
