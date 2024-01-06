@@ -269,7 +269,7 @@ public class RequestController {
             return "{\"status\": \"failure\", \"message\": \"Workspace described by such ID does not exist.\"}";
         }
         if(workspace.getUserID() == userID) {
-            return "redirect:http://142.93.148.156:80/u/w/" + workspaceID;
+            return "{\"status\": \"success\", \"message\": \"Workspace found.\"}";
         }
         return "{\"status\": \"failure\", \"message\": \"Workspace does not belong to this user.\"}";
     }
