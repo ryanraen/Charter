@@ -36,6 +36,41 @@ public class RequestController {
     @Autowired
     private UserRepository userRepository;
 
+    // USER SETTERS:
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+    // SET USER NAME
+    @PostMapping(path = "/set/user/name/userid")
+    public @ResponseBody String setUserNameByUserID(@RequestParam int userID, @RequestParam String name) {
+        try {
+            userRepository.findById(userID).get().setName(name);
+            return "{\"status\": \"success\", \"message\": \"User name field altered!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter user name field.\"}";
+        }
+    }
+    // SET USER EMAIL
+    @PostMapping(path = "/set/user/email/userid")
+    public @ResponseBody String setUserEmailByUserID(@RequestParam int userID, @RequestParam String email) {
+        try {
+            userRepository.findById(userID).get().setEmail(email);
+            return "{\"status\": \"success\", \"message\": \"User email field altered!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter user email field.\"}";
+        }
+    }
+    // SET USER PASSWORD
+    @PostMapping(path = "/set/user/password/userid")
+    public @ResponseBody String setUserPasswordByUserID(@RequestParam int userID, @RequestParam String password) {
+        try {
+            userRepository.findById(userID).get().setPassword(password);
+            return "{\"status\": \"success\", \"message\": \"User password field altered!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter user password field.\"}";
+        }
+    }
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+    // REGISTER NEW USER
     @PostMapping(path = "/signin/register")
     public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
         if(!userRepository.findByEmail(email).isPresent()) {
@@ -54,26 +89,6 @@ public class RequestController {
             return "{\"status\": \"failure\", \"message\": \"User with this email already exists!\", \"id\": \"null\"}";
         }
     }
-
-    // USER SETTERS:
-    /*------------------------------------------------------------------------------------------------------------------------------------*/
-    // SET USER NAME
-    @PostMapping(path = "/set/user/name/userid")
-    public @ResponseBody String setUserNameByUserID(@RequestParam int userID, @RequestParam String name) {
-        userRepository.findById(userID).get().setName(name);
-    }
-    // SET USER EMAIL
-    @PostMapping(path = "/set/user/email/userid")
-    public @ResponseBody String setUserEmailByUserID(@RequestParam int userID, @RequestParam String email) {
-        userRepository.findById(userID).get().setEmail(email);
-    }
-    // SET USER PASSWORD
-    @PostMapping(path = "/set/user/password/userid")
-    public @ResponseBody String setUserPasswordByUserID(@RequestParam int userID, @RequestParam String password) {
-        userRepository.findById(userID).get().setPassword(password);
-    }
-    /*------------------------------------------------------------------------------------------------------------------------------------*/
-
     // DELETE A USER FROM THE DATABASE BY THEIR USER ID
     @PostMapping(path = "/delete/user/userid")
     public @ResponseBody String deleteUserAccountByUserID(@RequestParam int userID) {
@@ -198,10 +213,44 @@ public class RequestController {
     
 // WORKSPACE:
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-    // CREATE WORKSPACE
     @Autowired
     private WorkspaceRepository workspaceRepository;
 
+    // WORKSPACE SETTERS:
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+    // SET WORKSPACE USER ID
+    @PostMapping(path = "/set/workspace/userid/workspaceid")
+    public @ResponseBody String setWorkspaceUserIDByWorkspaceID(@RequestParam int workspaceID, @RequestParam int userID) {
+        try {
+            workspaceRepository.findById(workspaceID).get().setUserID(userRepository.findById(userID).get());
+            return "{\"status\": \"success\", \"message\": \"Workspace userID field altered!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace userID field.\"}";
+        }
+    }
+    // SET WORKSPACE NAME
+    @PostMapping(path = "/set/workspace/name/workspaceid")
+    public @ResponseBody String setWorkspaceNameByWorkspaceID(@RequestParam int workspaceID, @RequestParam String name) {
+        try {
+            workspaceRepository.findById(workspaceID).get().setName(name);
+            return "{\"status\": \"success\", \"message\": \"Workspace name field altered!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace name field.\"}";
+        }
+    }
+    // SET WORKSPACE PUBLICITY
+    @PostMapping(path = "/set/workspace/isPublic/workspaceid")
+    public @ResponseBody String setWorkspaceIsPublicByWorkspaceID(@RequestParam int workspaceID, @RequestParam boolean isPublic) {
+        try {
+            workspaceRepository.findById(workspaceID).get().setIsPublic(isPublic);
+            return "{\"status\": \"success\", \"message\": \"Workspace isPublic field altered!\"}";
+        } catch(Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace isPublic field.\"}";
+        }
+    }
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+    // CREATE WORKSPACE
     @PostMapping(path = "/assets/w/create") // w stands for workspace => when user is actually in workspace, URL will be "/w/{workspace id}"
     public @ResponseBody String createWorkspace(@RequestParam int userID, @RequestParam String workspaceName, @RequestParam boolean isPublic) {
         
@@ -305,10 +354,34 @@ public class RequestController {
 
 // CHART:
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-    // CREATE CHART
     @Autowired
     private ChartRepository chartRepository;
 
+    // CHART SETTERS:
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+    // SET CHART WORKSPACE ID
+    @PostMapping(path = "/set/chart/workspaceid/chartid")
+    public @ResponseBody String setChartWorkspaceIDByChartID(@RequestParam int chartID, @RequestParam int workspaceID) {
+        try {
+            chartRepository.findById(chartID).get().setWorkspaceID(workspaceRepository.findById(workspaceID).get());
+            return "{\"status\": \"success\", \"message\": \"Chart workspaceID field altered!\"}";
+        } catch (Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter chart workspaceID field.\"}";
+        }
+    }
+    // SET CHART NAME
+    @PostMapping(path = "/set/chart/name/chartid")
+    public @ResponseBody String setChartNameByChartID(@RequestParam int chartID, @RequestParam String name) {
+        try {
+            chartRepository.findById(chartID).get().setName(name);
+            return "{\"status\": \"success\", \"message\": \"Chart name field altered!\"}";
+        } catch (Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter chart name field.\"}";
+        }
+    }
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+    // CREATE CHART
     @PostMapping(path = "/assets/c/create") // c stands for chart => when user is actually in chart, URL will be "/c/{chart id}"
     public @ResponseBody String createChart(@RequestParam int workspaceID, @RequestParam String chartName) {
         
@@ -369,10 +442,44 @@ public class RequestController {
 
 // ITEM:
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-    // CREATE ITEM
     @Autowired
     private ItemRepository itemRepository;
 
+    // ITEM SETTERS:
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+    // SET ITEM CHART ID
+    @PostMapping(path = "/set/item/chartID/itemID")
+    public @ResponseBody String setItemChartIDByItemID(@RequestParam int itemID, @RequestParam int chartID) {
+        try {
+            itemRepository.findById(itemID).get().setChartID(chartRepository.findById(chartID).get());
+            return "{\"status\": \"success\", \"message\": \"Item chartID field altered!\"}";
+        } catch (Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter item chartID field.\"}";
+        }
+    }
+    // SET ITEM NAME
+    @PostMapping(path = "/set/item/name/itemID")
+    public @ResponseBody String setItemNameByItemID(@RequestParam int itemID, @RequestParam String name) {
+        try {
+            itemRepository.findById(itemID).get().setName(name);
+            return "{\"status\": \"success\", \"message\": \"Item name field altered!\"}";
+        } catch (Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter item name field.\"}";
+        }
+    }
+    // SET ITEM DESCRIPTION
+    @PostMapping(path = "/set/item/description/itemID")
+    public @ResponseBody String setItemDescriptionByItemID(@RequestParam int itemID, @RequestParam String description) {
+        try {
+            itemRepository.findById(itemID).get().setDescription(description);
+            return "{\"status\": \"success\", \"message\": \"Item description field altered!\"}";
+        } catch (Exception e) {
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter item description field.\"}";
+        }
+    }
+    /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+    // CREATE ITEM
     @PostMapping(path = "/assets/i/create")
     public @ResponseBody String createItem(@RequestParam int chartID, @RequestParam String itemName, @RequestParam String description) {
         Item item = new Item();
