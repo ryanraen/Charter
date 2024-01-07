@@ -38,14 +38,14 @@ public class RequestController {
 
     // USER SETTERS:
     /*------------------------------------------------------------------------------------------------------------------------------------*/
-    // SET USER NAME
+    // SET USER USERNAME
     @PostMapping(path = "/set/user/name/userid")
-    public @ResponseBody String setUserNameByUserID(@RequestParam int userID, @RequestParam String name) {
+    public @ResponseBody String setUserNameByUserID(@RequestParam int userID, @RequestParam String username) {
         try {
-            userRepository.findById(userID).get().setName(name);
-            return "{\"status\": \"success\", \"message\": \"User name field altered!\"}";
+            userRepository.findById(userID).get().setUsername(username);
+            return "{\"status\": \"success\", \"message\": \"User username field altered!\"}";
         } catch(Exception e) {
-            return "{\"status\": \"failure\", \"message\": \"Failed to alter user name field.\"}";
+            return "{\"status\": \"failure\", \"message\": \"Failed to alter user username field.\"}";
         }
     }
     // SET USER EMAIL
