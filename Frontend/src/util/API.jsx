@@ -45,7 +45,7 @@ export async function createWorkspace(userID, workspaceName, isPublic) {
 }
 
 export async function createChart(workspaceID, chartName) {
-  return fetch(`http://142.93.148.156:80/u/signin/c/create?workspaceID=${workspaceID}&chartName=${chartName}`, {
+  return fetch(`http://142.93.148.156:80/u/assets/c/create?workspaceID=${workspaceID}&chartName=${chartName}`, {
     method: "POST",
   }).then(response => {
     return response.json();
@@ -53,7 +53,7 @@ export async function createChart(workspaceID, chartName) {
 }
 
 export async function createItem(chartID, itemName, description) {
-  return fetch(`http://142.93.148.156:80/u/signin/i/create?chartID=${chartID}&itemName=${itemName}&description=${description}`, {
+  return fetch(`http://142.93.148.156:80/u/assets/i/create?chartID=${chartID}&itemName=${itemName}&description=${description}`, {
     method: "POST",
   }).then(response => {
     return response.json();
@@ -79,8 +79,8 @@ export async function validateCurrentToken() {
 export async function nullifyToken(userID) {
   return fetch(`http://142.93.148.156:80/u/signin/nullify/token?userID=${userID}`, {
     method: "POST",
-  }).then(resonse => {
-    return resonse.json();
+  }).then(response => {
+    return response.json();
   });
 }
 
@@ -100,34 +100,67 @@ export async function getAllUserWorkspaces(userID) {
 //   });
 // }
 
-// export async function getWorkspaceName(workspaceID) {
-//   return fetch(`http://142.93.148.156:80/u/get/workspaces/name/workspaceid?workspaceID=${workspaceID}`, {
-//     method: "GET",
-//   }).then(resonse => {
-//     return resonse.json();
-//   });
-// }
-
 // export async function getWorkspaceCreationDate(workspaceID) {
 //   return fetch(`http://142.93.148.156:80/u/get/workspaces/createddate/workspaceid?workspaceID=${workspaceID}`, {
 //     method: "GET",
-//   }).then(resonse => {
-//     return resonse.json();
+//   }).then(response => {
+//     return response.json();
 //   });
 // }
 
 // export async function getWorkspaceIsPublic(workspaceID) {
 //   return fetch(`http://142.93.148.156:80/u/get/workspaces/ispublic/workspaceid?workspaceID=${workspaceID}`, {
 //     method: "GET",
-//   }).then(resonse => {
-//     return resonse.json();
+//   }).then(response => {
+//     return response.json();
 //   });
 // }
 
 export async function getWorkspacesDisplay(userID) {
   return fetch(`http://142.93.148.156:80/u/get/workspaces/display/userid?userID=${userID}`, {
     method: "GET",
-  }).then(resonse => {
-    return resonse.json();
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function getWorkspaceData(workspaceID) {
+  return fetch(`http://142.93.148.156:80/u/w/${workspaceID}`, {
+    method: "GET",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function authenticateWorkspace(userID, workspaceID) {
+  try {
+    return await fetch(`http://142.93.148.156:80/u/w/auth/${userID}/${workspaceID}`, {
+      method: "GET",
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        return data.status == "success" ? 1 : -1;
+      });
+  } catch (error) {
+    return 0; // Server offline
+  }
+}
+
+export async function getWorkspaceName(workspaceID) {
+  return fetch(`http://142.93.148.156:80/u/get/workspaces/name/workspaceid?workspaceID=${workspaceID}`, {
+    method: "GET",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function getWorkspaceCharts(workspaceID) {
+  return fetch(`http://142.93.148.156:80/u/get/charts/workspaceid?workspaceID=${workspaceID}`, {
+    method: "GET",
+  }).then(response => {
+    return response.json();
   });
 }

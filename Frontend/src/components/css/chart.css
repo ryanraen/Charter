@@ -1,0 +1,80 @@
+.chart {
+    background-color: var(--primary-50);
+    border-radius: 0.3rem;
+    width: 16rem;
+    height: fit-content;
+    padding: 0.5rem;
+    box-shadow: 0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 0.4);
+}
+
+.chart-item-container {
+    width: 14rem;
+    margin: 0.5rem;
+    user-select: none;
+}
+
+.chart-header {
+    text-align: center;
+    width: fit-content;
+}
+
+.chart-container{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.charts-taskbar {
+    display: flex;
+    justify-content: end;
+    margin-right: 4rem;
+    margin-top: 0.8rem;
+    width: 95%;
+    border-radius: 100px;
+    height: 2.5rem;
+}
+
+.taskbar-button {
+    width: fit-content;
+    border: 0;
+    background-color: var(--primary-50);
+    border-radius: 5px;
+    transition: scale 50ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-p);
+    font-size: 1.4rem;
+    position: absolute;
+}
+
+.taskbar-button:hover {
+    scale: 1.1;
+}
+
+.new-item-form {
+    margin-bottom: 0 !important;
+}
+
+.chart-item {
+    margin: 0.3rem;
+    background-color: var(--primary-100);
+    border-radius: 0.2rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
+}
+
+.chart-item-header-container {
+    padding-left: 0.7rem;
+}
+
+.item-header {
+    font-size: 1.5rem;
+    color: var(--text-100);
+    padding-left: 0.4rem;
+    margin: 0;
+}
+
+.item-img {
+    filter: contrast(25%);
+    align-self: baseline;
+    margin-top: 0.45rem;
+}
