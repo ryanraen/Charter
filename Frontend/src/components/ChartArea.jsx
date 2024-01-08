@@ -77,7 +77,7 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
                     setCurrentItemInfo({ ...currentItemInfo, description: " " });
                   }}
                 >
-                  <h6>Add details with a description...</h6>
+                  <h6>Add details...</h6>
                 </div>
               ) : (
                 <textarea ref={descriptionAreaRef} defaultValue={currentItemInfo.description} autoFocus={currentItemInfo.description == " "} name="description" className="description-text" />
