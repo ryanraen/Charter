@@ -25,8 +25,8 @@ export async function validateLogin(email, password) {
     });
 }
 
-export async function getLoginToken(ID) {
-  return fetch(`http://142.93.148.156:80/u/signin/auth/get/token?&ID=${ID}`, {
+export async function getLoginToken(userID) {
+  return fetch(`http://142.93.148.156:80/u/signin/auth/get/token?&userID=${userID}`, {
     method: "GET",
   }).then(response => {
     if (response.ok) {
@@ -141,7 +141,6 @@ export async function authenticateWorkspace(userID, workspaceID) {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         return data.status == "success" ? 1 : -1;
       });
   } catch (error) {
@@ -160,6 +159,46 @@ export async function getWorkspaceName(workspaceID) {
 export async function getWorkspaceCharts(workspaceID) {
   return fetch(`http://142.93.148.156:80/u/get/charts/workspaceid?workspaceID=${workspaceID}`, {
     method: "GET",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function getChartsDisplay(workspaceID) {
+  return fetch(`http://142.93.148.156:80/u/get/charts/display/workspaceid?workspaceID=${workspaceID}`, {
+    method: "GET",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function setItemName(itemID, newName) {
+  return fetch(`http://142.93.148.156:80/u/set/item/name/itemID?itemID=${itemID}&name=${newName}`, {
+    method: "GET",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function setItemDescription(itemID, description) {
+  return fetch(`http://142.93.148.156:80/u/set/item/description/itemID?itemID=${itemID}&description=${description}`, {
+    method: "POST",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function deleteItem(itemID) {
+  return fetch(`http://142.93.148.156:80/u/delete/item/itemid?itemID=${itemID}`, {
+    method: "POST",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function deleteChart(chartID) {
+  return fetch(`http://142.93.148.156:80/u/delete/chart/chartid?chartID=${chartID}`, {
+    method: "POST",
   }).then(response => {
     return response.json();
   });

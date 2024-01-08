@@ -3,7 +3,7 @@ import "./css/Workspace.css";
 import chart from "../assets/chart.svg";
 import question from "../assets/question.svg";
 import { useEffect, useRef, useState } from "react";
-import { authenticateWorkspace, createChart, getWorkspaceCharts, getWorkspaceData, getWorkspaceName } from "../util/API";
+import { authenticateWorkspace, createChart, getChartsDisplay, getWorkspaceCharts, getWorkspaceData, getWorkspaceName } from "../util/API";
 import { getCookie } from "../util/CookieManager";
 import { isOverflown } from "../util/Util";
 import ChartArea from "./ChartArea";
@@ -12,15 +12,12 @@ import Modal from "./Modal";
 export default function Workspace() {
   const URL = useParams();
 
+  const [charts, setCharts] = useState([]);
+
   const [selectedSideButton, setSelectedSideButton] = useState(1);
   const [workspaceName, setWorkspaceName] = useState("Loading...");
   const [successfulLoad, setSuccessfulLoad] = useState(false);
   const sidebarHeaderRef = useRef(null);
-
-  const [charts, setCharts] = useState([]);
-  const [chartModalOpen, setChartModalOpen] = useState(false);
-  const [chartModalErrorMessage, setChartModalErrorMessage] = useState(null);
-  const [disableChartModalSubmit, setDisableChartModalSubmit] = useState(false);
 
   useEffect(() => {
     async function loadWorkspaceData() {
@@ -34,7 +31,7 @@ export default function Workspace() {
           break;
         case 1:
           setWorkspaceName((await getWorkspaceName(URL.id)).name);
-          updateCharts();
+          setSuccessfulLoad(true);
           break;
         default:
           setWorkspaceName("Client side error");
@@ -49,10 +46,12 @@ export default function Workspace() {
     }
   }, [workspaceName]);
 
-  async function updateCharts() {
-    setCharts(await getWorkspaceCharts(URL.id));
-    setSuccessfulLoad(true);
-  }
+  useEffect(() => {
+    async function loadCharts() {
+      setCharts((await getChartsDisplay(URL.id)).map(chart => JSON.parse(chart)));
+    }
+    loadCharts();
+  }, [successfulLoad]);
 
   return (
     <>
@@ -64,59 +63,17 @@ export default function Workspace() {
           <SidebarButton label="Charts" image={chart} buttonID={1} />
           <SidebarButton label="Other possible things" buttonID={2} />
         </Sidebar>
-        <div className="padding-space" />
-        <div className="d-flex flex-column selection-area">
-          {successfulLoad && <RenderSelection />}
-        </div>
+        <div className="scrollable d-flex flex-column selection-area">{successfulLoad && <RenderSelection />}</div>
       </div>
-      <Modal
-        isOpen={chartModalOpen}
-        title={"Create new chart"}
-        onClose={() => setChartModalOpen(false)}
-        onSubmit={handleChartSubmit}
-        submitLabel={"Create"}
-        disableSubmit={disableChartModalSubmit}
-        errorMessage={chartModalErrorMessage}
-        inputs={[
-          {
-            id: 1,
-            name: "name",
-            type: "text",
-            label: "Chart name",
-            placeholder: "Chart name",
-            pattern: `^[\\S\\s]+$`,
-            errorMessage: "Invalid name",
-            required: true,
-          },
-        ]}
-      />
     </>
   );
 
-  async function handleChartSubmit(e) {
-    e.preventDefault();
-    setDisableChartModalSubmit(true);
-    setChartModalErrorMessage(null);
 
-    const formElements = Object.fromEntries(new FormData(e.target));
-    try {
-      const chartCreationResult = await createChart(URL.id, formElements.name);
-      if (chartCreationResult.status == "success") {
-        setChartModalOpen(false);
-        setCharts(await getWorkspaceCharts(URL.id));
-        setDisableChartModalSubmit(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setChartModalErrorMessage("Server error, please try again later");
-      setDisableChartModalSubmit(false);
-    }
-  }
 
   function RenderSelection() {
     switch (selectedSideButton) {
       case 1:
-        return <ChartArea charts={charts} openChartModal={() => setChartModalOpen(true)} onItemAdd={() => updateCharts()} />;
+        return <ChartArea workspaceID={URL.id} charts={charts} setCharts={setCharts} />;
       case 2:
         return <>Smth</>;
       default:
@@ -136,7 +93,7 @@ export default function Workspace() {
           setSelectedSideButton(props.buttonID);
         }}
       >
-        <img src={props.image || question} className="side-btn-img" width={20} />
+        <img src={props.image || question} className="side-btn-img" width={15} />
         {props.label}
       </button>
     );

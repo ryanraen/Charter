@@ -21,6 +21,14 @@
     background-color: var(--bg-100);
 }
 
+.font-color-1 {
+    color: var(--text-100);
+}
+
+.font-color-2 {
+    color: var(--text-200);
+}
+
 h1 {
     font-family: var(--font-header);
     color: var(--text-100) !important;
@@ -35,15 +43,21 @@ h2 {
 h3 {
     font-family: var(--font-bold);
     color: var(--text-100) !important;
+    margin: 0 !important;
 }
 
 h4 {
     font-family: var(--font-bold);
+    margin: 0 !important;
 }
 
 h5 {
     font-family: var(--font-p);
     color: var(--text-100) !important;
+    margin: 0 !important;
+}
+
+h6 {
     margin: 0 !important;
 }
 

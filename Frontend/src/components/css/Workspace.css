@@ -1,6 +1,6 @@
 .side-bar {
-    min-height: calc(100vh - 59px);
-    width: 12%;
+    height: calc(100vh - 59px);
+    width: 15rem;
     background-color: var(--bg-200);
 }
 
@@ -13,6 +13,7 @@
 
 .side-btn-img {
     margin-right: 0.5rem;
+    filter: contrast(0.7);
 }
 
 .btn-selected {
@@ -25,9 +26,10 @@
 }
 
 .selection-area {
-    width: 82%;
+    width: 100vw; /* idk why this works i love css*/
 }
 
-.padding-space {
-    width: 5%;
+.scrollable {
+    overflow-x: auto;
+    height: calc(100vh - 59px);
 }
