@@ -92,8 +92,8 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
                   <h4>Cancel</h4>
                 </button>
               </div>
-              <button className="btn delete-btn" onClick={() => handleDeleteItem(currentItemInfo.chartID, currentItemInfo.id)}>
-                <h3>Delete item</h3>
+              <button className="btn description-btn" onClick={() => handleDeleteItem(currentItemInfo.chartID, currentItemInfo.id)}>
+                <h4>Delete item</h4>
               </button>
             </div>
           </div>

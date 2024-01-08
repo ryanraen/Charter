@@ -201,7 +201,3 @@
     transition: all 100ms !important;
     scale: 1;
 }
-
-.delete-btn:hover {
-    scale: 1.05;
-}
