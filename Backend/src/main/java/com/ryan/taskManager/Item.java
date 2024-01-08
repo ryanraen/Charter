@@ -30,9 +30,6 @@ public class Item {
     @Column(nullable = true)
     private String description;
 
-    // @Column(nullable = false, unique = true)
-    // private int position;
-
     @Column(name="created_date")
     @CreationTimestamp
     private Date createdDate;
@@ -53,10 +50,6 @@ public class Item {
     public String getDescription() {
         return description;
     }
-
-    // public Integer getPosition() {
-    //     return position;
-    // }
 
     public Date getCreatedDate() {
         return createdDate;
@@ -79,7 +72,4 @@ public class Item {
         this.description = description;
     }
 
-    // public void setPosition(Integer position) {
-    //     this.position = position;
-    // }
 }

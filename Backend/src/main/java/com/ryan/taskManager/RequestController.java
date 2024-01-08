@@ -47,6 +47,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user username field.\"}";
         }
+        userRepository.flush();
     }
     // SET USER EMAIL
     @PostMapping(path = "/set/user/email/userid")
@@ -57,6 +58,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user email field.\"}";
         }
+        userRepository.flush();
     }
     // SET USER PASSWORD
     @PostMapping(path = "/set/user/password/userid")
@@ -67,6 +69,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user password field.\"}";
         }
+        userRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -98,6 +101,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete user.\"}";
         }
+        userRepository.flush();
     }
     // GET ALL USERS IN DATABASE
     @GetMapping(path = "/get/users/all")
@@ -227,6 +231,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace userID field.\"}";
         }
+        workspaceRepository.flush();
     }
     // SET WORKSPACE NAME
     @PostMapping(path = "/set/workspace/name/workspaceid")
@@ -237,6 +242,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace name field.\"}";
         }
+        workspaceRepository.flush();
     }
     // SET WORKSPACE PUBLICITY
     @PostMapping(path = "/set/workspace/isPublic/workspaceid")
@@ -247,6 +253,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace isPublic field.\"}";
         }
+        workspaceRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -349,6 +356,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete workspace.\"}";
         }
+        workspaceRepository.flush();
     }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -368,6 +376,7 @@ public class RequestController {
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter chart workspaceID field.\"}";
         }
+        chartRepository.flush();
     }
     // SET CHART NAME
     @PostMapping(path = "/set/chart/name/chartid")
@@ -378,6 +387,7 @@ public class RequestController {
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter chart name field.\"}";
         }
+        chartRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -394,7 +404,6 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Chart could not be created.\", \"id\": \"" + chart.getID() + "\"}";
         }
-
     }
     // GET ALL CHART ENTITIES UNDER WORKSPACE
     @GetMapping(path = "/get/charts/workspaceid")
@@ -437,6 +446,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete chart.\"}";
         }
+        chartRepository.flush();
     }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -456,6 +466,7 @@ public class RequestController {
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item chartID field.\"}";
         }
+        itemRepository.flush();
     }
     // SET ITEM NAME
     @PostMapping(path = "/set/item/name/itemID")
@@ -466,6 +477,7 @@ public class RequestController {
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item name field.\"}";
         }
+        itemRepository.flush();
     }
     // SET ITEM DESCRIPTION
     @PostMapping(path = "/set/item/description/itemID")
@@ -476,6 +488,7 @@ public class RequestController {
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item description field.\"}";
         }
+        itemRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -535,6 +548,7 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete item.\"}";
         }
+        itemRepository.flush();
     }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 }
