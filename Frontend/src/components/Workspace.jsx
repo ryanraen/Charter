@@ -68,8 +68,6 @@ export default function Workspace() {
     </>
   );
 
-
-
   function RenderSelection() {
     switch (selectedSideButton) {
       case 1:

@@ -14,13 +14,17 @@ export default function Register() {
     const formData = new FormData(e.target);
     const accountData = Object.fromEntries(formData);
     const accountResult = await registerAccount(formData); // RETURNS 
-
-    if (accountResult.status == "success") {
-      await loginAfterRegister(accountData.email, accountData.password);
-      location.href = "/u";
-    } else {
-      setErrorMessage("User already exists, please log in with that instead");
+    try {
+      if (accountResult.status == "success") {
+        await loginAfterRegister(accountData.email, accountData.password);
+        location.href = "/u";
+      } else {
+        setErrorMessage("User already exists, please log in with the existing account instead");
+      }
+    } catch(error) {
+      setErrorMessage("Server error, please try again later");
     }
+
     setDisableSubmit(false);
   }
 

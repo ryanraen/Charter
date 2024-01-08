@@ -4,7 +4,10 @@ export async function registerAccount(data) {
     body: data,
   }).then(response => {
     return response.json();
+  }).catch(error => {
+    return 
   });
+
 }
 
 export async function validateLogin(email, password) {

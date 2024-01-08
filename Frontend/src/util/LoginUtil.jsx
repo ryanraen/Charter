@@ -3,7 +3,6 @@ import { setCookie } from "./CookieManager";
 
 export async function loginUser(loginPromise) {
   const tokenPromise = await getLoginToken(loginPromise.id);
-  console.log(tokenPromise);
   setCookie("username", loginPromise.username, tokenPromise.expire);
   setCookie("token", tokenPromise.token, tokenPromise.expire);
   setCookie("userID", loginPromise.id, tokenPromise.expire);
