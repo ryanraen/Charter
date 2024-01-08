@@ -1,0 +1,60 @@
+.settings-container {
+  background-color: var(--bg-200);
+  padding: 1rem;
+  width: 50rem;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+}
+
+.settings-header {
+
+}
+
+.line {
+  width: 75%;
+  height: 0.1rem;
+  background-color: var(--accent-200);
+}
+
+.line-grad {
+  width: 12.5%;
+  height: 0.1rem;
+}
+
+.grad-left {
+  background-image: linear-gradient(to left, var(--accent-200), var(--bg-200));
+}
+
+.grad-right {
+  background-image: linear-gradient(to right, var(--accent-200), var(--bg-200));
+}
+
+.account-header {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.account-info-box {
+  margin-top: 0.4rem !important;
+  border-radius: 0.25rem;
+  padding: 0.8rem;
+  background-color: var(--bg-300);
+  border: 0.15rem solid var(--accent-50);
+  width: 23rem;
+}
+
+.btn-text {
+  font-size: 1.4rem !important;
+  width: fit-content;
+  padding: 0.5rem;
+}
+
+.settings-btn {
+  margin-top: 0.9rem;
+  border-radius: 0.25rem;
+  border: 0.15rem solid var(--accent-50);
+  background-color: var(--bg-300);
+  padding: 0 !important;
+  box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}

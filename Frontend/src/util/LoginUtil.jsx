@@ -19,6 +19,6 @@ export function getErrorMessage(erroredLoginPromise) {
     case 500:
       return "Email or password incorrect";
     default:
-      return "Unknown server error, please try again later";
+      return "Server error, please try again later";
   }
 }

@@ -2,6 +2,7 @@ nav {
   background-color: var(--bg-300);
   border-bottom: solid var(--accent-200);
   font-family: var(--font-boldER);
+  position: absolute;
 }
 
 /* .navlink:hover {
