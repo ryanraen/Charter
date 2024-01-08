@@ -43,6 +43,7 @@ public class RequestController {
     public @ResponseBody String setUserNameByUserID(@RequestParam int userID, @RequestParam String username) {
         try {
             userRepository.findById(userID).get().setUsername(username);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User username field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user username field.\"}";
@@ -53,6 +54,7 @@ public class RequestController {
     public @ResponseBody String setUserEmailByUserID(@RequestParam int userID, @RequestParam String email) {
         try {
             userRepository.findById(userID).get().setEmail(email);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User email field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user email field.\"}";
@@ -63,6 +65,7 @@ public class RequestController {
     public @ResponseBody String setUserPasswordByUserID(@RequestParam int userID, @RequestParam String password) {
         try {
             userRepository.findById(userID).get().setPassword(password);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User password field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user password field.\"}";
@@ -94,6 +97,7 @@ public class RequestController {
     public @ResponseBody String deleteUserAccountByUserID(@RequestParam int userID) {
         try {
             userRepository.deleteById(userID);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete user.\"}";
@@ -223,6 +227,7 @@ public class RequestController {
     public @ResponseBody String setWorkspaceUserIDByWorkspaceID(@RequestParam int workspaceID, @RequestParam int userID) {
         try {
             workspaceRepository.findById(workspaceID).get().setUserID(userRepository.findById(userID).get());
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace userID field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace userID field.\"}";
@@ -233,6 +238,7 @@ public class RequestController {
     public @ResponseBody String setWorkspaceNameByWorkspaceID(@RequestParam int workspaceID, @RequestParam String name) {
         try {
             workspaceRepository.findById(workspaceID).get().setName(name);
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace name field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace name field.\"}";
@@ -243,6 +249,7 @@ public class RequestController {
     public @ResponseBody String setWorkspaceIsPublicByWorkspaceID(@RequestParam int workspaceID, @RequestParam boolean isPublic) {
         try {
             workspaceRepository.findById(workspaceID).get().setIsPublic(isPublic);
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace isPublic field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace isPublic field.\"}";
@@ -345,6 +352,7 @@ public class RequestController {
     public @ResponseBody String deleteWorkspaceByWorkspaceID(@RequestParam int workspaceID) {
         try {
             workspaceRepository.deleteById(workspaceID);
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete workspace.\"}";
@@ -364,6 +372,7 @@ public class RequestController {
     public @ResponseBody String setChartWorkspaceIDByChartID(@RequestParam int chartID, @RequestParam int workspaceID) {
         try {
             chartRepository.findById(chartID).get().setWorkspaceID(workspaceRepository.findById(workspaceID).get());
+            chartRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Chart workspaceID field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter chart workspaceID field.\"}";
@@ -374,6 +383,7 @@ public class RequestController {
     public @ResponseBody String setChartNameByChartID(@RequestParam int chartID, @RequestParam String name) {
         try {
             chartRepository.findById(chartID).get().setName(name);
+            chartRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Chart name field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter chart name field.\"}";
@@ -394,7 +404,6 @@ public class RequestController {
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Chart could not be created.\", \"id\": \"" + chart.getID() + "\"}";
         }
-
     }
     // GET ALL CHART ENTITIES UNDER WORKSPACE
     @GetMapping(path = "/get/charts/workspaceid")
@@ -433,6 +442,7 @@ public class RequestController {
     public @ResponseBody String deleteChartByChartID(@RequestParam int chartID) {
         try {
             chartRepository.deleteById(chartID);
+            chartRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Chart deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete chart.\"}";
@@ -452,6 +462,7 @@ public class RequestController {
     public @ResponseBody String setItemChartIDByItemID(@RequestParam int itemID, @RequestParam int chartID) {
         try {
             itemRepository.findById(itemID).get().setChartID(chartRepository.findById(chartID).get());
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item chartID field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item chartID field.\"}";
@@ -462,6 +473,7 @@ public class RequestController {
     public @ResponseBody String setItemNameByItemID(@RequestParam int itemID, @RequestParam String name) {
         try {
             itemRepository.findById(itemID).get().setName(name);
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item name field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item name field.\"}";
@@ -472,6 +484,7 @@ public class RequestController {
     public @ResponseBody String setItemDescriptionByItemID(@RequestParam int itemID, @RequestParam String description) {
         try {
             itemRepository.findById(itemID).get().setDescription(description);
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item description field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item description field.\"}";
@@ -531,6 +544,7 @@ public class RequestController {
     public @ResponseBody String deleteItemByItemID(@RequestParam int itemID) {
         try {
             itemRepository.deleteById(itemID);
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete item.\"}";
