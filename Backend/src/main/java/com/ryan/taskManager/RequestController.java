@@ -43,33 +43,33 @@ public class RequestController {
     public @ResponseBody String setUserNameByUserID(@RequestParam int userID, @RequestParam String username) {
         try {
             userRepository.findById(userID).get().setUsername(username);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User username field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user username field.\"}";
         }
-        userRepository.flush();
     }
     // SET USER EMAIL
     @PostMapping(path = "/set/user/email/userid")
     public @ResponseBody String setUserEmailByUserID(@RequestParam int userID, @RequestParam String email) {
         try {
             userRepository.findById(userID).get().setEmail(email);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User email field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user email field.\"}";
         }
-        userRepository.flush();
     }
     // SET USER PASSWORD
     @PostMapping(path = "/set/user/password/userid")
     public @ResponseBody String setUserPasswordByUserID(@RequestParam int userID, @RequestParam String password) {
         try {
             userRepository.findById(userID).get().setPassword(password);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User password field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter user password field.\"}";
         }
-        userRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -97,11 +97,11 @@ public class RequestController {
     public @ResponseBody String deleteUserAccountByUserID(@RequestParam int userID) {
         try {
             userRepository.deleteById(userID);
+            userRepository.flush();
             return "{\"status\": \"success\", \"message\": \"User deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete user.\"}";
         }
-        userRepository.flush();
     }
     // GET ALL USERS IN DATABASE
     @GetMapping(path = "/get/users/all")
@@ -227,33 +227,33 @@ public class RequestController {
     public @ResponseBody String setWorkspaceUserIDByWorkspaceID(@RequestParam int workspaceID, @RequestParam int userID) {
         try {
             workspaceRepository.findById(workspaceID).get().setUserID(userRepository.findById(userID).get());
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace userID field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace userID field.\"}";
         }
-        workspaceRepository.flush();
     }
     // SET WORKSPACE NAME
     @PostMapping(path = "/set/workspace/name/workspaceid")
     public @ResponseBody String setWorkspaceNameByWorkspaceID(@RequestParam int workspaceID, @RequestParam String name) {
         try {
             workspaceRepository.findById(workspaceID).get().setName(name);
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace name field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace name field.\"}";
         }
-        workspaceRepository.flush();
     }
     // SET WORKSPACE PUBLICITY
     @PostMapping(path = "/set/workspace/isPublic/workspaceid")
     public @ResponseBody String setWorkspaceIsPublicByWorkspaceID(@RequestParam int workspaceID, @RequestParam boolean isPublic) {
         try {
             workspaceRepository.findById(workspaceID).get().setIsPublic(isPublic);
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace isPublic field altered!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter workspace isPublic field.\"}";
         }
-        workspaceRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -352,11 +352,11 @@ public class RequestController {
     public @ResponseBody String deleteWorkspaceByWorkspaceID(@RequestParam int workspaceID) {
         try {
             workspaceRepository.deleteById(workspaceID);
+            workspaceRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Workspace deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete workspace.\"}";
         }
-        workspaceRepository.flush();
     }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -372,22 +372,22 @@ public class RequestController {
     public @ResponseBody String setChartWorkspaceIDByChartID(@RequestParam int chartID, @RequestParam int workspaceID) {
         try {
             chartRepository.findById(chartID).get().setWorkspaceID(workspaceRepository.findById(workspaceID).get());
+            chartRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Chart workspaceID field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter chart workspaceID field.\"}";
         }
-        chartRepository.flush();
     }
     // SET CHART NAME
     @PostMapping(path = "/set/chart/name/chartid")
     public @ResponseBody String setChartNameByChartID(@RequestParam int chartID, @RequestParam String name) {
         try {
             chartRepository.findById(chartID).get().setName(name);
+            chartRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Chart name field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter chart name field.\"}";
         }
-        chartRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -442,11 +442,11 @@ public class RequestController {
     public @ResponseBody String deleteChartByChartID(@RequestParam int chartID) {
         try {
             chartRepository.deleteById(chartID);
+            chartRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Chart deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete chart.\"}";
         }
-        chartRepository.flush();
     }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -462,33 +462,33 @@ public class RequestController {
     public @ResponseBody String setItemChartIDByItemID(@RequestParam int itemID, @RequestParam int chartID) {
         try {
             itemRepository.findById(itemID).get().setChartID(chartRepository.findById(chartID).get());
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item chartID field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item chartID field.\"}";
         }
-        itemRepository.flush();
     }
     // SET ITEM NAME
     @PostMapping(path = "/set/item/name/itemID")
     public @ResponseBody String setItemNameByItemID(@RequestParam int itemID, @RequestParam String name) {
         try {
             itemRepository.findById(itemID).get().setName(name);
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item name field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item name field.\"}";
         }
-        itemRepository.flush();
     }
     // SET ITEM DESCRIPTION
     @PostMapping(path = "/set/item/description/itemID")
     public @ResponseBody String setItemDescriptionByItemID(@RequestParam int itemID, @RequestParam String description) {
         try {
             itemRepository.findById(itemID).get().setDescription(description);
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item description field altered!\"}";
         } catch (Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to alter item description field.\"}";
         }
-        itemRepository.flush();
     }
     /*------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -544,11 +544,11 @@ public class RequestController {
     public @ResponseBody String deleteItemByItemID(@RequestParam int itemID) {
         try {
             itemRepository.deleteById(itemID);
+            itemRepository.flush();
             return "{\"status\": \"success\", \"message\": \"Item deleted successfully!\"}";
         } catch(Exception e) {
             return "{\"status\": \"failure\", \"message\": \"Failed to delete item.\"}";
         }
-        itemRepository.flush();
     }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 }
