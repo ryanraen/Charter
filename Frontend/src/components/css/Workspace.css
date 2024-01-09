@@ -26,10 +26,14 @@
 }
 
 .selection-area {
-    width: 100vw; /* idk why this works i love css*/
+  width: 100vw; /* idk why this works i love css*/
+  padding: 1rem;
+  z-index: 1;
+  height: 100%;
 }
 
 .scrollable {
+    overflow-y: hidden;
     overflow-x: auto;
     height: calc(100vh - 59px);
 }

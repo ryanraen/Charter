@@ -31,19 +31,23 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
 
   return (
     <>
-      <div className="charts-taskbar" />
-      <div className="chart-container gap-3">
-        {charts.map(chart => (
-          <Chart title={chart.name} id={chart.id} key={chart.id} handleSubmit={handleItemSubmit}>
-            {chart.items.map(item => (
-              <Item key={item.id} name={item.name} id={item.id} chartID={chart.id} description={item.description} />
-            ))}
+      {/* <div className="charts-taskbar" /> */}
+      <div className="chart-container-container">
+        <div className="chart-container gap-3">
+          {charts.map(chart => (
+            <Chart title={chart.name} id={chart.id} key={chart.id} handleSubmit={handleItemSubmit}>
+              {chart.items.map(item => (
+                <Item key={item.id} name={item.name} id={item.id} chartID={chart.id} description={item.description} />
+              ))}
+            </Chart>
+          ))}
+          <Chart title={"Create new chart"} creationChart={"true"} handleSubmit={handleChartSubmit}>
+            <input name="chartName" type="text" className="new-item-input form-control" placeholder="Chart name" />
           </Chart>
-        ))}
-        <Chart title={"Create new chart"} creationChart={"true"} handleSubmit={handleChartSubmit}>
-          <input name="chartName" type="text" className="new-item-input form-control" placeholder="Chart name" />
-        </Chart>
+          <div className="horizontal-padding-bruh"></div>
+        </div>
       </div>
+
       <ItemDetails />
     </>
   );
@@ -154,18 +158,25 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
   }
 
   function Chart(props) {
+
+    function checkOverflow(e) {
+
+    }
+
     return (
       <div className="chart" onDrop={e => handleOnDrop(e, props.id)} onDragOver={props.creationChart ? null : handleDragOver}>
-        <div className="chart-header-container">
-          <h4 className="chart-header">{props.title}</h4>
-          {!props.creationChart && <img src={exit} className="chart-exit-icon" role="button" onClick={() => handleDeleteChart(props.id)} />}
+        <div className="chart-bg">
+          <div className="chart-header-container">
+            <h4 className="chart-header">{props.title}</h4>
+            {!props.creationChart && <img src={exit} className="chart-exit-icon" role="button" onClick={() => handleDeleteChart(props.id)} />}
+          </div>
+          <div ref={overflowCheckRef} onScroll={checkOverflow} className="chart-item-container">{!props.creationChart && props.children}</div>
+          <form onSubmit={props.handleSubmit} className="d-flex justify-content-center">
+            <input type="text" name="chartID" value={props.id} hidden readOnly />
+            {props.creationChart ? props.children : <input type="text" name="itemName" placeholder="New item" required className="new-item-input form-control" />}
+            <input type="submit" hidden />
+          </form>
         </div>
-        <div className="chart-item-container">{!props.creationChart && props.children}</div>
-        <form onSubmit={props.handleSubmit} className="d-flex justify-content-center">
-          <input type="text" name="chartID" value={props.id} hidden readOnly />
-          {props.creationChart ? props.children : <input type="text" name="itemName" placeholder="New item" required className="new-item-input form-control" />}
-          <input type="submit" hidden />
-        </form>
       </div>
     );
   }
