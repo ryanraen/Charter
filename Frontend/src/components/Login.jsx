@@ -18,7 +18,7 @@ export default function Login() {
     const validateLoginPromise = await validateLogin(formElements.email, formElements.password);
 
     if (validateLoginPromise.status == "true") {
-      await loginUser(validateLoginPromise);
+      await loginUser(validateLoginPromise, formElements.email);
       location.href = "/u";
     } else {
       setErrorMessage(getErrorMessage(validateLoginPromise));

@@ -118,6 +118,7 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
     const newDescription = descriptionAreaRef.current.value;
     setCurrentItemInfo({ ...currentItemInfo, description: newDescription });
     setClientItemDescription(currentItemInfo.chartID, currentItemInfo.id, newDescription);
+    console.log(await setItemDescription(currentItemInfo.id, newDescription));
   }
 
   function cancelDescription() {

@@ -7,11 +7,14 @@ import "./components/css/App.css";
 import UserHome from "./components/UserHome";
 import Settings from "./components/Settings";
 import Workspace from "./components/Workspace";
+import { useState } from "react";
+import { getCookie } from "./util/CookieManager";
 
 export default function App() {
+  const [navbarUsername, setNavbarUsername] = useState(getCookie("username"));
   return (
     <>
-      <Navbar />
+      <Navbar username={navbarUsername} />
       <div className="container-bg">
         <BrowserRouter>
           <Routes>
@@ -19,7 +22,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/u" element={<UserHome />} />
-            <Route path="/u/settings" element={<Settings />} />
+            <Route path="/u/settings" element={<Settings setNavBarUsername={setNavbarUsername} />} />
             <Route path="/u/w/:id" element={<Workspace />} />
           </Routes>
         </BrowserRouter>

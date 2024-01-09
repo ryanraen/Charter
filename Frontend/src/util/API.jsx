@@ -2,12 +2,13 @@ export async function registerAccount(data) {
   return fetch(`http://142.93.148.156:80/u/signin/register?`, {
     method: "POST",
     body: data,
-  }).then(response => {
-    return response.json();
-  }).catch(error => {
-    return 
-  });
-
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(error => {
+      return;
+    });
 }
 
 export async function validateLogin(email, password) {
@@ -202,6 +203,39 @@ export async function deleteItem(itemID) {
 export async function deleteChart(chartID) {
   return fetch(`http://142.93.148.156:80/u/delete/chart/chartid?chartID=${chartID}`, {
     method: "POST",
+  }).then(response => {
+    return response.json();
+  });
+}
+
+export async function changeAccountUsername(data) {
+
+    return fetch(`http://142.93.148.156:80/u/set/user/name/userid`, {
+      method: "POST",
+      body: data
+    }).then(response => {
+      return response.json();
+    }).catch(error => {
+      return {status: "offline"};
+    });
+
+}
+
+export async function changeAccountEmail(data) {
+  return fetch(`http://142.93.148.156:80/u/set/user/email/userid`, {
+    method: "POST",
+    body: data,
+  }).then(response => {
+    return response.json();
+  }).catch(error => {
+    return {status: "offline"};
+  });
+}
+
+export async function changeAccountPassword(data) {
+  return fetch(`http://142.93.148.156:80/u/set/user/password/userid`, {
+    method: "POST",
+    body: data,
   }).then(response => {
     return response.json();
   });

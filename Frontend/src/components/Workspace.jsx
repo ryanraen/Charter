@@ -3,11 +3,10 @@ import "./css/Workspace.css";
 import chart from "../assets/chart.svg";
 import question from "../assets/question.svg";
 import { useEffect, useRef, useState } from "react";
-import { authenticateWorkspace, createChart, getChartsDisplay, getWorkspaceCharts, getWorkspaceData, getWorkspaceName } from "../util/API";
+import { authenticateWorkspace, getChartsDisplay, getWorkspaceName } from "../util/API";
 import { getCookie } from "../util/CookieManager";
 import { isOverflown } from "../util/Util";
 import ChartArea from "./ChartArea";
-import Modal from "./Modal";
 
 export default function Workspace() {
   const URL = useParams();

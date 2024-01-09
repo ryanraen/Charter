@@ -6,9 +6,12 @@ import downarrow from "../assets/dropdown.svg";
 import { deleteCookie, getCookie } from "../util/CookieManager";
 import { nullifyToken } from "../util/API";
 
-const loggedIn = getCookie("userID") == null ? false : true;
 
-export default function Navbar() {
+
+export default function Navbar( {username}) {
+
+  const loggedIn = (username == null || username == "") ? false : true;
+
   return (
     <nav className="navbar navbar-expand">
       <div className="container">
@@ -18,7 +21,7 @@ export default function Navbar() {
         <ul className="navbar-nav">
           <NavItem href={loggedIn ? "/u" : "/"} text="Home" />
           {loggedIn ? (
-            <NavItem href="#" text={getCookie("username")} styleid={"accountHeader"} rightIcon={downarrow}>
+            <NavItem href="#" text={username} styleid={"accountHeader"} rightIcon={downarrow}>
               <DropdownMenu />
             </NavItem>
           ) : (
@@ -64,10 +67,11 @@ function DropdownMenu() {
         func={async () => {
           try {
             deleteCookie("username");
+            deleteCookie("email")
             deleteCookie("tokenExpiry");
             deleteCookie("userID");
             deleteCookie("token");
-            console.log(await nullifyToken(getCookie("userID")));
+            nullifyToken(getCookie("userID"));
           } finally {
             location.href = "/";
           }

@@ -15,11 +15,16 @@
     --bg-100:#F5EFE7;
     --bg-200:#ebe5dd;
     --bg-300:#c2bdb5;
+    --bg-325:#a39f99;
     --font-bold: 'Work Sans', sans-serif;
     --font-boldER: 'Comfortaa', sans-serif;
     --font-header: 'Gabarito', sans-serif;
     --font-p: 'Lato', sans-serif;
     background-color: var(--bg-100);
+}
+
+body.preload *{
+    animation-duration: 0s !important;
 }
 
 .font-color-1 {

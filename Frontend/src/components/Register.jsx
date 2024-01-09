@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./css/LoginRegister.css";
-import { getLoginToken, registerAccount } from "../util/API";
+import { registerAccount } from "../util/API";
 import FormInput from "./inputs/FormInput";
-import { setCookie } from "../util/CookieManager";
 import { loginAfterRegister } from "../util/LoginUtil";
 
 export default function Register() {
@@ -13,7 +12,8 @@ export default function Register() {
 
     const formData = new FormData(e.target);
     const accountData = Object.fromEntries(formData);
-    const accountResult = await registerAccount(formData); // RETURNS 
+    const accountResult = await registerAccount(formData); // RETURNS
+    
     try {
       if (accountResult.status == "success") {
         await loginAfterRegister(accountData.email, accountData.password);
