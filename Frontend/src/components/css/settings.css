@@ -33,13 +33,23 @@
   font-weight: bold;
 }
 
-.account-info-box {
+.account-info-input {
+  outline: none;
   margin-top: 0.4rem !important;
   border-radius: 0.25rem;
   padding: 0.8rem;
   background-color: var(--bg-300);
   border: 0.15rem solid var(--accent-50);
   width: 23rem;
+  font-family: var(--font-p);
+  font-size: 1.25rem;
+  transition: all 300ms;
+  color: var(--font-100);
+}
+
+.account-info-input:focus {
+  background-color: var(--accent-50);
+  border: 0.15rem solid var(--bg-300);
 }
 
 .settings-btn-text {
@@ -51,7 +61,6 @@
   border-radius: 0.25rem;
   border: 0.15rem solid var(--accent-50) !important;
   background-color: var(--bg-300);
-  /* padding: 0 !important; */
   box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
   width: fit-content;
   margin-right: 1rem;
@@ -60,20 +69,6 @@
 .settings-btn:hover {
   background-color: var(--accent-50) !important;
   border: 0.15rem solid var(--bg-300) !important;
-}
-
-.edit-info-input {
-  width: 100%;
-  height: 100%;
-  /* appearance: none; */
-  outline: none;
-  border: none;
-  padding: 0;
-  background-color: var(--bg-300);
-}
-
-.editing {
-  background-color: var(--bg-325);
 }
 
 .hidden-form {
@@ -88,13 +83,13 @@
 }
 
 @keyframes grow {
-  from {height: 28.5rem}
-  to {height: 45.5rem}
+  from {height: 29.5rem}
+  to {height: 47rem}
 }
 
 @keyframes shrink {
-  from {height: 45.5rem}
-  to {height: 28.5rem}
+  from {height: 47rem}
+  to {height: 29.5rem}
 }
 
 .icon-status {

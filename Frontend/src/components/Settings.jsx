@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./css/settings.css";
 import { getCookie, setCookie } from "../util/CookieManager";
 import { changeAccountEmail, changeAccountPassword, changeAccountUsername, validateLogin } from "../util/API";
@@ -24,9 +24,12 @@ export default function Settings({ setNavBarUsername }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const newPasswordRef = useRef(null);
+
   async function handleSaveInfo(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
+    console.log(...formData);
     formData.append("userID", getCookie("userID"));
 
     const usernameFormData = new FormData();
@@ -38,10 +41,10 @@ export default function Settings({ setNavBarUsername }) {
     usernameFormData.append("userID", getCookie("userID"));
     emailFormData.append("userID", getCookie("userID"));
 
-    if (editingName && usernameFormData.get("username") != currentName) {
+    if (usernameFormData.get("username") != currentName) {
       handleUsername();
     }
-    if (editingEmail && emailFormData.get("email") != currentEmail) {
+    if (emailFormData.get("email") != currentEmail) {
       handleEmail();
     }
 
@@ -110,13 +113,13 @@ export default function Settings({ setNavBarUsername }) {
     const formData = new FormData(e.target);
     const passwordFormData = new FormData();
 
-    passwordFormData.append("password", formData.get("newPassword"));
+    passwordFormData.append("password", formData.get("password"));
     passwordFormData.append("userID", getCookie("userID"));
 
     setEditingPassword(false);
     setPasswordProcessingState(100);
     const result = await validateLogin(getCookie("email"), formData.get("previousPassword"));
-
+    
     switch (result.status) {
       case "true":
         const passwordSubmitionResult = await changeAccountPassword(passwordFormData);
@@ -184,13 +187,7 @@ export default function Settings({ setNavBarUsername }) {
               ACCOUNT NAME <img src={getStatusIcon(nameProcessingState)} className={`icon-status ${nameProcessingState == 100 && "icon-spinner"}`} />
             </h4>
             <div className="d-flex align-items-center">
-              <h5 className={`account-info-box ${editingName && "editing"}`} role="button" onClick={() => setEditingName(true)}>
-                {editingName ? (
-                  <input required name="username" pattern="^[A-Za-z0-9]{3,16}" autoFocus className={`edit-info-input ${editingName && "editing"}`} defaultValue={currentName} />
-                ) : (
-                  currentName
-                )}
-              </h5>
+              <input required name="username" pattern="^[A-Za-z0-9]{3,16}" className="account-info-input" defaultValue={currentName} />
               <div className={`flex-grow-1 justify-content-center d-flex ${usernameError == "" && "hide-txt"}`}>
                 <h4 className={`text-danger settings-error-txt ${usernameError == "" && "hide-txt"}`}>{usernameError}</h4>
               </div>
@@ -202,9 +199,7 @@ export default function Settings({ setNavBarUsername }) {
               EMAIL <img src={getStatusIcon(emailProcessingState)} className={`icon-status ${emailProcessingState == 100 && "icon-spinner"}`} />
             </h4>
             <div className="d-flex align-items-center">
-              <h5 className={`account-info-box ${editingEmail && "editing"}`} role="button" onClick={() => setEditingEmail(true)}>
-                {editingEmail ? <input required name="email" pattern="^\S+@\S+\.\S+$" autoFocus className="edit-info-input editing" defaultValue={currentEmail} /> : currentEmail}
-              </h5>
+              <input required name="email" pattern="^\S+@\S+\.\S+$" className="account-info-input" defaultValue={currentEmail} />
               <div className={`flex-grow-1 justify-content-center d-flex ${emailError == "" && "hide-txt"}`}>
                 <h4 className={`text-danger settings-error-txt ${emailError == "" && "hide-txt"}`}>{emailError}</h4>
               </div>
@@ -234,23 +229,19 @@ export default function Settings({ setNavBarUsername }) {
               {editingPassword ? "NEW PASSWORD" : "PASSWORD"} <img src={getStatusIcon(passwordProcessingState)} className={`icon-status ${passwordProcessingState == 100 && "icon-spinner"}`} />
             </h4>
             <div className="d-flex align-items-center">
-              <h5 className={`account-info-box ${editingPassword && "editing"}`} role="button" onClick={() => setEditingPassword(true)}>
-                {editingPassword ? (
-                  <input
-                    required
-                    name="newPassword"
-                    type="password"
-                    onChange={e => {
-                      setNewPassword(e.target.value);
-                    }}
-                    pattern="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$~!%*#?&])[A-Za-z0-9@$~!%*#?&]{8,128}$"
-                    autoFocus
-                    className="edit-info-input editing"
-                  />
-                ) : (
-                  "●●●●●●●●●●"
-                )}
-              </h5>
+              <input
+                ref={newPasswordRef}
+                required
+                onChange={e => {
+                  setNewPassword(e.target.value);
+                }}
+                onFocus={() => setEditingPassword(true)}
+                type="password"
+                name="password"
+                pattern="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$~!%*#?&])[A-Za-z0-9@$~!%*#?&]{8,128}$"
+                className="account-info-input"
+                placeholder={editingPassword ? null : "●●●●●●●●●●"}
+              />
               <div className={`flex-grow-1 justify-content-center d-flex ${passwordError == "" && "hide-txt"}`}>
                 <h4 className={`text-danger settings-error-txt ${passwordError == "" && "hide-txt"}`}>{passwordError}</h4>
               </div>
@@ -260,16 +251,12 @@ export default function Settings({ setNavBarUsername }) {
             <div className="position-absolute">
               <div className="mb-4">
                 <h4 className="account-header">CONFIRM PASSWORD</h4>
-                <h5 className={`account-info-box ${editingPassword && "editing"}`} role="button" onClick={() => setEditingPassword(true)}>
-                  <input required name="confirmPassword" type="password" pattern={newPassword} className="edit-info-input editing" />
-                </h5>
+                <input required name="confirmPassword" type="password" pattern={newPassword} className="account-info-input" />
               </div>
 
               <div className="mb-4">
                 <h4 className="account-header">PREVIOUS PASSWORD</h4>
-                <h5 className={`account-info-box ${editingPassword && "editing"}`} role="button" onClick={() => setEditingPassword(true)}>
-                  <input required name="previousPassword" type="password" className="edit-info-input editing" />
-                </h5>
+                <input required name="previousPassword" type="password" className="account-info-input" />
               </div>
 
               <div>
@@ -282,6 +269,7 @@ export default function Settings({ setNavBarUsername }) {
                   onClick={() => {
                     setEditingPassword(false);
                     setNewPassword("");
+                    newPasswordRef.current.value = "";
                   }}
                 >
                   <h3 className="settings-btn-text">Cancel</h3>
