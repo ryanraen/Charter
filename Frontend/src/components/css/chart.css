@@ -11,6 +11,7 @@
   max-height: calc(100vh - 220px);
   -ms-overflow-style: none;
   scrollbar-width: none;
+  transform: translateY(-2%);
 }
 
 .chart-item-container::-webkit-scrollbar {
@@ -83,6 +84,7 @@
   height: 2rem !important;
   width: 14rem !important;
   background-color: var(--bg-100) !important;
+  transform: translateY(-60%);
 }
 
 .chart-item {
@@ -199,13 +201,23 @@
   scale: 1;
 }
 
-.chart-container-container {
-  margin-right: 5rem !important;
+.chart-bg {
+  padding: 0.5rem;
+  padding-bottom: 0;
+  border-radius: 0.3rem;
+  background-color: var(--primary-50);
+  box-shadow: 0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 0.4);
+  max-height: 87.6vh;
 }
 
-.chart-bg {
-    padding: 0.5rem;
-    border-radius: 0.3rem;
-    background-color: var(--primary-50);
-    box-shadow: 0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 0.4);
+.scroll-icon {
+  pointer-events: none;
+  transform: translateY(-20%) scaleX(2);
+  opacity: 0.6;
+  transition: opacity 100ms;
+}
+
+.scroll-icon-down {
+  transform: translateY(145%) scaleX(2);
+  rotate: 180deg;
 }

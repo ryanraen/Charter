@@ -14,7 +14,7 @@
 .side-btn-img {
     margin-right: 0.5rem;
     filter: contrast(0.7);
-}
+} 
 
 .btn-selected {
     background-color: var(--bg-300);

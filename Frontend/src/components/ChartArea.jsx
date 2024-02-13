@@ -1,4 +1,5 @@
 import item from "../assets/item.svg";
+import triangle from "../assets/triangle.svg";
 import text from "../assets/text.svg";
 import card from "../assets/card.svg";
 import list from "../assets/list.svg";
@@ -6,12 +7,15 @@ import exit from "../assets/exit.svg";
 import "./css/chart.css";
 import { createItem, createChart, deleteItem, deleteChart, setItemDescription } from "../util/API";
 import { useState, useEffect, useRef } from "react";
+import { isOverflown } from "../util/Util";
 
 export default function ChartArea({ workspaceID, charts, setCharts }) {
   const [itemInfoOpen, setItemInfoOpen] = useState(false);
   const [currentItemInfo, setCurrentItemInfo] = useState({ name: "", description: "", id: "", createdDate: "", chartName: "", chartID: "" });
 
   const descriptionAreaRef = useRef(null);
+
+  console.log(charts);
 
   useEffect(() => {
     const keyPressEvent = e => {
@@ -32,20 +36,19 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
   return (
     <>
       {/* <div className="charts-taskbar" /> */}
-      <div className="chart-container-container">
-        <div className="chart-container gap-3">
-          {charts.map(chart => (
-            <Chart title={chart.name} id={chart.id} key={chart.id} handleSubmit={handleItemSubmit}>
-              {chart.items.map(item => (
-                <Item key={item.id} name={item.name} id={item.id} chartID={chart.id} description={item.description} />
-              ))}
-            </Chart>
-          ))}
-          <Chart title={"Create new chart"} creationChart={"true"} handleSubmit={handleChartSubmit}>
-            <input name="chartName" type="text" className="new-item-input form-control" placeholder="Chart name" />
+
+      <div className="chart-container gap-3">
+        {charts.map(chart => (
+          <Chart title={chart.name} id={chart.id} key={chart.id} handleSubmit={handleItemSubmit}>
+            {chart.items.map(item => (
+              <Item key={item.id} name={item.name} id={item.id} chartID={chart.id} description={item.description} />
+            ))}
           </Chart>
-          <div className="horizontal-padding-bruh"></div>
-        </div>
+        ))}
+        <Chart title={"Create new chart"} creationChart={"true"} handleSubmit={handleChartSubmit}>
+          <input name="chartName" type="text" className="new-item-input form-control" placeholder="Chart name" />
+        </Chart>
+        <div className="horizontal-padding-bruh"></div>
       </div>
 
       <ItemDetails />
@@ -158,9 +161,29 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
   }
 
   function Chart(props) {
+    const [scrollIconUp, setScrollIconUp] = useState(false);
+    const [scrollIconDown, setScrollIconDown] = useState(false);
+    const checkOverFlowRef = useRef(null);
+
+    useEffect(() => {
+      if (isOverflown(checkOverFlowRef)) {
+        setScrollIconDown(true);
+      }
+    }, []);
 
     function checkOverflow(e) {
+      const scrollPercent = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight);
 
+      if (scrollPercent == 0) {
+        setScrollIconUp(false);
+        setScrollIconDown(true);
+      } else if (scrollPercent == 1) {
+        setScrollIconUp(true);
+        setScrollIconDown(false);
+      } else {
+        setScrollIconUp(true);
+        setScrollIconDown(true);
+      }
     }
 
     return (
@@ -170,7 +193,16 @@ export default function ChartArea({ workspaceID, charts, setCharts }) {
             <h4 className="chart-header">{props.title}</h4>
             {!props.creationChart && <img src={exit} className="chart-exit-icon" role="button" onClick={() => handleDeleteChart(props.id)} />}
           </div>
-          <div ref={overflowCheckRef} onScroll={checkOverflow} className="chart-item-container">{!props.creationChart && props.children}</div>
+          <span className="d-flex justify-content-center w-100">
+            <img className={` scroll-icon scroll-icon ${!scrollIconUp && "opacity-0"}`} src={triangle} alt="" />
+          </span>
+          <div onScroll={checkOverflow} ref={checkOverFlowRef} className=" chart-item-container">
+            {!props.creationChart && props.children}
+          </div>
+          <span className=" d-flex justify-content-center w-100">
+            <img className={`scroll-icon scroll-icon-down ${!scrollIconDown && "opacity-0"}`} src={triangle} alt="" />
+          </span>
+
           <form onSubmit={props.handleSubmit} className="d-flex justify-content-center">
             <input type="text" name="chartID" value={props.id} hidden readOnly />
             {props.creationChart ? props.children : <input type="text" name="itemName" placeholder="New item" required className="new-item-input form-control" />}
